@@ -1,5 +1,8 @@
 # SETUP
 
+## Create a .env file containing the variables from below:
+
+
 Different sevices:
  - API : api.domain.se
  - dashboard : domain.se
@@ -11,3 +14,41 @@ Different sevices:
  - API: 9091
  - TV: 9092 (not done)
  - Database: 8081
+
+
+
+
+
+
+
+
+
+
+# API DB usage
+
+## SELECT
+```
+import { db } from './db.js';
+
+const users = await db.select('users', ['id', 'name'], 'age > ?', [18]);
+console.log(users);
+```
+
+## INSERT
+```
+await db.insert('users', {
+  name: 'Marcus',
+  email: 'marcus@example.com',
+  age: 25
+});
+```
+
+## UPDATE
+```
+await db.update('users', { name: 'Macke' }, 'id = ?', [1]);
+```
+
+## DELETE
+```
+await db.remove('users', 'id = ?', [5]);
+```
