@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  # 🗄 MariaDB (Database)
+  # MariaDB (Database)
   mariadb:
     build: ./database
     container_name: mariadb
@@ -16,7 +16,7 @@ services:
     networks:
       - app_network
 
-  # 🧭 phpMyAdmin (Database GUI)
+  # phpMyAdmin (Database GUI)
   phpmyadmin:
     image: phpmyadmin:latest
     container_name: phpmyadmin
@@ -33,7 +33,7 @@ services:
     networks:
       - app_network
 
-  # ⚙️ API (Node / Express)
+  # API (Node / Express)
   api:
     container_name: api
     build:
@@ -44,17 +44,17 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - ./api:/usr/src/app            # Live code mount
-      - /usr/src/app/node_modules     # Prevent host overwrite
-    command: npx nodemon index.mjs    # Auto-reload on save
+      - ./api:/usr/src/app # Live code mount
+      - /usr/src/app/node_modules # Prevent host overwrite
+    command: npx nodemon index.mjs # Auto-reload on save
     environment:
       - NODE_ENV=development
     ports:
-      - "${API_PORT:-9091}:9091"      # Expose to host for testing
+      - "${API_PORT:-9091}:9091" # Expose to host for testing
     networks:
       - app_network
 
-  # 🖥 Dashboard (Vite / React)
+  # Dashboard (Vite / React)
   dashboard:
     container_name: dashboard
     build:
@@ -64,15 +64,15 @@ services:
     volumes:
       - ./dashboard:/usr/src/app
       - /usr/src/app/node_modules
-    command: npm run dev              # Live Vite dev server
+    command: npm run dev # Live Vite dev server
     environment:
       - NODE_ENV=development
     ports:
-      - "5173:5173"                   # Local dev port
+      - "5173:5173" # Local dev port
     networks:
       - app_network
 
-  # 🌐 Nginx Reverse Proxy
+  # Nginx Reverse Proxy
   nginx:
     image: nginx:latest
     container_name: nginx

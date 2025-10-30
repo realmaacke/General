@@ -2,31 +2,24 @@
 
 ## Create a .env file containing the variables from below:
 
-
 Different sevices:
- - API : api.domain.se
- - dashboard : domain.se
- - database : db.domain.se
- - tv : tv.domain.se
+
+- API : api.domain.se
+- dashboard : domain.se
+- database : db.domain.se
+- tv : tv.domain.se
 
 # PORTS
- - Dashboard: 5173
- - API: 9091
- - TV: 9092 (not done)
- - Database: 8081
 
-
-
-
-
-
-
-
-
+- Dashboard: 5173
+- API: 9091
+- TV: 9092 (not done)
+- Database: 8081
 
 # API DB usage
 
 ## SELECT
+
 ```
 import { db } from './db.js';
 
@@ -35,6 +28,7 @@ console.log(users);
 ```
 
 ## INSERT
+
 ```
 await db.insert('users', {
   name: 'Marcus',
@@ -44,15 +38,16 @@ await db.insert('users', {
 ```
 
 ## UPDATE
+
 ```
 await db.update('users', { name: 'Macke' }, 'id = ?', [1]);
 ```
 
 ## DELETE
+
 ```
 await db.remove('users', 'id = ?', [5]);
 ```
-
 
 ## Docker (usefull commands)
 
