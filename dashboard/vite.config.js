@@ -1,13 +1,27 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/',
   server: {
     host: '0.0.0.0',
     port: 5173,
+    https: false, // nginx handles SSL
     cors: true,
-    allowedHosts: true
+    strictPort: true,
+    origin: 'https://petterssonhome.se',
+    allowedHosts: ['petterssonhome.se', 'localhost', '127.0.0.1', 'nginx'], // 👈 important
+    hmr: {
+      host: 'petterssonhome.se',
+      protocol: 'wss',
+      clientPort: 443
+    },
+    watch: {
+      usePolling: true
+    }
+  },
+  preview: {
+    allowedHosts: ['petterssonhome.se']
   }
-})
+});

@@ -52,3 +52,10 @@ await db.update('users', { name: 'Macke' }, 'id = ?', [1]);
 ```
 await db.remove('users', 'id = ?', [5]);
 ```
+
+
+## Docker (usefull commands)
+
+- sudo docker compose restart "service"
+- sudo docker compose up -d --force-recreate
+- sudo docker compose build dashboard
