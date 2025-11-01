@@ -1,0 +1,105 @@
+/* Animated background */
+.dashboard-bg {
+  background: linear-gradient(135deg, #1e3a8a, #1d4ed8, #3b82f6);
+  background-size: 300% 300%;
+  animation: gradientShift 10s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* GRID: 2x2 + full-width bottom */
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+}
+
+/* Card Style */
+.media-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 1rem;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  
+  /* ✅ Center everything horizontally */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.media-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.3);
+}
+
+.media-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--card-color);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 1rem;
+  z-index: 0;
+}
+
+.media-card:hover::before {
+  opacity: 0.25;
+}
+
+.media-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Icon animation */
+.media-icon svg {
+  stroke: white;
+  transition: transform 0.4s ease, stroke 0.3s ease;
+}
+
+.media-card:hover .media-icon svg {
+  transform: rotate(8deg) scale(1.15);
+  stroke: #fffbe6;
+}
+
+/* Full-width button */
+.big-card {
+  grid-column: 1 / span 2;
+  margin-top: 1rem;
+}
+
+/* Title glow */
+.text-glow {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+}
+
+.icon-lg {
+  width: 2.5rem;   /* same as roughly display-5 text height */
+  height: 2.5rem;
+  stroke-width: 1.8;
+}
+
+
+
+/* Responsive tweak */
+@media (max-width: 576px) {
+  .grid-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .big-card {
+    grid-column: auto;
+  }
+}

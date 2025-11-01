@@ -91,6 +91,24 @@ services:
     networks:
       - app_network
 
+  # CDN
+  cdn:
+    container_name: cdn
+    build:
+      context: ./cdn
+      dockerfile: Dockerfile
+    restart: always
+    env_file: .env
+    volumes:
+      - ./cdn:/usr/src/app # Live code mount
+      - /usr/src/app/node_modules # Prevent host overwrite
+    command: npx nodemon cdn.mjs # Auto-reload on save
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "${CDN_PORT:-9093}:9093" # Expose to host for testing
+    networks:
+      - app_network
 
   # Nginx Reverse Proxy
   nginx:

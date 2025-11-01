@@ -2,7 +2,7 @@ import express from 'express';
 import db from './src/database.mjs';
 
 const app = express();
-const port = process.env.PORT || 9091;
+const port = process.env.API_PORT || 9091;
 
 app.get('/add_user', async (req, res) => {
     let database = await db.insert('users', {
@@ -16,6 +16,7 @@ app.get('/add_user', async (req, res) => {
         msg: JSON.stringify(database)
     });
 });
+
 
 app.get('/login', async (req, res) => {
     let database = await db.select('users');
