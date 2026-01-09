@@ -1,19 +1,31 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/dashboard.css";
-import { Tv, Database, Ruler, LayoutDashboard, Server, Monitor, Settings, User, Mail, Upload } from "lucide-react"; // optional icons
+import {
+  Tv, Database, Ruler, LayoutDashboard,
+  Server, Monitor, Settings, User,
+  Mail, Upload, Container, FileDown
+} from "lucide-react"; // optional icons
+
+function generatePath(sub, ssl = true, ending = "") {
+  if (ssl) {
+    return `https://${sub}.petterssonhome.se${ending}`;
+  }
+  return `http://${sub}.petterssonhome.se${ending}`;
+}
 
 const Dashboard = () => {
+  const basePath = ".petterssonhome.se"
   const cards = [
-    { status: "(Development)", title: "TV", icon: <Tv size={40} />, url: "https://tv.petterssonhome.se" },
-    { status: "(Sandbox)", title: "Database", icon: <Database size={40} />, url: "https://db.petterssonhome.se" },
-    { status: "(Development)", title: "API", icon: <Server size={40} />, url: "https://api.petterssonhome.se" },
-    { status: "", title: "Monitor", icon: <Monitor size={40} />, url: "https://grafana.petterssonhome.se/d/rYdddlPWk/node-exporter-full?orgId=1&refresh=1m" },
-    { status: "(Comming soon)", title: "Settings", icon: <Settings size={40} />, url: "#" },
-    { status: "", title: "SonarCube", icon: <Ruler size={40} />, url: "http://sonarqube.petterssonhome.se" },
-    { status: "(Comming soon)", title: "Accounts", icon: <User size={40} />, url: "#" },
-    { status: "(Comming soon)", title: "Email", icon: <Mail size={40} />, url: "#" },
-    { status: "(Development)", title: "CDN", icon: <Upload size={40} />, url: "https://cdn.petterssonhome.se" },
+    { status: "(Development)", title: "TV", icon: <Tv size={40} />, url: generatePath("tv") },
+    { status: "(Sandbox)", title: "Database", icon: <Database size={40} />, url: generatePath("db") },
+    { status: "(Development)", title: "API", icon: <Server size={40} />, url: generatePath("api") },
+    { status: "", title: "Grafana", icon: <Monitor size={40} />, url: generatePath("grafana", true, "/d/rYdddlPWk/node-exporter-full?orgId=1&refresh=1m") },
+    { status: "", title: "Portainer", icon: <Container size={40} />, url: generatePath("docker") },
+    { status: "", title: "SonarCube", icon: <Ruler size={40} />, url: generatePath("sonarqube", false) },
+    { status: "", title: "Overseerr", icon: <FileDown size={40} />, url: generatePath("torrent") },
+    { status: "", title: "<Comming soon>", icon: <Mail size={40} />, url: "#" },
+    { status: "(Development)", title: "CDN", icon: <Upload size={40} />, url: generatePath("cdn") },
   ];
 
   const handleClick = (url) => {

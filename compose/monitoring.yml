@@ -2,22 +2,20 @@
 services:
 
   portainer:
-    profiles:
-      - monitoring
-      - all
     image: portainer/portainer-ce:latest
     container_name: portainer
+    command:
+      - --trusted-origins=docker.petterssonhome.se
     ports:
       - "${PORTTRAINER:-9101}:9101"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
     restart: unless-stopped
+    networks:
+      - app_network
 
   node-exporter:
-    profiles:
-      - monitoring
-      - all
     image: prom/node-exporter:v1.2.2
     container_name: node-exporter
     restart: unless-stopped
@@ -36,9 +34,6 @@ services:
       - app_network
 
   prometheus:
-    profiles:
-      - monitoring
-      - all
     image: prom/prometheus:v2.31.1
     container_name: prometheus
     restart: unless-stopped
@@ -58,9 +53,6 @@ services:
       - "${PROMETHEUS_PORT:-9090}:9090"
 
   grafana:
-    profiles:
-      - monitoring
-      - all
     image: grafana/grafana:8.2.4
     container_name: grafana
     restart: unless-stopped

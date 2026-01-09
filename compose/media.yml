@@ -1,10 +1,22 @@
-
 services:
 
+
+ # Lägg till för att kolla i /media
+  # filebrowser:
+  #   image: filebrowser/filebrowser:latest
+  #   container_name: filebrowser
+  #   ports:
+  #     - "8080:80"
+  #   volumes:
+  #     - /path/on/host:/srv
+  #     - filebrowser_data:/database
+  #     - filebrowser_config:/config
+  #   restart: unless-stopped
+
+
+
+
   jackett:
-    profiles:
-      - media
-      - all
     image: linuxserver/jackett
     container_name: jackett
     environment:
@@ -20,9 +32,6 @@ services:
       - app_network
 
   transmission:
-    profiles:
-      - media
-      - all
     image: haugene/transmission-openvpn
     container_name: transmission
     privileged: true
@@ -61,9 +70,6 @@ services:
     restart: unless-stopped
 
   plex:
-    profiles:
-      - media
-      - all
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
     environment:
@@ -83,9 +89,6 @@ services:
 
 
   sonarr:
-    profiles:
-      - media
-      - all
     image: linuxserver/sonarr
     container_name: sonarr
     environment:
@@ -106,9 +109,6 @@ services:
       - app_network
 
   radarr:
-    profiles:
-      - media
-      - all
     image: linuxserver/radarr
     container_name: radarr
     hostname: radarr
@@ -130,9 +130,6 @@ services:
       - app_network
 
   overseerr:
-    profiles:
-      - media
-      - all
     image: sctx/overseerr:latest
     container_name: overseerr
     environment:

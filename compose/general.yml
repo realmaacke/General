@@ -3,9 +3,6 @@ services:
 
   # MariaDB (Database)
   mariadb:
-    profiles:
-      - core
-      - all
     build: ${PROJECT_ROOT}/database
     container_name: mariadb
     restart: always
@@ -20,9 +17,6 @@ services:
 
   # phpMyAdmin (Database GUI)
   phpmyadmin:
-    profiles:
-      - core
-      - all
     image: phpmyadmin:latest
     container_name: phpmyadmin
     restart: always
@@ -40,9 +34,6 @@ services:
 
   # API (Node / Express)
   api:
-    profiles:
-      - core
-      - all
     container_name: api
     build:
       context: ${PROJECT_ROOT}/api
@@ -63,9 +54,6 @@ services:
 
   # Dashboard (Vite / React)
   dashboard:
-    profiles:
-      - core
-      - all
     container_name: dashboard
     build:
       context: ${PROJECT_ROOT}/dashboard
@@ -84,9 +72,6 @@ services:
 
   # TV
   tv:
-    profiles:
-      - core
-      - all
     container_name: tv
     build:
       context: ${PROJECT_ROOT}/tv
@@ -106,9 +91,6 @@ services:
 
   # CDN
   cdn:
-    profiles:
-      - core
-      - all
     container_name: cdn
     build:
       context: ${PROJECT_ROOT}/cdn

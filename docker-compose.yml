@@ -16,12 +16,6 @@ include:
 
 services:
   nginx:
-    profiles:
-      - core
-      - all
-      - media
-      - service
-      - nginx
     image: nginx:latest
     container_name: nginx
     ports:

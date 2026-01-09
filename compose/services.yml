@@ -2,9 +2,6 @@
 services:
 
   discord:
-    profiles:
-      - service
-      - all
     container_name: discord
     build:
       context: ${PROJECT_ROOT}/discord
@@ -25,9 +22,6 @@ services:
 
   # SonarQube Database (PostgreSQL)
   sonarqube-db:
-    profiles:
-      - service
-      - all
     image: postgres:15
     container_name: sonarqube-db
     restart: unless-stopped
@@ -44,9 +38,6 @@ services:
 
   # SonarQube
   sonarqube:
-    profiles:
-      - service
-      - all
     image: sonarqube:9.9-community
     container_name: sonarqube
     depends_on:
