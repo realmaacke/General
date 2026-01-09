@@ -1,13 +1,19 @@
 import { Tv, Film, Layers, ListChecks, Wrench, Popcorn, Undo2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import "../../public/dashboard.css";
+import "../util";
 
 import Modal from "../components/Modal";
+import util from "../util";
+import send from "../send";
 
 function Dashboard() {
   const navigate = useNavigate();
+
+  const [playlistValues, setPlaylistValuesValuesValues] = useState({});
+
 
   const gridItems = [
     { icon: <Tv className="w-8 h-8 text-blue-600" />, label: "Channels", path: "/channels" },
@@ -24,6 +30,24 @@ function Dashboard() {
   const handleReturnButton = () => {
     window.location.href = "https://petterssonhome.se";
   };
+
+  const handleNewPlaylist = useCallback(async (values) => {
+    const file = values.Upload;
+    const text = await file.text();
+
+    const playlist = {
+      file: JSON.stringify(text),
+      url: values.M3U_URL ?? "",
+      portal: values.Portal ?? "",
+      username: values.Username ?? "",
+      password: values.Password ?? ""
+    };
+
+    let res = await send.newPlaylist(playlist);
+
+    console.log(res)
+  }, [playlistValues]);
+
 
   return (
     <>
@@ -44,9 +68,11 @@ function Dashboard() {
                 <h5 className="fw-semibold mb-0">{item.label}</h5>
               </div>
             ))}
-            
+
             <Modal
               buttonName="M3U Playlist"
+              setReturnValues={setPlaylistValuesValuesValues}
+              callback={handleNewPlaylist}
               innerTitle="Manage M3U Playlists"
               fields={[
                 {
@@ -56,7 +82,7 @@ function Dashboard() {
                   accept: ".m3u",
                 },
                 {
-                  name: "M3U URL",
+                  name: "M3U_URL",
                   label: "URL for M3U File",
                   type: "text",
                   placeholder: "Enter Playlist url"
@@ -95,7 +121,7 @@ function Dashboard() {
         </div>
       </div>
     </>
-      );
+  );
 }
 
 export default Dashboard;

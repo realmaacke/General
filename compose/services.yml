@@ -1,0 +1,66 @@
+
+services:
+
+  discord:
+    profiles:
+      - service
+      - all
+    container_name: discord
+    build:
+      context: ${PROJECT_ROOT}/discord
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ${PROJECT_ROOT}/discord:/usr/src/app # Live code mount
+      - /usr/src/app/node_modules # Prevent host overwrite
+    command: npx nodemon webhook_db.js
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "${DISCORD_PORT:-9094}:9094"
+    networks:
+      - app_network
+  # School project SONAR CUBE
+
+
+  # SonarQube Database (PostgreSQL)
+  sonarqube-db:
+    profiles:
+      - service
+      - all
+    image: postgres:15
+    container_name: sonarqube-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+      POSTGRES_DB: sonar
+    ports:
+      - "${POSTGRES_PORT:-9098}:5432"
+    volumes:
+      - ${PROJECT_ROOT}/sonarqube/postgres:/var/lib/postgresql/data
+    networks:
+      - app_network
+
+  # SonarQube
+  sonarqube:
+    profiles:
+      - service
+      - all
+    image: sonarqube:9.9-community
+    container_name: sonarqube
+    depends_on:
+      - sonarqube-db
+    restart: unless-stopped
+    ports:
+      - "${SONAR_PORT:-9099}:9000"
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://sonarqube-db:5432/sonar
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
+    volumes:
+      - ${PROJECT_ROOT}/sonarqube/data:/opt/sonarqube/data
+      - ${PROJECT_ROOT}/sonarqube/extensions:/opt/sonarqube/extensions
+      - ${PROJECT_ROOT}/sonarqube/logs:/opt/sonarqube/logs
+    networks:
+      - app_network

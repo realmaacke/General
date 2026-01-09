@@ -6,6 +6,8 @@ import DynamicForm from "./DymamicForm";
 function Modal({
         buttonName,
         innerTitle,
+        callback,
+        setReturnValues,
         fields
 }) {
     const [showModal, setShowModal] = useState(false);
@@ -19,6 +21,11 @@ function Modal({
   const handleChange = (name, value) => {
     setFormValues((prev) => ({ ...prev, [name]: value }));
   };
+
+  const onSubmit = () => {
+    setReturnValues(formValues);
+    callback(formValues);
+  }
 
 
     return (
@@ -61,7 +68,7 @@ function Modal({
                                 <button className="btn btn-secondary" onClick={() => setShowModal(false)}>
                                     Close
                                 </button>
-                                <button className="btn btn-primary">Save Changes</button>
+                                <button className="btn btn-primary" onClick={onSubmit}>Save Changes</button>
                             </div>
                         </div>
                     </div>

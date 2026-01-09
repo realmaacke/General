@@ -1,0 +1,151 @@
+
+services:
+
+  jackett:
+    profiles:
+      - media
+      - all
+    image: linuxserver/jackett
+    container_name: jackett
+    environment:
+        - PUID=1000
+        - PGID=1000
+        - TZ=Europe/Stockholm
+    volumes:
+        - ${PROJECT_ROOT}/config/jackett:/config
+    ports:
+        - "${JACKETT_PORT:-9117}:9117"
+    restart: unless-stopped
+    networks:
+      - app_network
+
+  transmission:
+    profiles:
+      - media
+      - all
+    image: haugene/transmission-openvpn
+    container_name: transmission
+    privileged: true
+    volumes:
+        - /home/marcus/media:/media
+        - /home/marcus/media/download:/downloads
+        - ${PROJECT_ROOT}/config/transmission:/config
+    environment:
+        - PUID=1000
+        - PGID=1000
+        - CREATE_TUN_DEVICE=true
+        - OPENVPN_PROVIDER=TORGUARD
+        - PIA_OPENVPN_CONFIG_BUNDLE=openvpn
+        - OPENVPN_CONFIG=Sweden
+        - OPENVPN_USERNAME=${VPN_USERNAME}
+        - OPENVPN_PASSWORD=${VPN_PASSWORD}
+        - WEBPROXY_ENABLED=false
+        - TRANSMISSION_DOWNLOAD_DIR=/downloads
+        - TRANSMISSION_IDLE_SEEDING_LIMIT_ENABLED=false
+        - TRANSMISSION_SEED_QUEUE_ENABLED=false
+        - TRANSMISSION_INCOMPLETE_DIR_ENABLED=false
+        - TRANSMISSION_RATIO_LIMIT_ENABLED=true
+        - TRANSMISSION_RATIO_LIMIT=0
+        - LOCAL_NETWORK=192.168.0.0/16
+        - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
+    cap_add:
+        - NET_ADMIN
+    networks:
+      - app_network
+    logging:
+        driver: json-file
+        options:
+            max-size: 10m
+    ports:
+        - "${TRANSMISSION_PORT:-7978}:9091"
+    restart: unless-stopped
+
+  plex:
+    profiles:
+      - media
+      - all
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Stockholm
+      - VERSION=docker
+      - PLEX_CLAIM=claim-Q9csMJL57bAnm3ZFx8M6
+    volumes:
+      - plex-config:/config
+      - /home/marcus/media:/media
+    ports:
+      - "${PLEX_PORT:-32400}:32400"
+    networks:
+      - app_network
+    restart: unless-stopped
+
+
+  sonarr:
+    profiles:
+      - media
+      - all
+    image: linuxserver/sonarr
+    container_name: sonarr
+    environment:
+        - PUID=1000
+        - PGID=1000
+        - TZ=Europe/Stockholm
+    volumes:
+        - ${PROJECT_ROOT}/config/sonarr:/config
+        - /home/marcus/media:/media
+        - /home/marcus/media/download:/downloads
+    ports:
+        - "${SONARR_PORT:-8989}:8989"
+    depends_on:
+        - jackett
+        - transmission
+    restart: unless-stopped
+    networks:
+      - app_network
+
+  radarr:
+    profiles:
+      - media
+      - all
+    image: linuxserver/radarr
+    container_name: radarr
+    hostname: radarr
+    environment:
+        - PUID=1000
+        - PGID=1000
+        - TZ=Europe/Stockholm
+    volumes:
+        - ${PROJECT_ROOT}/config/radarr:/config
+        - /home/marcus/media:/media
+        - /home/marcus/media/download:/downloads
+    ports:
+        - "${RADARR_PORT:-7878}:7878"
+    depends_on:
+        - jackett
+        - transmission
+    restart: unless-stopped
+    networks:
+      - app_network
+
+  overseerr:
+    profiles:
+      - media
+      - all
+    image: sctx/overseerr:latest
+    container_name: overseerr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - LOG_LEVEL=debug
+      - TZ=Europe/Stockholm
+    ports:
+      - "${OVERSEER_PORT:-5055}:5055"
+    volumes:
+      - /path/to/appdata/config:/app/config
+      - /home/marcus/media:/media
+    restart: unless-stopped
+    networks:
+      - app_network
+

@@ -9,6 +9,7 @@ Different sevices:
 - database : db.domain.se
 - tv : tv.domain.se
 - cdn : cdn.domain.se
+- tools : tools.domain.se
 
 # PORTS
 
@@ -64,7 +65,19 @@ sudo docker run -it --rm \
 -p 80:80 \
 -v /etc/letsencrypt:/etc/letsencrypt \
 certbot/certbot certonly --standalone \
--d cdn.petterssonhome.se
+-d petterssonhome.se \
+-d www.petterssonhome.se \
+-d api.petterssonhome.se \
+-d cdn.petterssonhome.se \
+-d db.petterssonhome.se \
+-d tv.petterssonhome.se \
+-d discord.petterssonhome.se \
+-d tools.petterssonhome.se \
+-d grafana.petterssonhome.se \
+-d plex.petterssonhome.se \
+-d torrent.petterssonhome.se \
+-d docker.petterssonhome.se \
+-d prometheus.petterssonhome.se
 ```
 
 
@@ -72,4 +85,10 @@ certbot/certbot certonly --standalone \
 
 ```
 curl -F "path=images" -F "file=@/mnt/c/Users/macka/Desktop/finished.png" https://cdn.petterssonhome.se/upload
+```
+
+## PROFILES
+
+```
+docker compose --profile core up -d
 ```

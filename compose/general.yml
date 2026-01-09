@@ -1,0 +1,126 @@
+
+services:
+
+  # MariaDB (Database)
+  mariadb:
+    profiles:
+      - core
+      - all
+    build: ${PROJECT_ROOT}/database
+    container_name: mariadb
+    restart: always
+    ports:
+      - "${MARIADB_PORT:-3306}:3306"
+    volumes:
+      - ${PROJECT_ROOT}/database/data:/var/lib/mysql
+      - ${PROJECT_ROOT}/database/logs:/var/log/mysql
+      - ${PROJECT_ROOT}/database/my.cnf:/etc/mysql/conf.d/my.cnf
+    networks:
+      - app_network
+
+  # phpMyAdmin (Database GUI)
+  phpmyadmin:
+    profiles:
+      - core
+      - all
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    depends_on:
+      - mariadb
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      PMA_USER: ${MARIADB_USER}
+      PMA_PASSWORD: ${MARIADB_PASSWORD}
+    ports:
+      - "${PHPMYADMIN_PORT:-8081}:80"
+    networks:
+      - app_network
+
+  # API (Node / Express)
+  api:
+    profiles:
+      - core
+      - all
+    container_name: api
+    build:
+      context: ${PROJECT_ROOT}/api
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - mariadb
+    volumes:
+      - ${PROJECT_ROOT}/api:/usr/src/app # Live code mount
+      - /usr/src/app/node_modules # Prevent host overwrite
+    command: npx nodemon index.mjs # Auto-reload on save
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "${API_PORT:-8086}:8086" # Expose to host for testing
+    networks:
+      - app_network
+
+  # Dashboard (Vite / React)
+  dashboard:
+    profiles:
+      - core
+      - all
+    container_name: dashboard
+    build:
+      context: ${PROJECT_ROOT}/dashboard
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ${PROJECT_ROOT}/dashboard:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run dev # Live Vite dev server
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "5173:5173" # Local dev port
+    networks:
+      - app_network
+
+  # TV
+  tv:
+    profiles:
+      - core
+      - all
+    container_name: tv
+    build:
+      context: ${PROJECT_ROOT}/tv
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ${PROJECT_ROOT}/tv:/usr/src/app
+      - /usrc/src/app/node_modules
+    command: npm run dev
+    environment:
+      - NODE_ENV=development
+      - VITE_PORT=9092
+    expose:
+      - "9092"
+    networks:
+      - app_network
+
+  # CDN
+  cdn:
+    profiles:
+      - core
+      - all
+    container_name: cdn
+    build:
+      context: ${PROJECT_ROOT}/cdn
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ${PROJECT_ROOT}/cdn:/usr/src/app # Live code mount
+      - /usr/src/app/node_modules # Prevent host overwrite
+    command: npx nodemon cdn.mjs # Auto-reload on save
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "${CDN_PORT:-9093}:9093" # Expose to host for testing
+    networks:
+      - app_network

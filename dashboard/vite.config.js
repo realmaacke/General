@@ -11,7 +11,7 @@ export default defineConfig({
     cors: true,
     strictPort: true,
     origin: 'https://petterssonhome.se',
-    allowedHosts: ['petterssonhome.se', 'localhost', '127.0.0.1', 'nginx'], // 👈 important
+    allowedHosts: ['petterssonhome.se', 'localhost', '127.0.0.1', 'nginx'],
     hmr: {
       host: 'petterssonhome.se',
       protocol: 'wss',

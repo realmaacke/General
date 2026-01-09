@@ -1,4 +1,17 @@
+database/conf/
 database/data/
+database/init/
 database/logs/
+config/
+
 
 api/node_modules
+cdn/node_modules
+dashboard/node_modules
+discord/node_modules
+tv/node_modules
+
+sonarqube/
+
+
+config/transmission/vpn-configs-contrib/.git

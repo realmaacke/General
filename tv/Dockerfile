@@ -14,4 +14,4 @@ COPY . .
 EXPOSE 9092
 
 # Start the Vite dev server
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "https"]
