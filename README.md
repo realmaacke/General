@@ -1,15 +1,8 @@
 # SETUP
 
-## Create a .env file containing the variables from below:
+# Domains
+Domains can be found inside: domains.txt
 
-Different sevices:
-
-- API : api.domain.se
-- dashboard : domain.se
-- database : db.domain.se
-- tv : tv.domain.se
-- cdn : cdn.domain.se
-- tools : tools.domain.se
 
 # PORTS
 
