@@ -62,6 +62,7 @@ services:
     volumes:
       - ${PROJECT_ROOT}/dashboard:/usr/src/app
       - /usr/src/app/node_modules
+      - /scripts/docker_containers.sh:/usrc/src/app/docker_containers.sh
     command: npm run dev # Live Vite dev server
     environment:
       - NODE_ENV=development
