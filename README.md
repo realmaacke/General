@@ -77,7 +77,10 @@ certbot/certbot certonly --standalone \
 -d plex.petterssonhome.se \
 -d torrent.petterssonhome.se \
 -d docker.petterssonhome.se \
--d prometheus.petterssonhome.se
+-d prometheus.petterssonhome.se \
+-d transmission.petterssonhome.se \
+-d files.petterssonhome.se \
+-d media.petterssonhome.se
 ```
 
 
