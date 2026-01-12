@@ -1,0 +1,16 @@
+petterssonhome.se
+www.petterssonhome.se
+api.petterssonhome.se
+cdn.petterssonhome.se
+db.petterssonhome.se
+tv.petterssonhome.se
+discord.petterssonhome.se
+tools.petterssonhome.se
+grafana.petterssonhome.se
+plex.petterssonhome.se
+torrent.petterssonhome.se
+docker.petterssonhome.se
+prometheus.petterssonhome.se
+transmission.petterssonhome.se
+files.petterssonhome.se
+media.petterssonhome.se
