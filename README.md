@@ -31,7 +31,9 @@ After that the first run the build flag is not needed.
 
 ### Configuration
 Some configuration will be needed in order to get all the containers up and running.
-Volumes will need to be remapped
+Volumes will need to be remapped.
+
+Go through the compose files and fill in correct values since those should differ.
 
 ### To use the custom CDN
 the cdn can be reached with cdn.domain.
