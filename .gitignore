@@ -11,6 +11,8 @@ api/node_modules
 cdn/node_modules
 dashboard/node_modules
 discord/node_modules
+
+discord/
 tv/node_modules
 
 sonarqube/
