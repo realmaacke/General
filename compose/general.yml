@@ -80,8 +80,7 @@ services:
     restart: always
     volumes:
       - ${PROJECT_ROOT}/tv:/usr/src/app
-      - /usrc/src/app/node_modules
-    command: npm run dev
+      - /usr/src/app/node_modules
     environment:
       - NODE_ENV=development
       - VITE_PORT=9092

@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 9092,
-    https: false,
+    https: true,
     cors: true,
     strictPort: true,
     origin: 'https://tv.petterssonhome.se',

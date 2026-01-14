@@ -45,5 +45,10 @@ if $ADD && [[ -n "$ADD_DOMAIN" ]] then
  echo -e "$ADD_DOMAIN" >> "$DB"
  echo "$ADD_DOMAIN added to $DB"
 else
+
+ docker compose down nginx -v
+
  sudo docker run $FLAGS $PORTS $VOLUME $IMAGE "${DOMAINS[@]}"
+
+ docker compose up -d nginx
 fi
