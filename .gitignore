@@ -1,3 +1,5 @@
+.env
+
 database/conf/
 database/data/
 database/init/

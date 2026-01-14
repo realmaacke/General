@@ -11,6 +11,8 @@ volumes:
   filebrowser_data: {}
   filebrowser_config: {}
 
+  scripts-volume: {}
+
 include:
   - compose/general.yml
   - compose/monitoring.yml

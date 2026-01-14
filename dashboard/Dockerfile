@@ -1,6 +1,8 @@
 # Development Dockerfile for Vite / React
 FROM node:20-alpine
 
+RUN apk add --no-cache bash jq docker-cli
+
 WORKDIR /usr/src/app
 
 # Copy dependencies

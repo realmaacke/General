@@ -5,6 +5,7 @@ set -euo pipefail
 COMPOSE_PATH="../docker-compose.yml"
 CONTAINERS=()
 
+# Grabs info about containers using the compose ps command.
 while read -r cid; do
     name=$(docker inspect -f '{{.Name}}' "$cid" | sed 's#^/##')
     state=$(docker inspect -f '{{.State.Status}}' "$cid")
@@ -27,6 +28,7 @@ while read -r cid; do
 done < <(docker compose -f "$COMPOSE_PATH" ps -q)
 
 
+# Wraps it inside a variable
 output=$(
   # everything that currently prints:
   for name in "${CONTAINERS[@]}"; do
@@ -37,7 +39,7 @@ output=$(
   done
 )
 
-
+#Formats it to be used as JSON data inside dashboard.
 printf '%s\n' "$output" | jq -Rn '
   [ inputs
     | split(" | ")
