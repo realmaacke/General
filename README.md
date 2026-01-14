@@ -1,90 +1,39 @@
-# SETUP
+# General
 
-# Domains
-Domains can be found inside: domains.txt
+## Development
 
-
-# PORTS
-
-- Dashboard: 5173
-- Database: 8081
-- API: 9091
-- TV: 9092
-- CDN: 9093
-
-# API DB usage
-
-## SELECT
-
+### Add a new subdomain
+Use the generateSSL.sh script in order to add a new subdomain to nginx
 ```
-import { db } from './db.js';
-
-const users = await db.select('users', ['id', 'name'], 'age > ?', [18]);
-console.log(users);
+$ bash generateSSL.sh --add <subdomain>.<domain>
+$ bash generateSSL.sh 
 ```
+### Managing the compose files
+the entry point is located in the project root, docker-compose.yml
+The docker setup is divided into many smaller compose files, this for ease of use.
 
-## INSERT
+compose files can be found in **compose/*.yml**
 
+### Port and networking
+To update or alter a container port update the .env file and the respective container.
+
+Inside compose the ports are defined as: ports: "${outer:-outer}:inner".
+To use .env ports set the inner outer port to the env variable.
+
+## Usage
+
+### Install the enviroment
+When you first initialize the enviroment be sure to run:
 ```
-await db.insert('users', {
-  name: 'Marcus',
-  email: 'marcus@example.com',
-  age: 25
-});
+docker compose up -d --build
 ```
+After that the first run the build flag is not needed.
 
-## UPDATE
+### To use the custom CDN
+the cdn can be reached with cdn.domain.
 
+In order to upload to the cdn use the folloing command, where path=where on the cdn you want to upload the file.
+Example paths: images, css, files, js.
 ```
-await db.update('users', { name: 'Macke' }, 'id = ?', [1]);
-```
-
-## DELETE
-
-```
-await db.remove('users', 'id = ?', [5]);
-```
-
-## Docker (usefull commands)
-
-- sudo docker compose restart "service"
-- sudo docker compose up -d --force-recreate
-- sudo docker compose build dashboard
-
-
-## Create a new cert for a subdomain
-```
-sudo docker run -it --rm \
--p 80:80 \
--v /etc/letsencrypt:/etc/letsencrypt \
-certbot/certbot certonly --standalone \
--d petterssonhome.se \
--d www.petterssonhome.se \
--d api.petterssonhome.se \
--d cdn.petterssonhome.se \
--d db.petterssonhome.se \
--d tv.petterssonhome.se \
--d discord.petterssonhome.se \
--d tools.petterssonhome.se \
--d grafana.petterssonhome.se \
--d plex.petterssonhome.se \
--d torrent.petterssonhome.se \
--d docker.petterssonhome.se \
--d prometheus.petterssonhome.se \
--d transmission.petterssonhome.se \
--d files.petterssonhome.se \
--d media.petterssonhome.se
-```
-
-
-## Curl a file into the cdn (Field path = {images, css, files, js})
-
-```
-curl -F "path=images" -F "file=@/mnt/c/Users/macka/Desktop/finished.png" https://cdn.petterssonhome.se/upload
-```
-
-## PROFILES
-
-```
-docker compose --profile core up -d
-```
+curl -F "path=images" -F "file=@/mnt/c/Users/macka/Desktop/finished.png" https://cdn.domain/upload
+``
