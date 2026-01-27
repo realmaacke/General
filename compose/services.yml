@@ -38,6 +38,7 @@ services:
 
   # SonarQube
   sonarqube:
+    cpus: 1.5
     image: sonarqube:9.9-community
     container_name: sonarqube
     depends_on:
