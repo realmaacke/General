@@ -4,6 +4,8 @@ import { useState } from 'react'
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 
+import HomeView from "./views/HomeView";
+
 function App() {
   const [count, setCount] = useState(0)
 
