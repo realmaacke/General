@@ -4,8 +4,6 @@ import { useState } from 'react'
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 
-import HomeView from "./components/views/HomeView";
-
 function App() {
   const [count, setCount] = useState(0)
 
@@ -16,7 +14,6 @@ function App() {
             <>
               <Route path="/" element={<Dashboard />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/dev" element={<HomeView/> } />
             </>
         </Routes>
       </div>
