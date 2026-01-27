@@ -1,6 +1,46 @@
-@import "../../node_modules/normalize.css/normalize.css";
+@import "normalize.css";
 
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
 
-body, html {
-    background-color: red;
+.two-split {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.aside {
+    width: 240px;
+    background-color: #0f172a; /* dark blue / slate */
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.aside h1 {
+    margin: 0;
+    padding: 1rem;
+    font-size: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.main {
+    flex: 1;                 /* fill remaining space */
+}
+@media (max-width: 768px) {
+    .two-split {
+        flex-direction: column;
+    }
+
+    .aside {
+        width: 100%;
+        height: 64px;        /* top bar height */
+    }
+
+    .main {
+        flex: 1;
+    }
 }
