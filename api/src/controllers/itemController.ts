@@ -1,6 +1,6 @@
 "use strict";
 
-import { Request, Response, NextFunction } frim "express";
+import { Request, Response, NextFunction } from "express";
 import { items, Item } from "../models/item.ts";
 
 export const createItem = (req: Request, res: Response, next: NextFunction) => {
