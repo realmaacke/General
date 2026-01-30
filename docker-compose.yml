@@ -16,8 +16,8 @@ volumes:
 include:
   - compose/general.yml
   - compose/monitoring.yml
-  - compose/media.yml
-  - compose/services.yml
+  # - compose/media.yml
+  # - compose/services.yml
 
 services:
   nginx:
