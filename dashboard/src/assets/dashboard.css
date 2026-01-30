@@ -33,3 +33,14 @@
 .span-all {
     flex: 1 1 100%;
 }
+
+
+.dashboard-logo-container {
+  max-width: 100%;
+  padding: 1rem;
+}
+
+.dashboard-logo-container img {
+  width: 100%;
+  height 100%;
+}
