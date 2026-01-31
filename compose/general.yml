@@ -49,7 +49,7 @@ services:
     volumes:
       - ${PROJECT_ROOT}/api:/usr/src/app # Live code mount
       - /usr/src/app/node_modules # Prevent host overwrite
-    command: npx nodemon index.mjs # Auto-reload on save
+    command: npm run start # Auto-reload on save
     environment:
       - NODE_ENV=development
     ports:

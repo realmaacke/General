@@ -1,9 +1,10 @@
 "use strict";
 
-import { Request, Response, NextFunction } from "express";
-import { items, Item } from "../models/item.ts";
+import { type Request, type Response, type NextFunction, raw } from "express";
+import type { Item } from "../models/item.js";
+import { items } from "../models/item.js";
 
-export const createItem = (req: Request, res: Response, next: NextFunction) => {
+export const createItem = (req: Request<ItemParams>, res: Response, next: NextFunction) => {
   try {
     const { name } = req.body;
     const newItem: Item = { id: Date.now(), name };
@@ -25,10 +26,19 @@ export const getItems = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+type ItemParams = {
+  id: string
+};
 // Read single item
-export const getItemById = (req: Request, res: Response, next: NextFunction) => {
+export const getItemById = (req: Request<ItemParams>, res: Response, next: NextFunction) => {
   try {
-    const id = parseInt(req.params.id, 10);
+    const id = Number(req.params.id);
+
+    if (!Number.isInteger(id)) {
+      res.status(400).send("Invalid id");
+      return;
+    }
+
     const item = items.find((i) => i.id === id);
     if (!item) {
       res.status(404).json({ message: 'Item not found' });
@@ -41,7 +51,7 @@ export const getItemById = (req: Request, res: Response, next: NextFunction) => 
 };
 
 // Update an item
-export const updateItem = (req: Request, res: Response, next: NextFunction) => {
+export const updateItem = (req: Request<ItemParams>, res: Response, next: NextFunction) => {
   try {
     const id = parseInt(req.params.id, 10);
     const { name } = req.body;
@@ -50,7 +60,7 @@ export const updateItem = (req: Request, res: Response, next: NextFunction) => {
       res.status(404).json({ message: 'Item not found' });
       return;
     }
-    items[itemIndex].name = name;
+    items[itemIndex]!.name = name;
     res.json(items[itemIndex]);
   } catch (error) {
     next(error);
@@ -58,7 +68,7 @@ export const updateItem = (req: Request, res: Response, next: NextFunction) => {
 };
 
 // Delete an item
-export const deleteItem = (req: Request, res: Response, next: NextFunction) => {
+export const deleteItem = (req: Request<ItemParams>, res: Response, next: NextFunction) => {
   try {
     const id = parseInt(req.params.id, 10);
     const itemIndex = items.findIndex((i) => i.id === id);

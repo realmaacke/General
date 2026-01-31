@@ -1,0 +1,18 @@
+services:
+
+  discord:
+    container_name: discord
+    build:
+      context: ${PROJECT_ROOT}/discord
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ${PROJECT_ROOT}/discord:/usr/src/app # Live code mount
+      - /usr/src/app/node_modules # Prevent host overwrite
+    command: npx nodemon webhook_db.js
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "${DISCORD_PORT:-9094}:9094"
+    networks:
+      - app_network
