@@ -1,5 +1,5 @@
 import { type Request, type Response, type NextFunction } from "express";
-export declare const createItem: (req: Request, res: Response, next: NextFunction) => void;
+export declare const createItem: (req: Request<ItemParams>, res: Response, next: NextFunction) => void;
 export declare const getItems: (req: Request, res: Response, next: NextFunction) => void;
 type ItemParams = {
     id: string;

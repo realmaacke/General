@@ -42,14 +42,16 @@ services:
     container_name: api
     build:
       context: ${PROJECT_ROOT}/api
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
+      # dockerfile: Dockerfile
     restart: always
     depends_on:
       - mariadb
     volumes:
       - ${PROJECT_ROOT}/api:/usr/src/app # Live code mount
       - /usr/src/app/node_modules # Prevent host overwrite
-    command: npm run start # Auto-reload on save
+      - /home/marcus/media/usage.json:/usr/src/app/usage.json
+
     environment:
       - NODE_ENV=development
     ports:

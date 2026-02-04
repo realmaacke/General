@@ -42,5 +42,13 @@
 
 .dashboard-logo-container img {
   width: 100%;
-  height 100%;
+  height: 100%;
+}
+
+.usage-container {
+    font-family: system-ui, sans-serif;
+}
+
+.usage-container h1 {
+    text-align: center;
 }
