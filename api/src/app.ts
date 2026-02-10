@@ -22,6 +22,12 @@ app.use(express.json());
 app.use('/data', dataRoutes);
 app.use('/engine', engineRoutes);
 
+app.get('/', async (req, res) => {
+    res.status(200).json({
+        routes: ["/data/usage", "/engine (might take a few tries)"]
+    });
+});
+
 
 app.use(errorHandler);
 
