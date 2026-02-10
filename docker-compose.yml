@@ -35,23 +35,48 @@ services:
     networks:
       - app_network
     
-  engine:
-    container_name: engine
+  crawler:
+    container_name: engine_crawler
     build:
       context: ${PROJECT_ROOT}/engine
       dockerfile: Dockerfile
+
     working_dir: /app
+
+    command: node crawler/index.mjs
+
     volumes:
       - ./data:/app/data
+
+    restart: unless-stopped
+
     cpus: 1.0
     mem_limit: 512m
-    restart: unless-stopped
 
     ulimits:
       nofile:
         soft: 65536
         hard: 65536
 
+
+  indexer:
+    container_name: engine_indexer
+    build:
+      context: ${PROJECT_ROOT}/engine
+      dockerfile: Dockerfile
+
+    working_dir: /app
+
+    # run indexer manually or on schedule
+    command: node indexer/index.mjs
+
+    volumes:
+      - ./data:/app/data
+
+    restart: "no"
+
+    cpus: 0.5
+    mem_limit: 512m
 
   logger:
     container_name: logger
