@@ -78,17 +78,17 @@ services:
     cpus: 0.5
     mem_limit: 512m
 
-  logger:
-    container_name: logger
-    build:
-      context: ${PROJECT_ROOT}/logs
-      dockerfile: Dockerfile
-    volumes:
-      - ./logs:/usr/logger/
+  # logger:
+    # container_name: logger
+    # build:
+      # context: ${PROJECT_ROOT}/logs
+      # dockerfile: Dockerfile
+    # volumes:
+      # - ./logs:/usr/logger/
       # - ./logs:usr/logger/logs
       # - ./logs/log_folder:usr/logger/logs/log_folder
       # - ./logs/log_containers.sh:usr/logger/log_containers.sh
-      - /var/run/docker.sock:/var/run/docker.sock
+      # - /var/run/docker.sock:/var/run/docker.sock
 
 networks:
   app_network:
