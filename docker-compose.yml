@@ -34,6 +34,24 @@ services:
     restart: "always"
     networks:
       - app_network
+    
+  engine:
+    container_name: engine
+    build:
+      context: ${PROJECT_ROOT}/engine
+      dockerfile: Dockerfile
+    working_dir: /app
+    volumes:
+      - ./data:/app/data
+    cpus: 1.0
+    mem_limit: 512m
+    restart: unless-stopped
+
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+
 
   logger:
     container_name: logger
