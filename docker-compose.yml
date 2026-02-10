@@ -46,7 +46,7 @@ services:
     command: node crawler/index.mjs
 
     volumes:
-      - ./data:/app/data
+      - ./engine/data:/app/data
 
     restart: unless-stopped
 
@@ -71,7 +71,7 @@ services:
     command: node indexer/watch.mjs
 
     volumes:
-      - ./data:/app/data
+      - ./engine/data:/app/data
 
     restart: "no"
 
