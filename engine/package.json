@@ -1,0 +1,21 @@
+{
+  "name": "engine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.mjs",
+  "type": "module",
+  "scripts": {
+    "crawler": "node crawler/index.mjs",
+    "indexer": "node indexer/index.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "iconv-lite": "^0.7.2",
+    "normalize-url": "^8.1.1",
+    "p-queue": "^9.1.0",
+    "robots-parser": "^3.0.1"
+  }
+}

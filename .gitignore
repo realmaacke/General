@@ -1,5 +1,8 @@
 .env
 
+engine/data/*
+engine/node_modules
+
 database/conf/
 database/data/
 database/init/
