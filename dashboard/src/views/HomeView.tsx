@@ -10,25 +10,26 @@ import GeneralIcon from "../assets/General_icon.png";
 import Navigation from "../components/navigation/Navigation";
 import ProgressBar from "../components/progress-bar/ProgressBar";
 
-import {gatherData, type DataGathering} from "../models/data";
+import { gatherData, type DataGathering } from "../models/data";
 
 import { parsePercent, parseSizeGB } from "../models/utils";
 
-import  Chart  from "../components/chart/Chart";
+import Chart from "../components/chart/Chart";
 
 export default function HomeView() {
-    const [data, setData] = useState<DataGathering|null>(null);
+    const [data, setData] = useState<DataGathering | null>(null);
     const [loading, setLoading] = useState<Boolean>(true);
-
     useEffect(() => {
 
         const fetchData = async () => {
-            setData(await gatherData());
+            if (!loading) return;
 
+
+            setData(await gatherData());
             if (data) {
+                console.log(data?.folders.series)
                 setLoading(false);
             }
-            console.log(data);
         }
         fetchData();
     })
@@ -37,19 +38,26 @@ export default function HomeView() {
 
     if (!data) return null;
 
+
     const totalGB = parseSizeGB(data.disk.total);
     const usedGB = parseSizeGB(data.disk.used);
     const freeGB = parseSizeGB(data.disk.free);
     const usagePercent = parsePercent(data.disk.usage_percent);
 
+    const ParsedData = [
+        { name: 'Movies', current: Number(data.folders.movies.replace(/\D/g, "")) || 0, max: totalGB },
+        { name: 'Series', current: Number(data.folders.series.replace(/\D/g, "")) || 0, max: totalGB },
+        { name: 'Media', current: Number(data.folders.media.replace(/\D/g, "")) || 0, max: totalGB },
+        { name: 'Total', current: usedGB, max: totalGB }
+    ];
 
     return (
         <div className="two-split">
             <aside className="aside home-aside">
                 <div className="dashboard-logo-container">
-                    <img src={GeneralIcon} alt="General Icon"/>
+                    <img src={GeneralIcon} alt="General Icon" />
                 </div>
-                <Navigation/>
+                <Navigation />
 
             </aside>
             <main className="main home-main">
@@ -59,25 +67,22 @@ export default function HomeView() {
                         <div className="dashboard-col">
 
                             <div className="usage-container">
-                                <h1>Usage</h1>
-                                <Chart/>
-                                
-                        </div>
+                                <h1>Disk usage (percentage of total)</h1>
+                                <Chart data={ParsedData} />
+                            </div>
 
+
+                        </div>
                         <div className="dashboard-col">
-                            
                         </div>
-
                     </div>
 
                     <div className="dashboard-row">
                         <div className="dashboard-col span-all">
-                            
+                            <h1>Container activity</h1>
                         </div>
                     </div>
                 </div>
-
-
             </main>
         </div>
     );

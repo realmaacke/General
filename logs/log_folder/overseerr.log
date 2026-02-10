@@ -1,0 +1,176 @@
+Error response from daemon: No such container: "overseerr"
+Error response from daemon: No such container: "overseerr"
+Error response from daemon: No such container: "overseerr"
+Error response from daemon: No such container: "overseerr"
+Error response from daemon: No such container: "overseerr"
+Error response from daemon: No such container: "overseerr"
+Error response from daemon: No such container: "overseerr"
+Error response from daemon: No such container: "overseerr"
+Error response from daemon: No such container: "overseerr"
+Error response from daemon: No such container: "overseerr"
+Error response from daemon: No such container: "overseerr"
+2026-02-04T16:45:00.028Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:45:00.038Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Watchlist Sync 
+2026-02-04T16:45:00.048Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Recently Added Scan 
+2026-02-04T16:45:00.049Z [[32minfo[39m][Plex Scan]: Scan starting {"sessionId":"1a2feea9-d8ac-43e0-96fd-77a560471542"}
+2026-02-04T16:45:00.208Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:45:00.581Z [[31merror[39m][Plex Scan]: Scan interrupted {"errorMessage":"connect ECONNREFUSED 172.18.0.4:32400"}
+2026-02-04T16:45:00.028Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:45:00.038Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Watchlist Sync 
+2026-02-04T16:45:00.048Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Recently Added Scan 
+2026-02-04T16:45:00.049Z [[32minfo[39m][Plex Scan]: Scan starting {"sessionId":"1a2feea9-d8ac-43e0-96fd-77a560471542"}
+2026-02-04T16:45:00.208Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:45:00.581Z [[31merror[39m][Plex Scan]: Scan interrupted {"errorMessage":"connect ECONNREFUSED 172.18.0.4:32400"}
+2026-02-04T16:45:00.028Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:45:00.038Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Watchlist Sync 
+2026-02-04T16:45:00.048Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Recently Added Scan 
+2026-02-04T16:45:00.049Z [[32minfo[39m][Plex Scan]: Scan starting {"sessionId":"1a2feea9-d8ac-43e0-96fd-77a560471542"}
+2026-02-04T16:45:00.208Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:45:00.581Z [[31merror[39m][Plex Scan]: Scan interrupted {"errorMessage":"connect ECONNREFUSED 172.18.0.4:32400"}
+2026-02-04T16:45:00.028Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:45:00.038Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Watchlist Sync 
+2026-02-04T16:45:00.048Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Recently Added Scan 
+2026-02-04T16:45:00.049Z [[32minfo[39m][Plex Scan]: Scan starting {"sessionId":"1a2feea9-d8ac-43e0-96fd-77a560471542"}
+2026-02-04T16:45:00.208Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:45:00.581Z [[31merror[39m][Plex Scan]: Scan interrupted {"errorMessage":"connect ECONNREFUSED 172.18.0.4:32400"}
+2026-02-04T16:45:00.028Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:45:00.038Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Watchlist Sync 
+2026-02-04T16:45:00.048Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Recently Added Scan 
+2026-02-04T16:45:00.049Z [[32minfo[39m][Plex Scan]: Scan starting {"sessionId":"1a2feea9-d8ac-43e0-96fd-77a560471542"}
+2026-02-04T16:45:00.208Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:45:00.581Z [[31merror[39m][Plex Scan]: Scan interrupted {"errorMessage":"connect ECONNREFUSED 172.18.0.4:32400"}
+Error response from daemon: No such container: "overseerr"
+Error response from daemon: No such container: "overseerr"
+Error response from daemon: No such container: "overseerr"
+Error response from daemon: No such container: "overseerr"
+Error response from daemon: No such container: "overseerr"
+Error response from daemon: No such container: "overseerr"
+Error response from daemon: No such container: "overseerr"
+Error response from daemon: No such container: "overseerr"
+Error response from daemon: No such container: "overseerr"
+2026-02-04T16:50:00.030Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:50:00.030Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:50:00.030Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:50:00.030Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:50:00.089Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Recently Added Scan 
+2026-02-04T16:50:00.089Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Recently Added Scan 
+2026-02-04T16:50:00.089Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Recently Added Scan 
+2026-02-04T16:50:00.089Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Recently Added Scan 
+2026-02-04T16:50:00.089Z [[32minfo[39m][Plex Scan]: Scan starting {"sessionId":"9a90f11f-4464-4560-934b-47e2208c778a"}
+2026-02-04T16:50:00.089Z [[32minfo[39m][Plex Scan]: Scan starting {"sessionId":"9a90f11f-4464-4560-934b-47e2208c778a"}
+2026-02-04T16:50:00.089Z [[32minfo[39m][Plex Scan]: Scan starting {"sessionId":"9a90f11f-4464-4560-934b-47e2208c778a"}
+2026-02-04T16:50:00.089Z [[32minfo[39m][Plex Scan]: Scan starting {"sessionId":"9a90f11f-4464-4560-934b-47e2208c778a"}
+2026-02-04T16:50:00.232Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:50:00.232Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:50:00.232Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:50:00.232Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:50:00.738Z [[31merror[39m][Plex Scan]: Scan interrupted {"errorMessage":"connect ECONNREFUSED 172.18.0.4:32400"}
+2026-02-04T16:50:00.738Z [[31merror[39m][Plex Scan]: Scan interrupted {"errorMessage":"connect ECONNREFUSED 172.18.0.4:32400"}
+2026-02-04T16:50:00.738Z [[31merror[39m][Plex Scan]: Scan interrupted {"errorMessage":"connect ECONNREFUSED 172.18.0.4:32400"}
+2026-02-04T16:50:00.738Z [[31merror[39m][Plex Scan]: Scan interrupted {"errorMessage":"connect ECONNREFUSED 172.18.0.4:32400"}
+2026-02-04T16:50:00.030Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:50:00.089Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Recently Added Scan 
+2026-02-04T16:50:00.089Z [[32minfo[39m][Plex Scan]: Scan starting {"sessionId":"9a90f11f-4464-4560-934b-47e2208c778a"}
+2026-02-04T16:50:00.232Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:50:00.738Z [[31merror[39m][Plex Scan]: Scan interrupted {"errorMessage":"connect ECONNREFUSED 172.18.0.4:32400"}
+2026-02-04T16:51:00.027Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:51:00.027Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:51:00.027Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:51:00.027Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:51:00.027Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:51:00.027Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:51:00.027Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:51:00.027Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:51:00.027Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:51:00.027Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:51:00.152Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Watchlist Sync 
+2026-02-04T16:51:00.152Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Watchlist Sync 
+2026-02-04T16:51:00.152Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Watchlist Sync 
+2026-02-04T16:51:00.152Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Watchlist Sync 
+2026-02-04T16:51:00.152Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Watchlist Sync 
+2026-02-04T16:51:00.152Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Watchlist Sync 
+2026-02-04T16:51:00.152Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Watchlist Sync 
+2026-02-04T16:51:00.152Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Watchlist Sync 
+2026-02-04T16:51:00.152Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Watchlist Sync 
+2026-02-04T16:51:00.152Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Watchlist Sync 
+2026-02-04T16:51:00.220Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:51:00.220Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:51:00.220Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:51:00.220Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:51:00.220Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:51:00.220Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:51:00.220Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:51:00.220Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:51:00.220Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:51:00.220Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:52:00.017Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:52:00.017Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:52:00.017Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:52:00.017Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:52:00.017Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:52:00.017Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:52:00.017Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:52:00.017Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:52:00.017Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:52:00.017Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:52:00.017Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:52:00.017Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:52:00.017Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:52:00.036Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:52:00.036Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:52:00.036Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:52:00.036Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:52:00.036Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:52:00.036Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:52:00.036Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:52:00.036Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:52:00.036Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:52:00.036Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:52:00.036Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:52:00.036Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:52:00.036Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:52:00.017Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:52:00.036Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:53:00.631Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:53:00.631Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:53:00.631Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:53:00.631Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:53:00.631Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:53:00.631Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:53:00.631Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:53:00.631Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:53:00.631Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:53:00.631Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:53:00.631Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:53:00.631Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:53:00.631Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:53:00.631Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:53:00.631Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:53:00.631Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:53:41.009Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:53:41.009Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:53:41.009Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:53:41.009Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:53:41.009Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:53:41.009Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:53:41.009Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:53:41.009Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:53:41.009Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:53:41.009Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:53:41.009Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:53:41.009Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:53:41.009Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:53:41.009Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:53:41.009Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:53:41.009Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:53:41.009Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:53:41.009Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:54:00.188Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:54:34.391Z [[31merror[39m][Download Tracker]: Unable to get queue from Radarr server: radarr 
+2026-02-04T16:54:34.694Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Watchlist Sync 
+2026-02-04T16:54:43.842Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:55:00.887Z [[34mdebug[39m][Jobs]: Starting scheduled job: Download Sync 
+2026-02-04T16:55:01.136Z [[32minfo[39m][Jobs]: Starting scheduled job: Plex Recently Added Scan 
+2026-02-04T16:55:01.137Z [[32minfo[39m][Plex Scan]: Scan starting {"sessionId":"9e0ae874-9a9a-4137-a8c8-14aa4e7e129f"}
+2026-02-04T16:55:02.343Z [[34mdebug[39m][Download Tracker]: Found 10 item(s) in progress on Sonarr server: sonarr 
+2026-02-04T16:55:02.408Z [[31merror[39m][Plex Scan]: Scan interrupted {"errorMessage":"connect ECONNREFUSED 172.18.0.4:32400"}

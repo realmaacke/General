@@ -1,4 +1,3 @@
-
 .dashboard-two-split {
     width: 100%;
     height: 100%;
@@ -26,8 +25,8 @@
     flex: 1;
     height: 100%;
 
-    -webkit-box-shadow: -1px 5px 11px -7px rgba(0,0,0,0.76); 
-    box-shadow: -1px 5px 11px -7px rgba(0,0,0,0.76);
+    -webkit-box-shadow: -1px 5px 11px -7px rgba(0, 0, 0, 0.76);
+    box-shadow: -1px 5px 11px -7px rgba(0, 0, 0, 0.76);
 }
 
 .span-all {
@@ -36,13 +35,13 @@
 
 
 .dashboard-logo-container {
-  max-width: 100%;
-  padding: 1rem;
+    max-width: 100%;
+    padding: 1rem;
 }
 
 .dashboard-logo-container img {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 .usage-container {
@@ -51,4 +50,15 @@
 
 .usage-container h1 {
     text-align: center;
+}
+
+
+.usage-container {
+    width: 100%;
+    height: 100%;
+}
+
+.usage-container>div {
+    width: 100%;
+    height: 100%;
 }

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -5,7 +6,6 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  type NumberDomain,
 } from "recharts";
 
 interface ChartArray {
@@ -13,34 +13,33 @@ interface ChartArray {
 }
 
 interface ChartData {
-    name: string,
-    current: number
+  name: string,
+  current: number,
+  max: number
 };
 
-const newData = [
-  { name: 'A', current: 50},
-  { name: 'B', current: 12}
-];
+export default function Chart({ data }: ChartArray) {
+  const normalizeData = data.map(item => ({
+    ...item,
+    percent: Math.floor((item.current / item.max) * 100)
+  }));
 
-const data = [
-  { name: "A", blue: 40, purple: 20, teal: 15 },
-  { name: "B", blue: 30, purple: 25, teal: 20 },
-  { name: "C", blue: 50, purple: 15, teal: 10 },
-  { name: "D", blue: 35, purple: 30, teal: 15 },
-  { name: "E", blue: 25, purple: 20, teal: 10 },
-];
-
-export default function Chart({ data } : ChartArray) {
   return (
-    <ResponsiveContainer width="100%" height={240}>
-      <BarChart data={data}>
-        <XAxis dataKey="name" />
+    <ResponsiveContainer width="100%" height={340}>
+      <BarChart
+        data={normalizeData}
+        barCategoryGap="80%"
+        barGap={12}
+      >
+        <XAxis
+          dataKey="name"
+          interval={0}
+          textAnchor="end"
+        />
         <YAxis domain={[0, 100]} />
         <Tooltip />
 
-        <Bar dataKey="blue" stackId="a" fill="#60a5fa" />
-        <Bar dataKey="purple" stackId="a" fill="#a78bfa" />
-        <Bar dataKey="teal" stackId="a" fill="#5eead4" />
+        <Bar dataKey="percent" stackId="a" fill="#0f172a" isAnimationActive={false} maxBarSize={40} />
       </BarChart>
     </ResponsiveContainer>
   );
