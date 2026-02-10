@@ -68,7 +68,7 @@ services:
     working_dir: /app
 
     # run indexer manually or on schedule
-    command: node indexer/index.mjs
+    command: node indexer/watch.mjs
 
     volumes:
       - ./data:/app/data
