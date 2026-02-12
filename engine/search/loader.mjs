@@ -16,3 +16,8 @@ export function loadData(INDEX_FILE, DOC_FILE, format = "utf-8") {
 
     return { index, docLengths };
 }
+
+export function loadFile(FILE, format = "utf-8") {
+    let data = JSON.parse(fs.readFileSync(FILE), format);
+    return data;
+}

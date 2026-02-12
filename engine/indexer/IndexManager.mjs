@@ -12,21 +12,22 @@ export async function buildIndex(
     MIN_DOCS,
     MAX_RATIO
 ) {
-    
+
     if (!fs.existsSync(PAGES_FILE)) {
         console.error("pages.jsonl not found:", PAGES_FILE);
         return;
     }
-    
+
     const stream = fs.createReadStream(PAGES_FILE);
-    
+
     const rl = readline.createInterface({
         input: stream,
         crlfDelay: Infinity
     });
-    
+
     let count = 0;
     let totalDocs = 0;
+    const meta = {};
     const docLength = new Map();
 
     for await (const line of rl) {
@@ -37,7 +38,14 @@ export async function buildIndex(
 
             if (!doc.url || !doc.text) continue;
 
-            addDocument(index, doc.url, doc.text, doc.title || "", doc.anchors || [],  docLength);
+            addDocument(index, doc.url, doc.text, doc.title || "", doc.anchors || [], docLength);
+
+            meta[doc.url] = {
+                title: doc.title || doc.url,
+                snippet: (doc.text || "").slice(0, 200)
+            };
+
+
             totalDocs++;
             count++;
 
@@ -52,7 +60,7 @@ export async function buildIndex(
 
     console.log("Documents processed:", count);
 
-    const avgdl = [...docLength.values()].reduce((a, b) => a+b, 0) / docLength.size;
+    const avgdl = [...docLength.values()].reduce((a, b) => a + b, 0) / docLength.size;
 
     console.log("Average doc length:", avgdl);
 
@@ -60,6 +68,10 @@ export async function buildIndex(
     filterIndex(index, totalDocs, MIN_DOCS, MAX_RATIO);
     saveIndex(index, OUTPUT_FILE);
     saveDocLengths(docLength, OUTPUT_FILE_DOC);
+
+
+    const META_FILE = OUTPUT_FILE.replace(".json", "_meta.json");
+    fs.writeFileSync(META_FILE, JSON.stringify(meta));
 }
 
 

@@ -1,7 +1,7 @@
 "use strict";
 import { loadSettings } from "./settings.mjs";
 const settings = loadSettings();
- 
+
 const STOPWORDS = new Set(settings['excludeStopWords'] || []);
 export function tokenize(text) {
     if (!text) return [];
@@ -44,16 +44,16 @@ export function filterTokens(text) {
  * @param {*} docLength 
  */
 export function addDocument(index, url, bodyText, titleText, anchors, docLength) {
-    const bodyTokens = tokenize(bodyText);
+    const bodyTokens = tokenize(bodyText).slice(0, 8000);
     const titleTokens = tokenize(titleText);
 
     docLength.set(url, bodyTokens.length);
 
     const localFreq = new Map();
 
-    function addToken (token, field) {
+    function addToken(token, field) {
         if (!localFreq.has(token)) {
-            localFreq.set(token, { bodyWeight: 0, titleWeight: 0, anchorWeight: 0});
+            localFreq.set(token, { bodyWeight: 0, titleWeight: 0, anchorWeight: 0 });
         }
         const entry = localFreq.get(token);
 
@@ -66,16 +66,34 @@ export function addDocument(index, url, bodyText, titleText, anchors, docLength)
         addToken(token, "bodyWeight");
     }
 
-    for (const token of titleTokens) {
+    const uniqueTitleTokens = new Set(titleTokens);
+    for (const token of uniqueTitleTokens) {
         addToken(token, "titleWeight");
     }
 
+    const urlTokens = tokenize(
+        url
+            .replace(/^https?:\/\//, "")
+            .replace(/[\/._-]/g, " ")
+    );
+
+    const uniqueUrlTokens = new Set(urlTokens);
+    for (const token of uniqueUrlTokens) {
+        addToken(token, "titleWeight"); // treat like title
+    }
+
+
     if (anchors?.length) {
+        const anchorTokenSet = new Set();
         for (const a of anchors) {
             const tokens = tokenize(a.text || "");
             for (const t of tokens) {
-               addToken(t, "anchorWeight");
+                anchorTokenSet.add(t);
             }
+        }
+
+        for (const token of anchorTokenSet) {
+            addToken(token, "anchorWeight");
         }
     }
 

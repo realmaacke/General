@@ -34,7 +34,7 @@ services:
     restart: "always"
     networks:
       - app_network
-    
+
   crawler:
     container_name: crawler
     build:
@@ -49,6 +49,9 @@ services:
       - ./engine/data:/app/data
 
     restart: unless-stopped
+
+    networks:
+      - app_network
 
     cpus: 1.0
     mem_limit: 512m
@@ -74,6 +77,9 @@ services:
 
     restart: "no"
 
+    networks:
+      - app_network
+
     cpus: 0.5
     mem_limit: 512m
 
@@ -85,28 +91,30 @@ services:
     ports:
       - "${SEARCH_PORT:-7777}:7777"
 
-
     working_dir: /app
 
     # run indexer manually or on schedule
-    command: node search/index.mjs
+    command: npm run searchDev
 
     volumes:
+      - ./engine:/app
       - ./engine/data:/app/data
 
-    restart: unless-stopped
+    networks:
+      - app_network
 
-  # logger:
+    restart: unless-stopped
+    # logger:
     # container_name: logger
     # build:
-      # context: ${PROJECT_ROOT}/logs
-      # dockerfile: Dockerfile
+    # context: ${PROJECT_ROOT}/logs
+    # dockerfile: Dockerfile
     # volumes:
-      # - ./logs:/usr/logger/
-      # - ./logs:usr/logger/logs
-      # - ./logs/log_folder:usr/logger/logs/log_folder
-      # - ./logs/log_containers.sh:usr/logger/log_containers.sh
-      # - /var/run/docker.sock:/var/run/docker.sock
+    # - ./logs:/usr/logger/
+    # - ./logs:usr/logger/logs
+    # - ./logs/log_folder:usr/logger/logs/log_folder
+    # - ./logs/log_containers.sh:usr/logger/log_containers.sh
+    # - /var/run/docker.sock:/var/run/docker.sock
 
 networks:
   app_network:

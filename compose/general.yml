@@ -42,8 +42,8 @@ services:
     container_name: api
     build:
       context: ${PROJECT_ROOT}/api
-      dockerfile: Dockerfile.dev
-      # dockerfile: Dockerfile
+      # dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     restart: always
     depends_on:
       - mariadb
