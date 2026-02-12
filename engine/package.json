@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "crawler": "node crawler/index.mjs",
-    "indexer": "node indexer/index.mjs"
+    "indexer": "node indexer/index.mjs",
+    "search": "node search/index.mjs"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,7 @@
   "dependencies": {
     "cheerio": "^1.2.0",
     "chokidar": "^5.0.0",
+    "express": "^5.2.1",
     "iconv-lite": "^0.7.2",
     "normalize-url": "^8.1.1",
     "p-queue": "^9.1.0",

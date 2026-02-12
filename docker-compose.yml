@@ -36,7 +36,7 @@ services:
       - app_network
     
   crawler:
-    container_name: engine_crawler
+    container_name: crawler
     build:
       context: ${PROJECT_ROOT}/engine
       dockerfile: Dockerfile
@@ -58,9 +58,8 @@ services:
         soft: 65536
         hard: 65536
 
-
   indexer:
-    container_name: engine_indexer
+    container_name: indexer
     build:
       context: ${PROJECT_ROOT}/engine
       dockerfile: Dockerfile
@@ -77,6 +76,25 @@ services:
 
     cpus: 0.5
     mem_limit: 512m
+
+  searcher:
+    container_name: searcher
+    build:
+      context: ${PROJECT_ROOT}/engine
+      dockerfile: Dockerfile
+    ports:
+      - "${SEARCH_PORT:-7777}:7777"
+
+
+    working_dir: /app
+
+    # run indexer manually or on schedule
+    command: node search/index.mjs
+
+    volumes:
+      - ./engine/data:/app/data
+
+    restart: unless-stopped
 
   # logger:
     # container_name: logger
