@@ -4,7 +4,7 @@ import fs from "fs";
 import readline from "readline";
 import { tokenize } from "../indexer/tokenizer.mjs";
 
-import { loadSettings, loadData } from "./loader.mjs";
+import { loadSettings, loadData, loadFile } from "./loader.mjs";
 
 export class Search {
     constructor(k1, b) {
@@ -15,45 +15,116 @@ export class Search {
         this.initializeData();
     }
 
+    scoreDocument(token, fields, url, dl) {
+        const idf = this.idfCache[token];
+
+        const bodyTf = fields.bodyWeight || 0;
+        const titleTf = fields.titleWeight || 0;
+        const anchorTf = fields.anchorWeight || 0;
+
+        let score = 0;
+
+        const norm = (tf) =>
+            (tf * (this.k1 + 1)) /
+            (tf + this.k1 * (1 - this.b + this.b * (dl / this.avgdl)));
+
+
+        if (bodyTf) score += idf * norm(bodyTf) * 0.4;
+        if (titleTf) score += idf * norm(titleTf) * 12;
+        if (anchorTf) score += idf * norm(anchorTf) * 3;
+
+        if (url.includes(token)) score += idf * 2.5;
+
+        return score;
+    }
+
+
+
     bm25(query) {
-        const tokens = tokenize(query);
-        const scores = {};
+        try {
+            const tokens = tokenize(query);
+            const scores = {};
 
-        for (const token of tokens) {
-            const entry = this.index[token];
-            if (!entry) continue;
+            for (const token of tokens) {
+                const entry = this.index[token];
+                if (!entry) continue;
 
-            const df = entry.df;
-            const idf = Math.log(1 + (this.totalDocs - df + 0.5) / (df + 0.5));
+                for (const [url, fields] of Object.entries(entry.postings)) {
+                    const dl = this.docLength[url] || 1;
+                    const score = this.scoreDocument(token, fields, url, dl);
 
-            for (const [url, fields] of Object.entries(entry.postings)) {
-                const tf =
-                    (fields.bodyWeight || 0) +
-                    (fields.titleWeight || 0) * 4 +
-                    (fields.anchorWeight || 0) * 2;
+                    if (!score) continue;
 
-                if (!tf) continue;
-
-                const dl = this.docLength[url] || 1;
-
-                const denom = tf + this.k1 * (1 - this.b + this.b * (dl / this.avgdl));
-                const score = this.idfCache[token] * ((tf * (this.k1 + 1)) / denom);
-
-                scores[url] = (scores[url] || 0) + score;
+                    scores[url] = (scores[url] || 0) + score;
+                }
             }
-        }
 
-        return Object.entries(scores)
-            .sort((a, b) => b[1] - a[1])
-            .slice(0, 10);
+            // 2) Structure + Navigational Signals
+            const isNavigational = tokens.length === 1;
+
+            for (const url of Object.keys(scores)) {
+                const parsed = new URL(url);
+
+                const pathDepth = parsed.pathname
+                    .split("/")
+                    .filter(Boolean).length;
+
+                // shallow URL boost
+                scores[url] += Math.max(0, 8 - pathDepth);
+
+                // navigational intent
+                if (isNavigational) {
+                    if (url.includes(query)) {
+                        scores[url] += 50;
+                    }
+
+                    // homepage bias
+                    if (pathDepth === 0) {
+                        scores[url] += 20;
+                    }
+
+                    // root-domain boost
+                    const host = parsed.hostname;
+                    if (host.split(".").length <= 2) {
+                        scores[url] += 15;
+                    }
+                }
+            }
+
+            // 3) Coverage Boost (multi-term quality)
+            for (const url of Object.keys(scores)) {
+                const matchCount = tokens.filter(t =>
+                    this.index[t]?.postings[url]
+                ).length;
+
+                const coverage = matchCount / tokens.length;
+                scores[url] *= (1 + coverage);
+            }
+
+            // 4) Final ranking
+            return Object.entries(scores)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+        } catch {
+            console.error("BM25 Failed");
+            return [];
+        }
     }
 
     processQuery(query) {
         const results = this.bm25(query);
 
-        console.log(results);
+        return results.map(([url, score]) => {
+            const meta = this.pageMeta[url] || {};
 
-        return results;
+            return {
+                url,
+                score,
+                title: meta.title || url,
+                snippet: meta.snippet || ""
+            };
+        });
     }
 
     loadConfig() {
@@ -64,6 +135,10 @@ export class Search {
 
     initializeData() {
         const data = loadData(this.INDEX_FILE, this.DOC_FILE, 'utf-8');
+        this.pageMeta = JSON.parse(
+            fs.readFileSync(this.settings["INDEXER_FILE"].replace(".json", "_meta.json"), "utf-8")
+        );
+
         this.index = data.index;
         this.docLength = data.docLengths;
 

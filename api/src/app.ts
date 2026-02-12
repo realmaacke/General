@@ -14,7 +14,9 @@ app.use(cors({
     origin: [
         "https://petterssonhome.se",
         "https://www.petterssonhome.se"
-    ]
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use(express.json());

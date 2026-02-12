@@ -15,9 +15,9 @@ export const dataUsage = async (req: Request<any>, res: Response, next: NextFunc
     console.error('usage.sh failed', err.stderr || err.message);
 
     next({
-        status: 500,
-        message: "usage.sh failed",
-        details: err.stderr || err.message
+      status: 500,
+      message: "usage.sh failed",
+      details: err.stderr || err.message
     });
   }
 }
