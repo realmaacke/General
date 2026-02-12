@@ -77,7 +77,7 @@ export default function SearchView() {
                         <a onClick={() => { navigateToWebsite(item.url) }} target="_blank" className="searchItemLink">
                             {item.title || item.url}
                         </a>
-
+                        <p className="searchItemUrl">{item.url}</p>
                         <p className="searchSnippet">
                             {item.snippet}
                         </p>
