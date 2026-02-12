@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=SN+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+/*
+    AI Generated CSS
+    Rewrite.
+
+    This is currently terrible
+*/
+
+html,
+body {
+    font-family: "SN Pro", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+    font-style: normal;
+}
+
+.searchContainer {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #0f172a;
+    color: white;
+}
+
+.searchBody {
+    margin-top: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.searchLogo {
+    width: 360px;
+    /* bigger logo */
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 20px;
+    opacity: 0.95;
+}
+
+
+.searchForm {
+    display: flex;
+    align-items: center;
+    background-color: #eeeded;
+    border-radius: 40px;
+    padding: 10px 15px;
+    gap: 10px;
+}
+
+.searchInput {
+    width: 500px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #0f172a;
+    font-size: 18px;
+
+
+
+}
+
+.searchButton {
+    border: none;
+    padding: 8px 18px;
+    border-radius: 20px;
+    background: #2c2c2c;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.searchButton:hover {
+    background: #3a3a3a;
+}
+
+/* ---------- RESULTS ---------- */
+
+.searchResult {
+    width: 700px;
+    margin-top: 60px;
+}
+
+.searchItem {
+    margin-bottom: 25px;
+}
+
+.searchItem a {
+    color: #8ab4f8;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.searchItem a:hover {
+    text-decoration: underline;
+}
+
+.searchSnippet {
+    margin-top: 6px;
+    color: #bdbdbd;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.loading {
+    text-align: center;
+    opacity: 0.7;
+}
+
+
+.searchItemLink {
+    cursor: pointer;
+}
