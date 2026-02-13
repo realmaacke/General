@@ -29,6 +29,7 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/sites:/etc/nginx/conf.d:ro
+      - ./nginx/configs:/etc/nginx/configs:ro
       - /etc/letsencrypt:/etc/letsencrypt:ro
       - /home/marcus/media:/media:ro # IPTV
     restart: "always"
