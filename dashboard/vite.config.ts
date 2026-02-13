@@ -8,6 +8,12 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 5173,
     strictPort: true,
-    allowedHosts: ['petterssonhome.se', 'api.petterssonhome.se']
+    allowedHosts: ['petterssonhome.se', 'api.petterssonhome.se'],
+
+    hmr: {
+      protocol: "wss",
+      host: "petterssonhome.se",
+      clientPort: 443
+    }
   }
 })

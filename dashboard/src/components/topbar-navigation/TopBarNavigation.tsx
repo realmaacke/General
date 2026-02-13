@@ -1,6 +1,8 @@
 "use strict";
+
+"use strict";
 import {
-    Tv,
+    LayoutDashboard,
     Database,
     Server,
     DownloadCloud,
@@ -13,24 +15,16 @@ import {
     Github
 } from "lucide-react";
 
-import "./Navigation.css";
+import "./TopBarNavigation.css";
 
-export default function Navigation({
+export default function TopBarNavigation({
 }) {
     return (
 
-        <ul className="navigation">
-            <li className="navigation-title"><p>Core</p></li>
-
+        <ul className="top-navigation">
             <li>
-                <a href="/">
-                    <SearchIcon /> <span>Search</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="https://tv.petterssonhome.se">
-                    <Tv /><span>TV</span>
+                <a href="/dashboard">
+                    <LayoutDashboard /><span>Dashboard</span>
                 </a>
             </li>
             <li>
@@ -48,7 +42,6 @@ export default function Navigation({
                     <DownloadCloud /><span>CDN</span>
                 </a>
             </li>
-            <li className="navigation-title"><p>Third-party</p></li>
             <li>
                 <a href="https://grafana.petterssonhome.se">
                     <Monitor /><span>Grafana</span>
@@ -64,7 +57,6 @@ export default function Navigation({
                     <SearchIcon /><span>SonarQube</span>
                 </a>
             </li>
-            <li className="navigation-title"><p>Streaming</p></li>
             <li>
                 <a href="https://torrent.petterssonhome.se">
                     <ClockArrowDown /><span>Overseerr</span>
@@ -81,7 +73,6 @@ export default function Navigation({
                     <File /> <span>Media</span>
                 </a>
             </li>
-            <li className="navigation-title"><p>Other</p></li>
             <li>
                 <a href="https://github.com/realmaacke/General">
                     <Github /> <span>Github</span>

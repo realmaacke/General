@@ -1,13 +1,14 @@
 "use strict";
 import normalizeUrl from "normalize-url";
+import { SeenStore } from "./seenStore.mjs";
 
 export class Frontier {
-    constructor() {
+    constructor(seenStore) {
         this.domains = new Map();
-        this.seen = new Set();
+        this.seenStore = seenStore;
     }
 
-    add(url, search_depth = 0, new_params = null, stripHashOn = true) {
+    async add(url, search_depth = 0, new_params = null, stripHashOn = true) {
         let params = [/^utm_\w+/i]
 
         if (new_params) {
@@ -20,11 +21,10 @@ export class Frontier {
                 queryParams: params
             });
 
-            if (this.seen.has(normalized)) {
-                return;
-            }
+            const isNew = await this.seenStore.addIfNew(normalized);
+            console.log("ADD RESULT :", normalized, isNew);
 
-            this.seen.add(normalized);
+            if(!isNew) return;
 
             const domain = new URL(normalized).hostname;
 

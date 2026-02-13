@@ -12,9 +12,13 @@ import { canCrawl } from "./robots.mjs";
 import { skipTypes, sanitizeText, isDuplicate, seenContent } from "./filter.mjs";
 
 import { loadSettings } from "./settings.mjs";
+import { SeenStore } from "./seenStore.mjs";
 
 const settings = loadSettings();
-const frontier = new Frontier();
+const seenStore = new SeenStore();
+// Warm up mariadb
+await seenStore.pool.query("SELECT 1");
+const frontier = new Frontier(seenStore);
 
 loadFrontier(frontier);
 
@@ -31,11 +35,6 @@ const MAX_PAGES = settings['MAX_PAGES'];
 const CONCURRENCY = settings['CONCURRENCY'];
 
 let crawled_sites = 0;
-
-for (let i = 0; i < SEED_DOMAINS.length; i++) {
-    frontier.add(`https://${SEED_DOMAINS[i]}`, 0);
-}
-
 
 const queue = new PQueue({ concurrency: CONCURRENCY });
 
@@ -75,9 +74,9 @@ async function handleUrl({ url,  search_depth }) {
         });
     
         crawled_sites += 1;
-    
+
         for (const link of links) {
-            frontier.add(link, search_depth + 1);
+            await frontier.add(link, search_depth + 1);
         }
     } finally {
         releaseDomain(url);
@@ -85,6 +84,12 @@ async function handleUrl({ url,  search_depth }) {
 }
 
 async function main() {
+    await seenStore.removeOld();
+    for (let i = 0; i < SEED_DOMAINS.length; i++) {
+        await frontier.add(`https://${SEED_DOMAINS[i]}`, 0);
+    }
+
+
     while (true) {
         const item = frontier.next();
 

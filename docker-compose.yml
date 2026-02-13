@@ -44,7 +44,7 @@ services:
 
     working_dir: /app
 
-    command: node crawler/index.mjs
+    command: node --max-old-space-size=384 crawler/index.mjs
 
     volumes:
       - ./engine/data:/app/data

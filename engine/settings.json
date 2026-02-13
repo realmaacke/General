@@ -1,4 +1,12 @@
 {
+    "DATABASE_POOL": {
+        "host": "mariadb",
+        "user": "generalUser",
+        "password": "generalPassword",
+        "database": "general",
+        "connectionLimit": 10
+    },
+
     "PRIMARY_CHARSET": "utf-8",
     "ALLOWED_DOMAINS": "google.com",
     "MAX_DEPTH": 3,

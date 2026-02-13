@@ -8,7 +8,7 @@ import { searchModel } from "../models/search";
 
 import GeneralIcon from "../assets/General_icon.png";
 
-
+import TopBarNavigation from "../components/topbar-navigation/TopBarNavigation";
 
 export default function SearchView() {
     const [query, setQuery] = useState("");
@@ -39,6 +39,8 @@ export default function SearchView() {
     if (loading) return <div>Loading…</div>;
     return (
         <div className="searchContainer">
+            <TopBarNavigation />
+
             <div className="searchBody">
 
                 <a href="/">
