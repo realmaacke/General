@@ -1,27 +1,6 @@
 "use strict";
 import crypto from "node:crypto";
-import { loadContentHash } from "./store.mjs";
-
-
-export const seenContent = new Set();
-loadContentHash(seenContent);
-
-
-export function isDuplicate(text) {
-    if (!text) return true;
-
-    const hash = crypto
-        .createHash("sha256")
-        .update(text)
-        .digest("hex");
-
-    if (seenContent.has(hash)) {
-        return true;
-    }
-
-    seenContent.add(hash);
-    return false;
-}
+import { loadFilters } from "./settings.mjs";
 
 export function grabMainContent(content) {
     let bestNode = null;
@@ -96,22 +75,31 @@ export function sanitizeText(text) {
         .trim();
 }
 
-export function skipTypes(url) {
-    const fileTypes = [".pdf", ".jpg", ".png", ".zip"];
-    const endPaths = ["/login", "/account", "/privacy", "/terms", "/tos"];
+export function skipTypes(rawUrl) {
+    const filter = loadFilters();
 
-    const lowerCase = url.toLowerCase();
+    let url;
+    try {
+        url = new URL(rawUrl);
+    } catch {
+        return true; // invalid URL
+    }
 
-    for (let i = 0; i < fileTypes.length; i++) {
-        if (lowerCase.endsWith(fileTypes[i])) {
+    const pathname = url.pathname.toLowerCase();
+
+    if (filter.url.excludeExtensions.some(ext => pathname.endsWith(ext))) {
+        return true;
+    }
+
+    if (filter.url.excludePathContains.some(ext => pathname.includes(ext))) {
+        return true;
+    }
+
+    for (const param of url.searchParams.keys()) {
+        if (filter.url.excludeQueryParams.includes(param.toLowerCase())) {
             return true;
         }
     }
 
-    for (let j = 0; j < endPaths.length; j++) {
-        if (lowerCase.includes(endPaths[j])) {
-            return true;
-        }
-    }
     return false;
 }

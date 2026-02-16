@@ -1,0 +1,79 @@
+url:
+  excludeAttributes:
+    - script
+    - style
+    - noscript
+    - svg
+    - header
+    - footer
+    - nav
+    - aside
+    - form
+    - button
+    - input
+    - label
+    - "[role='navigation']"
+    - "[aria-hidden='true']"
+
+  excludeStopWords:
+    - "and"
+    - "the"
+    - "to"
+    - "of"
+    - "in"
+    - "on"
+    - "for"
+    - "with"
+    - "is"
+    - "are"
+    - "you"
+    - "your"
+    - "we"
+    - "our"
+    - "they"
+    - "them"
+    - "this"
+    - "that"
+    - "these"
+    - "those"
+    - "or"
+    - "as"
+    - "at"
+    - "by"
+    - "from"
+
+  excludePathContains:
+    - /login
+    - /register
+    - /user/
+    - /users/
+    - /tag/
+    - /tags/
+    - /category/
+    - /search
+    - /collectives/
+
+  excludeExtensions:
+    - .pdf
+    - .jpg
+    - .jpeg
+    - .png
+    - .zip
+    - .mp4
+    - .mp3
+    - .doc
+    - .xlsx
+
+  excludeQueryParams:
+    - page
+    - offset
+    - start
+    - sort
+    - tab
+    - q
+    - search
+
+anchors:
+  minAnchorTextLength: 3
+  excludeEmpty: true
+  excludeFragments: true

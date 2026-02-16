@@ -5,6 +5,7 @@ import readline from "readline";
 import { tokenize } from "../indexer/tokenizer.mjs";
 
 import { loadSettings, loadData, loadFile } from "./loader.mjs";
+import { Ranker } from "./ranker.mjs";
 
 export class Search {
     constructor(k1, b) {
@@ -13,6 +14,9 @@ export class Search {
 
         this.loadConfig();
         this.initializeData();
+
+        this.ranker = new Ranker(this.settings);
+        this.ranker.initData(this.k1, this.b, this.avgdl);
     }
 
     scoreDocument(token, fields, url, dl) {

@@ -3,17 +3,17 @@ import { load } from "cheerio";
 
 import { grabHeadlines, grabMainContent } from "./filter.mjs";
 
-import { loadSettings } from "./settings.mjs";
+import { loadSettings, loadFilters } from "./settings.mjs";
 
 const settings = loadSettings();
 
 export function parse(html, baseUrl) {
+    const filter = loadFilters();
     const content = load(html);
     const links = [];
 
-    if (settings['excludeAttributes']?.length) {
-        content(settings['excludeAttributes'].join(", ")).remove();
-    }
+    content(filter.url.excludeAttributes.join(", ")).remove();
+    
     const anchors = [];
 
     content("a[href]").each((_, element) => {

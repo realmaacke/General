@@ -2,110 +2,112 @@
 // Third party
 import PQueue from "p-queue";
 
-// Built in modules
-import { Frontier } from "./frontier.mjs";
-import { acquireDomain, releaseDomain } from "./scheduler.mjs";
-import { fetchPage } from "./fetcher.mjs";
-import { parse } from "./parser.mjs";
-import { savePage, saveFrontier, loadFrontier, saveContentHash } from "./store.mjs";
-import { canCrawl } from "./robots.mjs";
-import { skipTypes, sanitizeText, isDuplicate, seenContent } from "./filter.mjs";
-
 import { loadSettings } from "./settings.mjs";
 import { SeenStore } from "./seenStore.mjs";
+import { Frontier } from "./frontier.mjs";
+import { canCrawl } from "./robots.mjs";
+import { sanitizeText, skipTypes } from "./filter.mjs";
+import { Scheduler } from "./scheduler.mjs";
+import { fetchPage } from "./fetcher.mjs";
+import { parse } from "./parser.mjs";
+import { savePage } from "./store.mjs";
 
-const settings = loadSettings();
-const seenStore = new SeenStore();
-// Warm up mariadb
-await seenStore.pool.query("SELECT 1");
-const frontier = new Frontier(seenStore);
+class Main {
+    constructor() {
+        this.loadConfig();
 
-loadFrontier(frontier);
+        this.seenStore = new SeenStore(this.settings);
+        this.frontier = new Frontier(this.seenStore);
+        this.scheduler = new Scheduler();
+    }
 
-setInterval(() => {
-    saveFrontier(frontier);
-    saveContentHash(seenContent);
-    console.log("Frontier saved");
-}, settings['SAVE_TIME_INTERVALL']);
-
-
-const SEED_DOMAINS = settings['SEED_DOMAINS'] || [];
-const MAX_DEPTH = settings['MAX_DEPTH'];
-const MAX_PAGES = settings['MAX_PAGES'];
-const CONCURRENCY = settings['CONCURRENCY'];
-
-let crawled_sites = 0;
-
-const queue = new PQueue({ concurrency: CONCURRENCY });
-
-async function handleUrl({ url,  search_depth }) {
-
-    if (search_depth > MAX_DEPTH) return;
-    // if (new URL(url).hostname !== SEED_DOMAINS) return;
-    if (crawled_sites >= MAX_PAGES) return;
-    if (!(await canCrawl(url))) return;
-    if (skipTypes(url)) return;
+    async freshStart() {
+        await this.seenStore.removeOld();
+    }
     
-    console.log("Begining to crawl site: ", url);
+    loadConfig() {
+        this.crawled_sites = 0;
 
-    await acquireDomain(url, settings['AQUIRE_DOMAIN_MS']);
+        this.settings = loadSettings();
+        this.SEED_DOMAINS = this.settings['SEED_DOMAINS'] || [];
+        this.MAX_DEPTH = this.settings['MAX_DEPTH'];
+        this.MAX_PAGES = this.settings['MAX_PAGES'];
+        this.CONCURRENCY = this.settings['CONCURRENCY'];
 
-    try {
-        const html = await fetchPage(url, settings['FETCH_PAGE_ABORT_TIME']);
-    
-        if (!html) {
-            return;
+        this.queue = new PQueue({ concurrency: this.CONCURRENCY });
+    }
+
+    async handleUrl({ id, url, search_depth }) {
+        if (search_depth > this.MAX_DEPTH ) return;
+        if (this.crawled_sites >= this.MAX_PAGES) return;
+        if (!(await canCrawl(url))) return;
+        if (skipTypes(url)) return;
+        if (!this.seenStore.isNewHash(url)) return;
+
+        console.log("Starting Crawl: [site] :", url);
+
+        await this.scheduler.acquireDomain(url, this.settings['AQUIRE_DOMAIN_MS']);
+
+        try {
+            const rawHtml = await fetchPage(url, this.settings['FETCH_PAGE_ABORT_TIME']);
+            if (!rawHtml) return;
+
+            const { links, anchors, title, text } = parse(rawHtml, url);
+            const sanitized = sanitizeText(text);
+
+            savePage({
+                url,
+                title,
+                text: sanitized,
+                anchors,
+                timeStamp: Date.now()
+            });
+
+            this.crawled_sites += 1;
+
+            for (const link of links) {
+                await this.frontier.add(link, search_depth + 1);
+            }
+        } catch (err) {
+            await this.seenStore.setStatus(id, 'failed')
+            console.error("Could not handle site : " + url + "| error: ", err);
+        } finally {
+            await this.seenStore.setStatus(id, 'done')
         }
+    }
     
-        const {links, anchors, title, text} = parse(html, url);
+    async init() {
+        // Warm up mariadb
+        await this.seenStore.pool.query("SELECT 1");
 
-        const sanitized = sanitizeText(text);
+        // Remove if you want to keep data
+        await this.freshStart();
 
-        if (isDuplicate(sanitized)) {
-            return;
+        // Init with the seed domains
+        for (let i = 0; i < this.SEED_DOMAINS.length; i++) {
+            await this.frontier.add(`https://${this.SEED_DOMAINS[i]}`, 0);
         }
-    
-        savePage({
-            url,
-            title,
-            text: sanitized,
-            anchors,
-            timeStamp: Date.now()
-        });
-    
-        crawled_sites += 1;
 
-        for (const link of links) {
-            await frontier.add(link, search_depth + 1);
+        while (true) {
+            const batch = await this.seenStore.nextbatch(50);
+
+            if (batch.length === 0) {
+                if (this.queue.size === 0 && this.queue.pending === 0) break;
+                await new Promise(resolve => setTimeout(resolve, 200));
+                continue;
+            }
+
+            for (const target of batch) {
+                this.queue.add(() => this.handleUrl(target));
+            }
         }
-    } finally {
-        releaseDomain(url);
+        await this.queue.onIdle();
     }
 }
 
 async function main() {
-    await seenStore.removeOld();
-    for (let i = 0; i < SEED_DOMAINS.length; i++) {
-        await frontier.add(`https://${SEED_DOMAINS[i]}`, 0);
-    }
-
-
-    while (true) {
-        const item = frontier.next();
-
-        if (!item) {
-            if (queue.size === 0 && queue.pending === 0) break;
-            await new Promise(r => setTimeout(r, 200));
-            continue;
-        }
-
-        console.log("FRONTIER ITEM:", item, typeof item.url);
-
-        queue.add(() => handleUrl(item));
-    }
-
-    await queue.onIdle();
-    console.log("Done.");
+    const main = new Main();
+    await main.init();
 }
 
 main();

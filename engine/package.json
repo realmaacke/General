@@ -8,7 +8,6 @@
     "crawler": "node crawler/index.mjs",
     "indexer": "node indexer/index.mjs",
     "search": "node search/index.mjs",
-    
     "searchDev": "nodemon search/index.mjs",
     "crawlerDev": "nodemon crawler/index.mjs"
   },
@@ -23,7 +22,8 @@
     "mysql2": "^3.17.1",
     "normalize-url": "^8.1.1",
     "p-queue": "^9.1.0",
-    "robots-parser": "^3.0.1"
+    "robots-parser": "^3.0.1",
+    "yaml": "^2.8.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"

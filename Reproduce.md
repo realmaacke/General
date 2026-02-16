@@ -21,3 +21,8 @@
     - /database/data
     - /database/init
     - /database/logs
+3. Create folders: $PROJECT_ROOT/sonarqube/
+    - /sonarqube/data
+    - /sonarqube/extensions
+    - /sonarqube/logs
+    - /sonarqubes/postgres

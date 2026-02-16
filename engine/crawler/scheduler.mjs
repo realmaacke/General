@@ -1,56 +1,60 @@
 "use strict";
-const domainState = new Map();
 
-export async function acquireDomain(url, dealyMs = 2000) {
-    const domain = new URL(url).hostname;
+export class Scheduler {
+    constructor(ttlMs = 10 * 60 * 1000) {
+        this.domainState = new Map();
+        this.ttlMs = ttlMs;
 
-    if (!domainState.has(domain)) {
-        domainState.set(domain, {
-            lastFetch: 0,
-            locked: false
+        setInterval(() => this.clean(), 60_000);
+    }
+
+    async acquireDomain(url, delayMs = 2000) {
+        const domain = new URL(url).hostname;
+
+        let state = this.domainState.get(domain);
+
+        if (!state) {
+            state = {
+                lastFetch: 0,
+                lastUsed: Date.now(),
+                pending: 0,
+                chain: Promise.resolve()
+            };
+            this.domainState.set(domain, state);
+        }
+
+        state.lastUsed = Date.now();
+        state.pending++;
+
+        state.chain = state.chain.then(async () => {
+            const now = Date.now();
+            const wait = Math.max(0, delayMs - (now - state.lastFetch));
+
+            if (wait > 0) {
+                await this.sleep(wait);
+            }
+
+            state.lastFetch = Date.now();
+            state.lastUsed = Date.now();
+            state.pending--;
         });
+
+        await state.chain;
     }
 
-    const state = domainState.get(domain);
+    clean() {
+        const now = Date.now();
 
-    while (state.locked) {
-        await sleep(50);
+        for (const [domain, state] of this.domainState) {
+            const inactive = now - state.lastUsed > this.ttlMs;
+
+            if (inactive && state.pending === 0) {
+                this.domainState.delete(domain);
+            }
+        }
     }
 
-    state.locked = true;
-
-    const difference = Date.now() - state.lastFetch;
-
-    if (difference < dealyMs) {
-        await sleep(dealyMs - difference);
+    sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
-}
-
-export function releaseDomain(url) {
-    const domain = new URL(url).hostname;
-    const state = domainState.get(domain);
-
-    if (!state) return;
-
-    state.lastFetch = Date.now();
-    state.locked = false;
-}
-
-function sleep(ms) {
-    return new Promise(r => setTimeout(r, ms));
-}
-
-
-const lastFetch = new Map();
-
-export async function waitForDomain(url, delay = 2000) {
-    const domain = new URL(url).hostname;
-    const last = lastFetch.get(domain) || 0;
-    const difference = Date.now() - last;
-
-    if (difference < delay) {
-        await new Promise(r => setTimeout(r, delay - difference));
-    }
-
-    lastFetch.set(domain, Date.now());
 }

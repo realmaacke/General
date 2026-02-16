@@ -6,13 +6,11 @@
         "database": "general",
         "connectionLimit": 10
     },
-
     "PRIMARY_CHARSET": "utf-8",
     "ALLOWED_DOMAINS": "google.com",
     "MAX_DEPTH": 3,
     "MAX_PAGES": 20000,
     "CONCURRENCY": 5,
-
     "SEED_DOMAINS": [
         "google.com",
         "youtube.com",
@@ -36,65 +34,18 @@
         "petterssonhome.se",
         "bth.se"
     ],
-
     "AQUIRE_DOMAIN_MS": 2000,
     "FETCH_PAGE_ABORT_TIME": 10000,
     "SAVE_TIME_INTERVALL": 5000,
 
-    "excludeAttributes": [
-        "script",
-        "style",
-        "noscript",
-        "svg",
-        "header",
-        "footer",
-        "nav",
-        "aside",
-        "form",
-        "button",
-        "input",
-        "label",
-        "[role='navigation']",
-        "[aria-hidden='true']"
-    ],
-
-    "excludeStopWords": [
-        "and",
-        "the",
-        "to",
-        "of",
-        "in",
-        "on",
-        "for",
-        "with",
-        "is",
-        "are",
-        "you",
-        "your",
-        "we",
-        "our",
-        "they",
-        "them",
-        "this",
-        "that",
-        "these",
-        "those",
-        "or",
-        "as",
-        "at",
-        "by",
-        "from"
-    ],
-
     "MIN_DOCS": 2,
     "MAX_RATIO": 0.8,
-
     "FRONTIER_FILE": "./data/frontier.json",
     "PAGES_FILE": "./data/pages.jsonl",
     "CONTENT_HASH_FILE": "./data/content_hashes.json",
-
     "INDEXER_FILE": "./data/indexer.json",
-    "INDEXER_FILE_DOC": "./data/indexer_docs.json"
-
-
+    "INDEXER_FILE_DOC": "./data/indexer_docs.json",
+    "BODY_TITLE_WEIGHT_MULTIPLIER": 0.4,
+    "TITLE_WEIGHT_MULTIPLIER": 12,
+    "ANCHOR_WEIGHT_MULTIPLIER": 3
 }

@@ -6,13 +6,15 @@ services:
     build: ${PROJECT_ROOT}/database
     container_name: mariadb
     restart: always
+
     environment:
-      MARIADB_ROOT_PASSWORD: pass123321
-      MARIADB_DATABASE: general
-      MARIADB_USER: generalUser
-      MARIADB_PASSWORD: generalPassword
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+
     ports:
-      - "${MARIADB_PORT:-3306}:3306"
+      - "127.0.0.1:3306:3306"
     volumes:
       - ${PROJECT_ROOT}/database/data:/var/lib/mysql
       - ${PROJECT_ROOT}/database/logs:/var/log/mysql
@@ -30,10 +32,10 @@ services:
     environment:
       PMA_HOST: mariadb
       PMA_PORT: 3306
-      PMA_USER: generalUser
-      PMA_PASSWORD: generalPassword
+      PMA_ARBITRARY: 0
     ports:
-      - "${PHPMYADMIN_PORT:-8081}:80"
+      - "127.0.0.1:8081:80"
+
     networks:
       - app_network
 

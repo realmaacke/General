@@ -4,7 +4,6 @@ import { SeenStore } from "./seenStore.mjs";
 
 export class Frontier {
     constructor(seenStore) {
-        this.domains = new Map();
         this.seenStore = seenStore;
     }
 
@@ -25,33 +24,10 @@ export class Frontier {
             console.log("ADD RESULT :", normalized, isNew);
 
             if(!isNew) return;
-
-            const domain = new URL(normalized).hostname;
-
-            if (!this.domains.has(domain)) {
-                this.domains.set(domain, []);
-            }
-
-            this.domains.get(domain).push({ url: normalized, search_depth});
+            const isNewInFrontier = await this.seenStore.addNewFrontier(normalized, search_depth);
+        
         } catch {
             console.error(`Could not add ${url} to seen`);
         }
-    }
-
-    next() {
-        for (const [domain, queue] of this.domains) {
-            if (queue.length > 0) {
-                return queue.shift();
-            }
-        }
-        return null;
-    }
-
-    size() {
-        let total = 0;
-        for (const value of this.domains.values()) {
-            total += value.length;
-        }
-        return total;
     }
 }

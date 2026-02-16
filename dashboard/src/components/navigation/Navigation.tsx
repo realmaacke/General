@@ -35,7 +35,7 @@ export default function Navigation({
             </li>
             <li>
                 <a href="https://db.petterssonhome.se">
-                    <Database /><span>Database</span>
+                    <Database /><span>Database (SSH Tunnel needed)</span>
                 </a>
             </li>
             <li>
