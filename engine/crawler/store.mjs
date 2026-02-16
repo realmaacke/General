@@ -9,6 +9,11 @@ const frontierFile = settings['FRONTIER_FILE'];
 const pagesFile = settings['PAGES_FILE'];
 const contentHashFile = settings['CONTENT_HASH_FILE'];
 
+/**
+ * 
+ * Deprecated file.
+ */
+
 export function ensureFile(filePath, defaultContent = '') {
     const dir = path.dirname(filePath);
 

@@ -44,6 +44,10 @@ export class SeenStore {
                 `DELETE FROM crawler_frontier`
             );
 
+            await this.pool.execute(
+                `DELETE FROM crawler_content_hash`
+            );
+
             if (result.affectedRows === 1 && secondResult.affectedRows === 1) {
                 return true;
             }

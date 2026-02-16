@@ -21,10 +21,10 @@ export class Frontier {
             });
 
             const isNew = await this.seenStore.addIfNew(normalized);
-            console.log("ADD RESULT :", normalized, isNew);
 
             if(!isNew) return;
-            const isNewInFrontier = await this.seenStore.addNewFrontier(normalized, search_depth);
+
+            await this.seenStore.addNewFrontier(normalized, search_depth);
         
         } catch {
             console.error(`Could not add ${url} to seen`);

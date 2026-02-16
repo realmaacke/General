@@ -8,11 +8,10 @@ import GeneralIcon from "../assets/General_icon.png";
 
 // NAVIGATION
 import Navigation from "../components/navigation/Navigation";
-import ProgressBar from "../components/progress-bar/ProgressBar";
 
 import { gatherData, type DataGathering } from "../models/data";
 
-import { parsePercent, parseSizeGB } from "../models/utils";
+import { parseSizeGB } from "../models/utils";
 
 import Chart from "../components/chart/Chart";
 
@@ -41,8 +40,6 @@ export default function HomeView() {
 
     const totalGB = parseSizeGB(data.disk.total);
     const usedGB = parseSizeGB(data.disk.used);
-    const freeGB = parseSizeGB(data.disk.free);
-    const usagePercent = parsePercent(data.disk.usage_percent);
 
     const ParsedData = [
         { name: 'Movies', current: Number(data.folders.movies.replace(/\D/g, "")) || 0, max: totalGB },

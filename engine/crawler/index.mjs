@@ -37,18 +37,26 @@ class Main {
         this.queue = new PQueue({ concurrency: this.CONCURRENCY });
     }
 
+    async setStatus(id) {
+        await this.seenStore.setStatus(id, 'done');
+    }
+
     async handleUrl({ id, url, search_depth }) {
-        if (search_depth > this.MAX_DEPTH ) return;
-        if (this.crawled_sites >= this.MAX_PAGES) return;
-        if (!(await canCrawl(url))) return;
-        if (skipTypes(url)) return;
-        if (!this.seenStore.isNewHash(url)) return;
-
-        console.log("Starting Crawl: [site] :", url);
-
-        await this.scheduler.acquireDomain(url, this.settings['AQUIRE_DOMAIN_MS']);
-
         try {
+
+            if (search_depth > this.MAX_DEPTH ){
+                console.log("Search depth reached: url: ", url);
+                return await this.setStatus(id);
+            }
+            if (this.crawled_sites >= this.MAX_PAGES) return await this.setStatus(id);
+            if (!(await canCrawl(url))) return;
+            if (skipTypes(url)) return await this.setStatus(id);
+            if (!(await this.seenStore.isNewHash(url))) return await this.setStatus(id);
+
+            console.log("Starting Crawl: [site] :", url);
+
+            await this.scheduler.acquireDomain(url, this.settings['AQUIRE_DOMAIN_MS']);
+
             const rawHtml = await fetchPage(url, this.settings['FETCH_PAGE_ABORT_TIME']);
             if (!rawHtml) return;
 

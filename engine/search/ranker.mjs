@@ -17,7 +17,7 @@ export class Ranker {
      */
     evaluateDocument(idf, fields, dl) {
         const bodyTitleWeight = fields.bodyWeight || 0;
-        const titleWeight = fields.titleWeight || 0;
+        const titleWeight = (fields.titleWeight + 10) || 0;
         const anchorWeight = fields.anchorWeight || 0;
 
         let score;

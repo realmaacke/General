@@ -1,8 +1,16 @@
 "use strict";
 import robotsParser from "robots-parser";
+import { LRUCache } from "lru-cache";
 
-const cache = new Map();
-
+const cache = new LRUCache({
+    max: 1000
+});
+/**
+ * Function that checks if site contains robots.txt for crawling
+ * @param {String} url - Url to crawl
+ * @param {String} userAgent - Name for userAgent
+ * @returns {Boolean} 
+ */
 export async function canCrawl(url, userAgent = "Crawler") {
     const { origin } = new URL(url);
 

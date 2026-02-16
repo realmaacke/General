@@ -1,5 +1,5 @@
 "use strict";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import "../assets/base.css";
 import "../assets/search.css";

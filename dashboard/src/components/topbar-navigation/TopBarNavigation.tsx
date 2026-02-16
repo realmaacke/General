@@ -3,15 +3,6 @@
 "use strict";
 import {
     LayoutDashboard,
-    Database,
-    Server,
-    DownloadCloud,
-    Monitor,
-    Container,
-    SearchIcon,
-    File,
-    CloudDownload,
-    ClockArrowDown,
     Github
 } from "lucide-react";
 
