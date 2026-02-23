@@ -30,7 +30,7 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/sites:/etc/nginx/conf.d:ro
       - ./nginx/configs:/etc/nginx/configs:ro
-      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - ./nginx/certs:/etc/letsencrypt:ro
       - ${START}/media:/media:ro # IPTV
     restart: "always"
     networks:

@@ -2,7 +2,7 @@
 
 PORTS="-p 80:80"
 FLAGS="-it --rm"
-VOLUME="-v /etc/letsencrypt:/etc/letsencrypt"
+VOLUME="-v ./nginx/certs:/etc/letsencrypt"
 IMAGE="certbot/certbot certonly --standalone"
 
 ADD=false
