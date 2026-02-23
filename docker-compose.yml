@@ -31,7 +31,7 @@ services:
       - ./nginx/sites:/etc/nginx/conf.d:ro
       - ./nginx/configs:/etc/nginx/configs:ro
       - /etc/letsencrypt:/etc/letsencrypt:ro
-      - /home/marcus/media:/media:ro # IPTV
+      - ${START}/media:/media:ro # IPTV
     restart: "always"
     networks:
       - app_network
