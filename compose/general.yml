@@ -53,7 +53,7 @@ services:
       - ${PROJECT_ROOT}/api:/usr/src/app # Live code mount
       - /usr/src/app/node_modules # Prevent host overwrite
       - ${PROJECT_ROOT}/engine/data:/usr/src/app/data
-      - /home/marcus/media/usage.json:/usr/src/app/usage.json
+      - ${START}/media/usage.json:/usr/src/app/usage.json
 
     environment:
       - NODE_ENV=development
