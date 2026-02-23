@@ -9,6 +9,10 @@ database/init/
 database/logs/
 config/
 
+nginx/certs/accounts/*
+nginx/certs/archive/*
+nginx/certs/live/petterssonhome.se/privkey.pem
+
 
 api/node_modules
 cdn/node_modules
