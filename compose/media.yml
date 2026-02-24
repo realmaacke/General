@@ -5,13 +5,6 @@ services:
     ports:
       - "8080:80"
 
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost"]
-      interval: 20s
-      timeout: 5s
-      retries: 5
-
-
     volumes:
       - ${START}/media:/srv
       - filebrowser_data:/database
@@ -33,11 +26,6 @@ services:
     ports:
         - "${JACKETT_PORT:-9117}:9117"
 
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:9117"]
-      interval: 20s
-      timeout: 5s
-      retries: 5
 
     restart: unless-stopped
     networks:
@@ -80,12 +68,6 @@ services:
     ports:
         - "${TRANSMISSION_PORT:-7978}:9091"
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:9091"]
-      interval: 30s
-      timeout: 5s
-      retries: 5
-      start_period: 40s
 
   plex:
     image: lscr.io/linuxserver/plex:latest
@@ -103,13 +85,6 @@ services:
       - "${PLEX_PORT:-32400}:32400"
     networks:
       - app_network
-
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:32400/identity"]
-      interval: 30s
-      timeout: 5s
-      retries: 5
-      start_period: 60s
   
     restart: unless-stopped
 
@@ -131,12 +106,6 @@ services:
         - jackett
         - transmission
     restart: unless-stopped
-
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:8989"]
-      interval: 20s
-      timeout: 5s
-      retries: 5
 
     networks:
       - app_network
@@ -183,13 +152,6 @@ services:
       - /path/to/appdata/config:/app/config
       - ${START}/media:/media
     restart: unless-stopped
-
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:5055"]
-      interval: 20s
-      timeout: 5s
-      retries: 5
-
 
     networks:
       - app_network
