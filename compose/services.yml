@@ -1,7 +1,5 @@
-
 services:
   # School project SONAR CUBE
-
 
   # SonarQube Database (PostgreSQL)
   sonarqube-db:
@@ -18,6 +16,13 @@ services:
       - ${PROJECT_ROOT}/sonarqube/postgres:/var/lib/postgresql/data
     networks:
       - app_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sonar -d sonar"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
 
   # SonarQube
   sonarqube:
@@ -39,3 +44,9 @@ services:
       - ${PROJECT_ROOT}/sonarqube/logs:/opt/sonarqube/logs
     networks:
       - app_network
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:9000/api/system/status"]
+      interval: 30s
+      timeout: 5s
+      retries: 10
+      start_period: 60s

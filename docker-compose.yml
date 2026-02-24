@@ -32,6 +32,41 @@ services:
       - ./nginx/configs:/etc/nginx/configs:ro
       - ./nginx/certs:/etc/letsencrypt:ro
       - ${START}/media:/media:ro # IPTV
+ 
+    depends_on:
+
+      # Media stack
+      filebrowser:
+        condition: service_healthy
+      jackett:
+        condition: service_healthy
+      transmission:
+        condition: service_healthy
+      plex:
+        condition: service_healthy
+      sonarr:
+        condition: service_healthy
+      radarr:
+        condition: service_healthy
+      overseerr:
+        condition: service_healthy
+
+      # Monitoring stack
+      portainer:
+        condition: service_healthy
+      node-exporter:
+        condition: service_healthy
+      prometheus:
+        condition: service_healthy
+      grafana:
+        condition: service_healthy
+
+      # Sonar stack
+      sonarqube-db:
+        condition: service_healthy
+      sonarqube:
+        condition: service_healthy
+ 
     restart: "always"
     networks:
       - app_network
