@@ -13,12 +13,6 @@ services:
     restart: unless-stopped
     networks:
       - app_network
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:9101"]
-      interval: 20s
-      timeout: 5s
-      retries: 5
-      start_period: 20s
 
 
   node-exporter:

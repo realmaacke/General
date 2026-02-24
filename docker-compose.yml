@@ -52,8 +52,6 @@ services:
         condition: service_healthy
 
       # Monitoring stack
-      portainer:
-        condition: service_healthy
       node-exporter:
         condition: service_healthy
       prometheus:
@@ -61,11 +59,6 @@ services:
       grafana:
         condition: service_healthy
 
-      # Sonar stack
-      sonarqube-db:
-        condition: service_healthy
-      sonarqube:
-        condition: service_healthy
  
     restart: "always"
     networks:
