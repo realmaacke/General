@@ -77,7 +77,7 @@ services:
       - PGID=1000
       - TZ=Europe/Stockholm
       - VERSION=docker
-      - PLEX_CLAIM=claim-ciErT8jxcx2CJaFRrUa1
+      - PLEX_CLAIM=claim-dEABGjL5BTFjYsT_6vAe
     volumes:
       - plex-config:/config
       - ${START}/media:/media
