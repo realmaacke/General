@@ -128,13 +128,6 @@ services:
         - jackett
         - transmission
     restart: unless-stopped
-
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:7878"]
-      interval: 20s
-      timeout: 5s
-      retries: 5
-
     networks:
       - app_network
 

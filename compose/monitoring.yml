@@ -32,12 +32,6 @@ services:
       - "${NODE_EXPORTER:-9100}:9100"
     networks:
       - app_network
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:9100/metrics"]
-      interval: 20s
-      timeout: 5s
-      retries: 5
-      start_period: 20s
 
 
   prometheus:
@@ -58,12 +52,6 @@ services:
       - app_network
     ports:
       - "${PROMETHEUS_PORT:-9090}:9090"
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:9090/-/healthy"]
-      interval: 30s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
 
 
   grafana:
@@ -79,9 +67,3 @@ services:
       - app_network
     ports:
       - "${GRAFANA_PORT:-3000}:3000"
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/health"]
-      interval: 30s
-      timeout: 5s
-      retries: 5
-      start_period: 40s

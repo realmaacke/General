@@ -34,23 +34,13 @@ services:
       - ${START}/media:/media:ro # IPTV
  
     depends_on:
-      # Core
-      mariadb:
-        condition: service_healthy
-      api:
-        condition: service_healthy
-      dashboard:
-        condition: service_healthy
-      cdn:
-        condition: service_healthy
-
-      # Monitoring stack
-      node-exporter:
-        condition: service_healthy
-      prometheus:
-        condition: service_healthy
-      grafana:
-        condition: service_healthy
+      - dashboard
+      - mariadb
+      - api
+      - cdn
+      - node-exporter
+      - prometheus
+      - grafana
 
  
     restart: "always"
