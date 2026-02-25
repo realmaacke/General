@@ -34,21 +34,14 @@ services:
       - ${START}/media:/media:ro # IPTV
  
     depends_on:
-
-      # Media stack
-      filebrowser:
+      # Core
+      mariadb:
         condition: service_healthy
-      jackett:
+      api:
         condition: service_healthy
-      transmission:
+      dashboard:
         condition: service_healthy
-      plex:
-        condition: service_healthy
-      sonarr:
-        condition: service_healthy
-      radarr:
-        condition: service_healthy
-      overseerr:
+      cdn:
         condition: service_healthy
 
       # Monitoring stack
