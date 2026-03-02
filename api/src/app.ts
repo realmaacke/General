@@ -2,6 +2,7 @@ import express from "express";
 import itemRoutes from "./routes/itemRoutes.js";
 import dataRoutes from "./routes/dataRoutes.js";
 import engineRoutes from "./routes/engineRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 
 import { errorHandler } from "./middlewares/errorHandler.js";
 import cors from "cors";
@@ -23,6 +24,7 @@ app.use(express.json());
 
 app.use('/data', dataRoutes);
 app.use('/engine', engineRoutes);
+app.use('auth', authRoutes);
 
 app.get('/', async (req, res) => {
     res.status(200).json({
