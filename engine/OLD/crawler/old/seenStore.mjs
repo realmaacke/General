@@ -24,7 +24,7 @@ export class SeenStore {
             const [result] = await this.pool.execute(
                 `INSERT IGNORE INTO crawler_content_hash (hash)
                  VALUES (?)`,
-                 [this.url_hash]
+                [this.url_hash]
             );
 
             return result.affectedRows === 1;
@@ -124,7 +124,7 @@ export class SeenStore {
     async getBatch(connection, limit) {
         try {
             const [rows] = await connection.query(
-            `SELECT
+                `SELECT
                 id,
                 url,
                 search_depth
@@ -134,7 +134,7 @@ export class SeenStore {
              ORDER BY id
              LIMIT ?
              FOR UPDATE SKIP LOCKED`,
-            [limit]
+                [limit]
             );
 
             return rows;
@@ -150,7 +150,7 @@ export class SeenStore {
                 `UPDATE crawler_frontier
                  SET status = 'processing'
                  WHERE id IN (?)`,
-                 [allIds]
+                [allIds]
             );
         } catch (err) {
             console.error("Could not update Rows: ", err);

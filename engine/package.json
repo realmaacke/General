@@ -4,29 +4,26 @@
   "description": "",
   "main": "index.mjs",
   "type": "module",
-  "scripts": {
-    "crawler": "node crawler/index.mjs",
-    "indexer": "node indexer/index.mjs",
-    "search": "node search/index.mjs",
-    "searchDev": "nodemon search/index.mjs",
-    "crawlerDev": "nodemon crawler/index.mjs"
-  },
+  "private": true,
+  "workspaces": [
+    "crawler",
+    "indexer",
+    "searcher"
+  ],
+  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "cheerio": "^1.2.0",
-    "chokidar": "^5.0.0",
-    "express": "^5.2.1",
-    "iconv-lite": "^0.7.2",
-    "lru-cache": "^11.2.6",
-    "mysql2": "^3.17.1",
-    "normalize-url": "^8.1.1",
-    "p-queue": "^9.1.0",
-    "robots-parser": "^3.0.1",
-    "yaml": "^2.8.2"
-  },
   "devDependencies": {
-    "nodemon": "^3.1.11"
+    "@types/node": "^25.3.3",
+    "@typescript-eslint/eslint-plugin": "^8.56.1",
+    "@typescript-eslint/parser": "^8.56.1",
+    "eslint": "^9.39.3",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "mysql2": "^3.18.2",
+    "ts-node": "^10.9.2"
   }
 }

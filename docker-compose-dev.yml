@@ -1,0 +1,122 @@
+volumes:
+  prometheus-data: {}
+  grafana-data: {}
+  plex-config: {}
+  plex-media: {}
+  overseerr-data: {}
+  sonar-data: {}
+  randarr-data: {}
+  portainer_data: {}
+
+services:
+
+  # MariaDB (Database)
+  mariadb:
+    build: ${PROJECT_ROOT}/database
+    container_name: mariadb
+    restart: always
+
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+
+    ports:
+      - "127.0.0.1:3306:3306"
+    volumes:
+      - ${PROJECT_ROOT}/database/data:/var/lib/mysql
+      - ${PROJECT_ROOT}/database/logs:/var/log/mysql
+      - ${PROJECT_ROOT}/database/my.cnf:/etc/mysql/conf.d/my.cnf
+    networks:
+      - app_network
+
+  # phpMyAdmin (Database GUI)
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    depends_on:
+      - mariadb
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 0
+    ports:
+      - "127.0.0.1:8081:80"
+
+    networks:
+      - app_network
+
+  crawler:
+    container_name: crawler
+    build:
+      context: ${PROJECT_ROOT}/engine
+      dockerfile: Dockerfile
+
+    working_dir: /app
+
+    command: node --max-old-space-size=384 crawler/index.mjs
+
+    volumes:
+      - ./engine/data:/app/data
+
+    restart: unless-stopped
+
+    networks:
+      - app_network
+
+    cpus: 1.0
+    mem_limit: 512m
+
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+
+  indexer:
+    container_name: indexer
+    build:
+      context: ${PROJECT_ROOT}/engine
+      dockerfile: Dockerfile
+
+    working_dir: /app
+
+    # run indexer manually or on schedule
+    command: node indexer/watch.mjs
+
+    volumes:
+      - ./engine/data:/app/data
+
+    restart: "no"
+
+    networks:
+      - app_network
+
+    cpus: 0.5
+    mem_limit: 512m
+
+  searcher:
+    container_name: searcher
+    build:
+      context: ${PROJECT_ROOT}/engine
+      dockerfile: Dockerfile
+    ports:
+      - "${SEARCH_PORT:-7777}:7777"
+
+    working_dir: /app
+
+    # run indexer manually or on schedule
+    command: npm run searchDev
+
+    volumes:
+      - ./engine:/app
+      - ./engine/data:/app/data
+
+    networks:
+      - app_network
+
+    restart: unless-stopped
+networks:
+  app_network:
+    driver: bridge
