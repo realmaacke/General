@@ -41,5 +41,11 @@ export const sqlMapping = {
             WHERE id = ?
         `,
         params: 2
+    },
+    "saveToDB": {
+        query: `
+        INSERT IGNORE INTO crawled_sites (url, title, text, anchors, timestamp) VALUES (?, ?, ?, ?, ?)
+        `,
+        params: 5
     }
 };

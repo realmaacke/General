@@ -17,7 +17,8 @@ export type sqlMappingType = {
     populateFrontier: sqlMappingEntry
     getBatch: sqlMappingEntry,
     updateRows: sqlMappingEntry,
-    setStatus: sqlMappingEntry
+    setStatus: sqlMappingEntry,
+    saveToDB: sqlMappingEntry
 }
 
 export const sqlMapping: sqlMappingType = {
@@ -70,5 +71,13 @@ export const sqlMapping: sqlMappingType = {
             WHERE id = ?
         `,
         params: 2
+    },
+
+    "saveToDB": {
+        query:
+            `
+        INSERT IGNORE INTO crawled_sites (url, title, text, anchors, timestamp) VALUES (?, ?, ?, ?, ?)
+        `,
+        params: 5
     }
 }

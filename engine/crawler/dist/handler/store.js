@@ -132,4 +132,18 @@ export class Store {
             throw error;
         }
     }
+    async saveToDB(url, title, text, anchors, timestamp) {
+        const params = [url, title, text, anchors, timestamp];
+        if (params.length !== sqlMapping.saveToDB.params) {
+            throw new Error("[class] sqlMapping, entry saveToDB: params are faulty");
+        }
+        try {
+            const [result] = await this.pool.execute(sqlMapping.saveToDB.query, params);
+            return result.affectedRows === 1;
+        }
+        catch (error) {
+            console.error("[class] Store: saveToDB, could not execute: ", error);
+            throw error;
+        }
+    }
 }

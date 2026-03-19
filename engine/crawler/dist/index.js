@@ -70,18 +70,14 @@ class Main {
             if (!rawHtml)
                 return;
             const parseRes = this.parser.parse(rawHtml, urlObject.url);
-            // const sanitized = this.parser.sanitizeText(parseRes.text);
-            /**
-             * Save page here, do it in db
-             *
-             * savePage({
-             *  url,
-             *  title,
-             *  text: sanitized,
-             *  anchors,
-             *  timeStamp: Date.now()
-             * })
-             */
+            const sanitized = this.parser.sanitizeText(parseRes.text);
+            const save = {
+                text: sanitized
+            };
+            const anchorParsed = {
+                anchor: parseRes.anchors
+            };
+            this.store.saveToDB(urlObject.url, parseRes.title, JSON.stringify(save), JSON.stringify(anchorParsed), null);
             this.crawled_sites++;
             for (const link of parseRes.links) {
                 await this.frontier.add(link, urlObject.search_depth + 1);
