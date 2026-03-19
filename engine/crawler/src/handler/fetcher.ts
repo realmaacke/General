@@ -5,40 +5,45 @@ import { SettingsType } from "../util.js";
 import iconv from "iconv-lite";
 
 export class Fetcher {
-    controller: AbortController | null = null;
     settings: SettingsType | null = null;
     userAgent: string | null = null;
 
     constructor(settigns: SettingsType, userAgent: string = "General Crawler") {
-        this.controller = new AbortController();
         this.userAgent = userAgent;
         this.settings = settigns;
     }
 
     private assertInitialized(): asserts this is {
-        controller: AbortController,
         userAgent: string,
         settings: SettingsType
     } {
         if (!this.settings) throw new Error("Settings could not be loaded");
-        if (!this.controller) throw new Error("Controller is not initialized");
         if (!this.userAgent) throw new Error("You need to specify userAgent");
     }
 
     async fetchPage(url: string, abortTime: number = 10000) {
         this.assertInitialized();
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller?.abort(), abortTime);
 
-        const timeout = setTimeout(() => this.controller?.abort(), abortTime);
-
+        let res: any;
         try {
-            const res = await fetch(url, {
+            res = await fetch(url, {
                 headers: { "User-Agent": this.userAgent },
                 redirect: "follow",
-                signal: this.controller?.signal
+                signal: controller.signal
             });
 
-            if (!res.ok)
+            if (!res.ok) {
+                console.error("[class]: Fetcher, fetch was not ok");
                 return null;
+            }
+        } catch (error) {
+            console.error("[class]: Fetcher, could not fetch");
+            return null;
+        }
+
+        try {
 
             const contentType = res.headers.get("content-type") || "";
 

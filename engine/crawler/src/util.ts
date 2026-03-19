@@ -6,9 +6,24 @@ import { dirname, join } from "node:path";
 
 import { LRUCache } from "lru-cache/raw";
 
-import robotsParser, { Robot } from "robots-parser";
+import * as robotsParserModule from "robots-parser";
 
 
+interface Robot {
+    isAllowed(url: string, ua?: string): boolean | undefined;
+    isDisallowed(url: string, ua?: string): boolean | undefined;
+    getMatchingLineNumber(url: string, ua?: string): number;
+    getCrawlDelay(ua?: string): number | undefined;
+    getSitemaps(): string[];
+    getPreferredHost(): string | null;
+}
+
+const robotsParser =
+    typeof robotsParserModule === "function"
+        ? robotsParserModule
+        : typeof (robotsParserModule as any).default === "function"
+            ? (robotsParserModule as any).default
+            : null;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -116,7 +131,7 @@ export async function canCrawl(url: string, userAgent: string = "Crawler") {
         });
 
         const text = res.ok ? await res.text() : "";
-        const robots = robotsParser.default(`${origin}/robots.txt`, text);
+        const robots = robotsParser(`${origin}/robots.txt`, text);
 
         cache.set(origin, robots);
         return robots.isAllowed(url, userAgent);

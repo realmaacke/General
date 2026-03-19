@@ -1,9 +1,9 @@
 {
     "DATABASE_POOL": {
-        "host": "mariadb",
-        "user": "generalUser",
-        "password": "generalPassword",
-        "database": "general",
+        "host": "localhost",
+        "user": "engine_user",
+        "password": "change_this_password",
+        "database": "engine",
         "connectionLimit": 10
     },
     "PRIMARY_CHARSET": "utf-8",
@@ -115,11 +115,9 @@
         "oru.se",
         "hb.se"
     ],
-    
     "AQUIRE_DOMAIN_MS": 2000,
     "FETCH_PAGE_ABORT_TIME": 10000,
     "SAVE_TIME_INTERVALL": 5000,
-
     "MIN_DOCS": 2,
     "MAX_RATIO": 0.8,
     "FRONTIER_FILE": "./data/frontier.json",

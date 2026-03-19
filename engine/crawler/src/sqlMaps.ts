@@ -1,5 +1,4 @@
 "use strict";
-import mysql from "mysql2/promise";
 
 export type sqlMappingEntryMultiple = {
     query: string | string[],

@@ -4,7 +4,12 @@ import YAML from "yaml";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { LRUCache } from "lru-cache/raw";
-import robotsParser from "robots-parser";
+import * as robotsParserModule from "robots-parser";
+const robotsParser = typeof robotsParserModule === "function"
+    ? robotsParserModule
+    : typeof robotsParserModule.default === "function"
+        ? robotsParserModule.default
+        : null;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const SETTINGSPATH = join(__dirname, "../../settings/settings.json");
@@ -52,7 +57,7 @@ export async function canCrawl(url, userAgent = "Crawler") {
             headers: { "User-Agent": userAgent }
         });
         const text = res.ok ? await res.text() : "";
-        const robots = robotsParser.default(`${origin}/robots.txt`, text);
+        const robots = robotsParser(`${origin}/robots.txt`, text);
         cache.set(origin, robots);
         return robots.isAllowed(url, userAgent);
     }

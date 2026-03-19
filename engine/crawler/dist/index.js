@@ -70,7 +70,7 @@ class Main {
             if (!rawHtml)
                 return;
             const parseRes = this.parser.parse(rawHtml, urlObject.url);
-            const sanitized = this.parser.sanitizeText(parseRes.text);
+            // const sanitized = this.parser.sanitizeText(parseRes.text);
             /**
              * Save page here, do it in db
              *
@@ -99,6 +99,7 @@ class Main {
         this.assertInitialized();
         // Used to warmup the db, after idle.
         await this.store?.pool.query("SELECT 1");
+        await this.store.removePreviousEntries();
         for (let i = 0; i < this.settings.SEED_DOMAINS.length; i++) {
             await this.frontier.add(`https://${this.settings.SEED_DOMAINS[i]}`, 0);
         }
