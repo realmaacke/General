@@ -25,7 +25,12 @@ export default function TopBarNavigation({
                     <Github />
                     <span>GitHub</span>
                 </a>
-                </li>
+
+		<a href="https://github.com/realmaacke/IaC-server" target="_blank" rel="noopener noreferrer">
+		<Github />
+		<span>IaC GitHub </span>
+		
+		</li>
             </div>
 
             <li className="nav-right">
