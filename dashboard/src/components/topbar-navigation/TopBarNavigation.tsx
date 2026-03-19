@@ -14,23 +14,25 @@ export default function TopBarNavigation({
     return (
         <ul className="top-navigation">
             <div className="nav-center-group">
-                <li>
+            <li>
                 <a href="/dashboard">
                     <LayoutDashboard />
                     <span>Dashboard</span>
                 </a>
-                </li>
-                <li>
+            </li>
+            <li>
                 <a href="https://github.com/realmaacke/General" target="_blank" rel="noopener noreferrer">
                     <Github />
                     <span>GitHub</span>
                 </a>
+		    </li>
 
-		<a href="https://github.com/realmaacke/IaC-server" target="_blank" rel="noopener noreferrer">
-		<Github />
-		<span>IaC GitHub </span>
-		
-		</li>
+            <li>
+                <a href="https://github.com/realmaacke/IaC-server" target="_blank" rel="noopener noreferrer">
+                    <Github />
+                    <span>IaC GitHub </span>
+                </a>
+            </li>
             </div>
 
             <li className="nav-right">
