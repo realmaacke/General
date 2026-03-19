@@ -107,4 +107,29 @@ export class Store {
             throw error;
         }
     }
+    async updateRows(connection, allIds) {
+        const params = allIds;
+        try {
+            const [rows] = await connection.query(sqlMapping.updateRows.query, params);
+            return rows;
+        }
+        catch (error) {
+            console.error("[class] Store: updateRows, failed to execute: ", error);
+            throw error;
+        }
+    }
+    async setStatus(id, status) {
+        const params = [status, id];
+        if (params.length !== sqlMapping.setStatus.params) {
+            throw new Error("[class] sqlMapping, entry: setStatus params is faulty");
+        }
+        try {
+            const [result] = await this.pool.execute(sqlMapping.setStatus.query, params);
+            return result.affectedRows === 1;
+        }
+        catch (error) {
+            console.error("[class] Store: setStatus, could not execute: ", error);
+            throw error;
+        }
+    }
 }

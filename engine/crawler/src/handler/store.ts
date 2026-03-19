@@ -77,9 +77,9 @@ export class Store {
         }
     }
 
-    async populateFrontier(url: Buffer<ArrayBuffer>, search_depth: number): Promise<Boolean> {
+    async populateFrontier(url: Buffer<ArrayBuffer>, search_depth: Number): Promise<Boolean> {
         const hash: Buffer<ArrayBuffer> = this.hash(url);
-        const params = [hash, url, search_depth];
+        const params: Array<any> = [hash, url, search_depth];
 
         if (params.length !== sqlMapping.populateFrontier.params) {
             throw new Error("[class] sqlMapping, entry populateFrontier is faulty");
@@ -95,19 +95,19 @@ export class Store {
             console.error("[class] Store: populateFrontier, could not be executed: ", error);
             throw error;
         }
-    },
+    }
 
-    async nextBatch(limit: number = 50) {
+    async nextBatch(limit: Number = 50) {
         const connection: mysql.PoolConnection = await this.pool.getConnection();
 
         try {
-            const rows = await this.getBatch(connection, limit);
+            const rows: Object = await this.getBatch(connection, limit);
 
-            if (rows.length === 0) {
+            if ((rows as Array<any>).length === 0) {
                 await connection.commit();
                 return [];
             }
-            const allIds = rows.map(row => row.id);
+            const allIds = (rows as Array<any>).map(row => row.id);
 
             await this.updateRows(connection, allIds);
             await connection.commit();
@@ -122,8 +122,8 @@ export class Store {
         }
     }
 
-    async getBatch(connection: mysql.PoolConnection, limit: number): Promise<object> {
-        const params: number[] = [limit];
+    async getBatch(connection: mysql.PoolConnection, limit: Number): Promise<object> {
+        const params: Number[] = [limit];
         try {
             const [rows] = await connection.query(
                 sqlMapping.getBatch.query,
@@ -133,6 +133,39 @@ export class Store {
             return rows;
         } catch (error) {
             console.error("[class] Store: getBatch, failed to execute: ", error);
+            throw error;
+        }
+    }
+
+    async updateRows(connection: mysql.PoolConnection, allIds: Array<Number>) {
+        const params: Number[] = allIds;
+        try {
+            const [rows] = await connection.query(
+                sqlMapping.updateRows.query,
+                params
+            );
+            return rows
+        } catch (error) {
+            console.error("[class] Store: updateRows, failed to execute: ", error);
+            throw error;
+        }
+    }
+
+    async setStatus(id: Number, status: String) {
+        const params: any[] = [status, id];
+
+        if (params.length !== sqlMapping.setStatus.params) {
+            throw new Error("[class] sqlMapping, entry: setStatus params is faulty");
+        }
+
+        try {
+            const [result] = await this.pool.execute<mysql.ResultSetHeader>(
+                sqlMapping.setStatus.query,
+                params
+            )
+            return result.affectedRows === 1;
+        } catch (error) {
+            console.error("[class] Store: setStatus, could not execute: ", error);
             throw error;
         }
     }

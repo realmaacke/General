@@ -16,7 +16,9 @@ export type sqlMappingType = {
     previousEntries: sqlMappingEntryMultiple,
     populateIfNew: sqlMappingEntry,
     populateFrontier: sqlMappingEntry
-    getBatch: sqlMappingEntry
+    getBatch: sqlMappingEntry,
+    updateRows: sqlMappingEntry,
+    setStatus: sqlMappingEntry
 }
 
 export const sqlMapping: sqlMappingType = {
@@ -50,5 +52,24 @@ export const sqlMapping: sqlMappingType = {
             FROM crawler_frontier WHERE status = 'pending'
             ORDER BY id LIMIT ? FOR UPDATE SKIP LOCKED`,
         params: 1
+    },
+
+    "updateRows": {
+        query:
+            `
+            UPDATE crawler_frontier
+            SET status = 'processing'
+            WHERE id IN (?)
+        `,
+        params: 2
+    },
+    "setStatus": {
+        query:
+            `
+        UPDATE crawler_frontier
+            SET status = ?
+            WHERE id = ?
+        `,
+        params: 2
     }
 }

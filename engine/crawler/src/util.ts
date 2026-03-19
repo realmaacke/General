@@ -3,7 +3,12 @@ import fs from "fs";
 import YAML from "yaml";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { Path } from "typescript";
+
+import { LRUCache } from "lru-cache/raw";
+
+import robotsParser, { Robot } from "robots-parser";
+
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -91,4 +96,32 @@ export function loadFilters(): FiltersType | null {
 
     return filtersInstance;
 
+}
+
+
+const cache = new LRUCache<string, Robot>({
+    max: 1000
+});
+
+export async function canCrawl(url: string, userAgent: string = "Crawler") {
+    const { origin } = new URL(url);
+
+    if (cache.has(origin)) {
+        return cache.get(origin)?.isAllowed(url, userAgent);
+    }
+
+    try {
+        const res = await fetch(`${origin}/robots.txt`, {
+            headers: { "User-Agent": userAgent }
+        });
+
+        const text = res.ok ? await res.text() : "";
+        const robots = robotsParser.default(`${origin}/robots.txt`, text);
+
+        cache.set(origin, robots);
+        return robots.isAllowed(url, userAgent);
+    } catch (error) {
+        console.error("[class]: Utils, could not execute method: canCrawl, error: ", error);
+        throw error;
+    }
 }
