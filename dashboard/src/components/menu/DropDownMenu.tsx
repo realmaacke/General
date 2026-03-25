@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import { User } from 'lucide-react';
 
@@ -54,9 +54,9 @@ export default function GoogleAppsLauncher() {
             <div className="apps-modal-overlay">
                 <div className="apps-modal" ref={modalRef}>
                     <div className="apps-grid">
-                        {apps.map((app, index) => (
+                        {apps.map((_, index) => (
                         <a key={index} href="#" className="app-item" onClick={(e) => {e.preventDefault(); setIsOpen(false); }}>
-                            <div className="app-icon">{app.icon}</div>
+                            <div className="app-icon">Icon here</div>
                         </a>
                         ))}
 
