@@ -32,7 +32,7 @@ services:
       - app_network
 
   transmission:
-    image: haugene/transmission-openvpn:4.1.0
+    image: haugene/transmission-openvpn:5.3
     container_name: transmission
     privileged: true
     volumes:
