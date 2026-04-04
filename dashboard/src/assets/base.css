@@ -32,12 +32,15 @@ html, body {
 }
 @media (max-width: 768px) {
     .two-split {
+        display: flex;
         flex-direction: column;
+    }
+    .dashboard-logo-container img {
+        display: none;
     }
 
     .aside {
         width: 100%;
-        height: 64px;        /* top bar height */
     }
 
     .main {
