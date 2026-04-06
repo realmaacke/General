@@ -1,0 +1,63 @@
+volumes:
+  prometheus-data: {}
+  grafana-data: {}
+  plex-config: {}
+  plex-media: {}
+  overseerr-data: {}
+  sonar-data: {}
+  randarr-data: {}
+  portainer_data: {}
+
+  filebrowser_data: {}
+  filebrowser_config: {}
+
+  scripts-volume: {}
+
+include:
+  # - compose/general.yml
+  # - compose/monitoring.yml
+  # - compose/media.yml
+  # - compose/services.yml
+  - compose/engine.yml
+
+services:
+  mariadb:
+    build: ${PROJECT_ROOT}/database
+    container_name: mariadb
+    restart: always
+
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+
+    ports:
+      - "127.0.0.1:3306:3306"
+    volumes:
+      - ${PROJECT_ROOT}/database/data:/var/lib/mysql
+      - ${PROJECT_ROOT}/database/logs:/var/log/mysql
+      - ${PROJECT_ROOT}/database/my.cnf:/etc/mysql/conf.d/my.cnf
+    networks:
+      - app_network
+
+  # phpMyAdmin (Database GUI)
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    depends_on:
+      - mariadb
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 0
+    ports:
+      - "127.0.0.1:8081:80"
+
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
