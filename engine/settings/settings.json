@@ -1,8 +1,8 @@
 {
     "DATABASE_POOL": {
         "host": "mariadb",
-        "user": "generalUser",
-        "password": "generalPassword",
+        "user": "general_admin",
+        "password": "general_pass",
         "database": "general",
         "connectionLimit": 10
     },
