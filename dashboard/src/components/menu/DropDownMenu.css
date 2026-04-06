@@ -41,7 +41,10 @@
 .apps-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  padding: 1rem;
   gap: 16px;
+
+  background-color: rebeccapurple;
 }
 
 .app-item {
@@ -58,6 +61,25 @@
 .app-item:hover {
   background: rgba(255, 255, 255, 0.08);
 }
+
+.app-item-button {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  text-align: center;
+
+  border: none;
+  background: none;
+
+  color: white;
+}
+
+.app-item-button:hover {
+  cursor: pointer;
+}
+
 
 .app-icon {
   font-size: 36px; /* placeholder — replace with real icons later */

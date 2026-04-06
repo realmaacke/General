@@ -5,9 +5,12 @@ import { User } from 'lucide-react';
 import './DropDownMenu.css';
 
 const apps = [
+    { name: "Option 1", icon: User},
     { name: 'Konto', icon: User },
-    { name: 'Sök', icon: '🔍' },
-    { name: 'Maps', icon: '🗺️' },
+    { name: 'Konto', icon: User },
+    { name: 'Konto', icon: User },
+    { name: 'Konto', icon: User },
+    { name: 'Konto', icon: User },
 ];
 
 export default function GoogleAppsLauncher() {
@@ -54,11 +57,19 @@ export default function GoogleAppsLauncher() {
             <div className="apps-modal-overlay">
                 <div className="apps-modal" ref={modalRef}>
                     <div className="apps-grid">
-                        {apps.map((_, index) => (
-                        <a key={index} href="#" className="app-item" onClick={(e) => {e.preventDefault(); setIsOpen(false); }}>
-                            <div className="app-icon">Icon here</div>
-                        </a>
+
+                        {apps.map((item, index) => (
+                            <div className='app-item'>
+                                <button className='app-item-button'>
+                                    IKON
+                                </button>
+                            </div>
                         ))}
+
+                        {/* {apps.map((_, index) => (
+                        <a key={index} href="#" className="app-item" onClick={(e) => {e.preventDefault(); setIsOpen(false); }}>
+                        </a>
+                        ))} */}
 
                     </div>
                 </div>
