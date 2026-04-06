@@ -67,13 +67,12 @@ services:
     container_name: dashboard
     build:
       context: ${PROJECT_ROOT}/dashboard
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.build
     restart: always
     volumes:
       - ${PROJECT_ROOT}/dashboard:/usr/src/app
       - /usr/src/app/node_modules
       - scripts-volume:/usr/src/app/scripts
-    command: npm run dev # Live Vite dev server
     environment:
       - NODE_ENV=development
     ports:

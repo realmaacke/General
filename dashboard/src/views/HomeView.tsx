@@ -9,16 +9,9 @@ import GeneralIcon from "../assets/General_icon.png";
 // NAVIGATION
 import Navigation from "../components/navigation/Navigation";
 
-import { gatherData, type DataGathering } from "../models/data";
-
-import { parseSizeGB } from "../models/utils";
-
-import Chart from "../components/chart/Chart";
 
 export default function HomeView() {
-    const [data, setData] = useState<DataGathering | null>(null);
     const [loading, setLoading] = useState<Boolean>(true);
-    const [hasGathered, setHasGathered] = useState<Boolean>(false);
 
     useEffect(() => {
         setLoading(false);
