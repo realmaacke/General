@@ -31,6 +31,7 @@
     "p-queue": "^9.1.0",
     "pqueue": "^0.3.1",
     "robots-parser": "^3.0.1",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "undo-comments": "^1.0.3"
   }
 }

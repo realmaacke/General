@@ -4,9 +4,12 @@ import YAML from "yaml";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
+
 import { LRUCache } from "lru-cache/raw";
 
 import * as robotsParserModule from "robots-parser";
+
+import { undoComment } from "undo-comments";
 
 
 interface Robot {
@@ -87,8 +90,7 @@ export function loadSettings(): SettingsType | null {
     }
 
     try {
-        const rawData = fs.readFileSync(SETTINGSPATH, 'utf-8');
-        settingsInstance = JSON.parse(rawData) as SettingsType;
+        settingsInstance = undoComment(SETTINGSPATH, 'utf-8') as SettingsType;
     } catch (error) {
         console.error("Error loading settings: ", error);
         settingsInstance = null;

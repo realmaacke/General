@@ -60,7 +60,7 @@ export class Parser {
             }
         });
         const title = content("title").text() || "";
-        const text = "Fix this inside parser.ts";
+        const text = this.grabMainContent(content);
         const res = {
             links, anchors, title, text
         };
@@ -71,5 +71,39 @@ export class Parser {
             .replace(/\s+/g, " ")
             .replace(/\u00a0/g, " ")
             .trim();
+    }
+    grabMainContent(content) {
+        let bestNode = "";
+        let bestScore = 0;
+        content("body *").each((_, element) => {
+            const node = content(element);
+            const text = node.text().trim();
+            if (!text || text.length < 80)
+                return;
+            const linkText = node.find("a").text().length;
+            const textLen = text.length;
+            const density = textLen - linkText * 2;
+            let bonus = 1;
+            const tag = element.tagName?.toLowerCase();
+            bonus += this.addBonus(tag);
+            const score = density * bonus;
+            if (score > bestScore) {
+                bestScore = score;
+                bestNode = node.text();
+            }
+        });
+        if (bestNode) {
+            return bestNode;
+        }
+        return content("body").text();
+    }
+    addBonus(tag) {
+        switch (tag) {
+            case "article": return 40;
+            case "main": return 30;
+            case "section": return 10;
+            case "div": return 5;
+            default: return 0;
+        }
     }
 }

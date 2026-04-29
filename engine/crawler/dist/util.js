@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { LRUCache } from "lru-cache/raw";
 import * as robotsParserModule from "robots-parser";
+import { undoComment } from "undo-comments";
 const robotsParser = typeof robotsParserModule === "function"
     ? robotsParserModule
     : typeof robotsParserModule.default === "function"
@@ -22,8 +23,7 @@ export function loadSettings() {
         return settingsInstance;
     }
     try {
-        const rawData = fs.readFileSync(SETTINGSPATH, 'utf-8');
-        settingsInstance = JSON.parse(rawData);
+        settingsInstance = undoComment(SETTINGSPATH, 'utf-8');
     }
     catch (error) {
         console.error("Error loading settings: ", error);
