@@ -4,14 +4,14 @@ import { User } from 'lucide-react';
 
 import './DropDownMenu.css';
 
-const apps = [
-    { name: "Option 1", icon: User},
-    { name: 'Konto', icon: User },
-    { name: 'Konto', icon: User },
-    { name: 'Konto', icon: User },
-    { name: 'Konto', icon: User },
-    { name: 'Konto', icon: User },
-];
+// const apps = [
+//     { name: "Option 1", icon: User },
+//     { name: 'Konto', icon: User },
+//     { name: 'Konto', icon: User },
+//     { name: 'Konto', icon: User },
+//     { name: 'Konto', icon: User },
+//     { name: 'Konto', icon: User },
+// ];
 
 export default function GoogleAppsLauncher() {
     const [isOpen, setIsOpen] = useState(false);
@@ -44,36 +44,27 @@ export default function GoogleAppsLauncher() {
     return (
         <>
             <button
-            className='apps-trigger'
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label='General apps'
-            title="General Apps"
+                className='apps-trigger'
+                onClick={() => setIsOpen(!isOpen)}
+                aria-label='General apps'
+                title="General Apps"
             >
-            <User/>
+                <User />
 
             </button>
 
             {isOpen && (
-            <div className="apps-modal-overlay">
-                <div className="apps-modal" ref={modalRef}>
-                    <div className="apps-grid">
-
-                        {apps.map((item, index) => (
+                <div className="apps-modal-overlay">
+                    <div className="apps-modal" ref={modalRef}>
+                        <div className="apps-grid">
                             <div className='app-item'>
                                 <button className='app-item-button'>
                                     IKON
                                 </button>
                             </div>
-                        ))}
-
-                        {/* {apps.map((_, index) => (
-                        <a key={index} href="#" className="app-item" onClick={(e) => {e.preventDefault(); setIsOpen(false); }}>
-                        </a>
-                        ))} */}
-
+                        </div>
                     </div>
                 </div>
-            </div>
             )}
         </>
     );
