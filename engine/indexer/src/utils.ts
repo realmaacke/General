@@ -1,31 +1,11 @@
 "use strict";
-import fs from "fs";
-import YAML from "yaml";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
-import { LRUCache } from "lru-cache";
-
-import * as robotsParserModule from "robots-parser";
+import fs from "fs";
+import YAML from "yaml";
 
 import { undoComment } from "undo-comments";
-
-
-interface Robot {
-    isAllowed(url: string, ua?: string): boolean | undefined;
-    isDisallowed(url: string, ua?: string): boolean | undefined;
-    getMatchingLineNumber(url: string, ua?: string): number;
-    getCrawlDelay(ua?: string): number | undefined;
-    getSitemaps(): string[];
-    getPreferredHost(): string | null;
-}
-
-const robotsParser =
-    typeof robotsParserModule === "function"
-        ? robotsParserModule
-        : typeof (robotsParserModule as any).default === "function"
-            ? (robotsParserModule as any).default
-            : null;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -83,7 +63,6 @@ export interface FiltersType {
 let settingsInstance: SettingsType | null = null;
 let filtersInstance: FiltersType | null = null;
 
-
 export function loadSettings(): SettingsType | null {
 
     if (settingsInstance) {
@@ -114,32 +93,4 @@ export function loadFilters(): FiltersType | null {
 
     return filtersInstance;
 
-}
-
-
-const cache = new LRUCache<string, Robot>({
-    max: 1000
-});
-
-export async function canCrawl(url: string, userAgent: string = "Crawler") {
-    const { origin } = new URL(url);
-
-    if (cache.has(origin)) {
-        return cache.get(origin)?.isAllowed(url, userAgent);
-    }
-
-    try {
-        const res = await fetch(`${origin}/robots.txt`, {
-            headers: { "User-Agent": userAgent }
-        });
-
-        const text = res.ok ? await res.text() : "";
-        const robots = robotsParser(`${origin}/robots.txt`, text);
-
-        cache.set(origin, robots);
-        return robots.isAllowed(url, userAgent);
-    } catch (error) {
-        console.error("[class]: Utils, could not execute method: canCrawl, error: ", error);
-        throw error;
-    }
 }

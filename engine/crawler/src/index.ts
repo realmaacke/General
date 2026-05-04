@@ -82,8 +82,8 @@ class Main {
                 return await this.store.setStatus(urlObject.id, 'done');
             }
 
-            if (!(await canCrawl(urlObject.url)))
-                return;
+            if (!(await canCrawl(urlObject.url))) return;
+
             if (this.parser.skipTypes(urlObject.url))
                 return await this.store.setStatus(urlObject.id, 'done');
 
@@ -118,9 +118,15 @@ class Main {
                 null
             )
 
+            await this.store.pool.execute(`
+                UPDATE index_state
+                SET dirty = 1
+                WHERE id = 1
+            `);
+
             this.crawled_sites++;
 
-            for (const link of parseRes.links) {
+            for (const link of parseRes.links.slice(0, 20)) {
                 await this.frontier.add(link, urlObject.search_depth + 1);
             }
         } catch (error) {
@@ -152,6 +158,11 @@ class Main {
                 continue;
             }
             for (const target of (batch as any)) {
+
+                while (this.queue.size > 500) {
+                    await new Promise(r => setTimeout(r, 100));
+                }
+
                 this.queue.add(() => this.processUrl(target));
             }
         }

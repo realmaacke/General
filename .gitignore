@@ -3,6 +3,9 @@
 engine/data/*
 engine/node_modules
 
+engine/crawler/node_modules
+engine/indexer/node_modules
+
 database/conf/
 database/data/
 database/init/

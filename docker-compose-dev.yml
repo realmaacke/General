@@ -38,7 +38,6 @@ services:
       - ${PROJECT_ROOT}/database/data:/var/lib/mysql
       - ${PROJECT_ROOT}/database/logs:/var/log/mysql
       - ${PROJECT_ROOT}/database/my.cnf:/etc/mysql/conf.d/my.cnf
-      - ${PROJECT_ROOT}/engine/db_init:/docker-entrypoint-initdb.d # Init engine when empty
     networks:
       - app_network
 

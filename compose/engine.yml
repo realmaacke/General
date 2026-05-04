@@ -3,7 +3,7 @@ services:
   crawler:
     container_name: crawler
     build:
-      context: ${PROJECT_ROOT}/engine
+      context: ${PROJECT_ROOT}/engine/crawler
       dockerfile: Dockerfile
 
     working_dir: /app
@@ -27,18 +27,15 @@ services:
   indexer:
     container_name: indexer
     build:
-      context: ${PROJECT_ROOT}/engine
+      context: ${PROJECT_ROOT}/engine/indexer
       dockerfile: Dockerfile
 
     working_dir: /app
 
-    # run indexer manually or on schedule
-    command: node indexer/watch.mjs
-
     volumes:
-      - ./engine/data:/app/data
+      - ${PROJECT_ROOT}/engine/data:/app/data
 
-    restart: "no"
+    restart: unless-stopped
 
     networks:
       - app_network
@@ -46,24 +43,24 @@ services:
     cpus: 0.5
     mem_limit: 512m
 
-  searcher:
-    container_name: searcher
-    build:
-      context: ${PROJECT_ROOT}/engine
-      dockerfile: Dockerfile
-    ports:
-      - "${SEARCH_PORT:-7777}:7777"
+  # searcher:
+  #   container_name: searcher
+  #   build:
+  #     context: ${PROJECT_ROOT}/engine
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "${SEARCH_PORT:-7777}:7777"
 
-    working_dir: /app
+  #   working_dir: /app
 
-    # run indexer manually or on schedule
-    command: npm run searchDev
+  #   # run indexer manually or on schedule
+  #   command: npm run searchDev
 
-    volumes:
-      - ./engine:/app
-      - ./engine/data:/app/data
+  #   volumes:
+  #     - ./engine:/app
+  #     - ./engine/data:/app/data
 
-    networks:
-      - app_network
+  #   networks:
+  #     - app_network
 
-    restart: unless-stopped
+  #   restart: unless-stopped
