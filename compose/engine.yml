@@ -9,7 +9,7 @@ services:
     working_dir: /app
     
     volumes:
-      - ./engine/data:/app/data
+      - ${PROJECT_ROOT}/engine/data:/app/data
 
     restart: unless-stopped
 
