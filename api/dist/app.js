@@ -1,5 +1,4 @@
 import express from "express";
-import itemRoutes from "./routes/itemRoutes.js";
 import dataRoutes from "./routes/dataRoutes.js";
 import engineRoutes from "./routes/engineRoutes.js";
 import infoRoutes from "./routes/infoRoutes.js";

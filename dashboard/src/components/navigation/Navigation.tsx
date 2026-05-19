@@ -1,11 +1,9 @@
 "use strict";
 import {
-    Tv,
     Database,
     Server,
     DownloadCloud,
     Monitor,
-    Container,
     SearchIcon,
     File,
     CloudDownload,

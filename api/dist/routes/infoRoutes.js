@@ -1,7 +1,6 @@
 import { Router } from 'express';
-import { dataUsage } from '../controllers/dataController.js';
+import { infoController } from '../controllers/infoController.js';
 const router = Router();
-router.get('server');
-router.get('/usage', dataUsage);
+router.get('server', infoController);
 export default router;
 //# sourceMappingURL=infoRoutes.js.map
