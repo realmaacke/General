@@ -1,0 +1,7 @@
+[Unit]
+Description=Process Docker Compose logs
+
+[Service]
+Type=oneshot
+User=devuser
+ExecStart=/usr/bin/python3 /home/devuser/dev/general/logs/logParser.py
