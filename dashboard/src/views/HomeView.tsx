@@ -1,6 +1,5 @@
 "use strict";
 
-import { useEffect, useState } from "react";
 import "../assets/base.css";
 import "../assets/dashboard.css";
 
@@ -9,44 +8,79 @@ import GeneralIcon from "../assets/General_icon.png";
 // NAVIGATION
 import Navigation from "../components/navigation/Navigation";
 
+import { Information } from "../components/information/Information";
+
+import { ArrowUp } from "lucide-react";
+
+const fakelogs = {
+    "Dashboard": [
+        "12:41:30 PM [vite] (client) hmr update /src/assets/dashboard.css (x4)",
+        "12:41:46 PM [vite] (client) hmr update /src/assets/dashboard.css (x5)",
+        "12:41:53 PM [vite] (client) hmr update /src/assets/dashboard.css (x6)",
+        "12:42:27 PM [vite] (client) hmr update /src/assets/dashboard.css (x7)",
+        "12:42:33 PM [vite] (client) hmr update /src/assets/dashboard.css (x8)",
+        "12:42:38 PM [vite] (client) hmr update /src/assets/dashboard.css (x9)",
+        "12:42:47 PM [vite] (client) hmr update /src/assets/dashboard.css (x10)",
+        "12:42:50 PM [vite] (client) hmr update /src/assets/dashboard.css (x11)",
+    ],
+    "Transmission": [
+        "2026-05-13 22:08:53 AEAD Decrypt error: bad packet ID (may be a replay)",
+        "2026-05-13 22:08:53 AEAD Decrypt error: bad packet ID (may be a replay)",
+        "2026-05-13 22:08:53 AEAD Decrypt error: bad packet ID (may be a replay)",
+        "2026-05-13 22:08:53 AEAD Decrypt error: bad packet ID (may be a replay)",
+        "2026-05-13 22:08:53 AEAD Decrypt error: bad packet ID (may be a replay)",
+    ]
+}
+
+interface usageBody {
+    cpu: cpu_interface,
+    disk: disk_interface[]
+}
+
+interface cpu_interface {
+    name: string,
+    cores: number,
+    clock: string,
+    usage: number
+}
+
+interface disk_interface {
+    partition: string,
+    clock: string,
+    size: string,
+    inUse: string
+}
+
+const fakeUsage: usageBody = {
+    cpu: {
+        name: "Intel core i-9 2450",
+        cores: 10,
+        clock: "10Ghz",
+        usage: 89
+    },
+    disk: [
+        {
+            partition: "/dev/sdb1",
+            clock: "7500rpm",
+            size: "1TB",
+            inUse: "500Gb"
+        } as disk_interface,
+        {
+            partition: "/dev/sdb2",
+            clock: "8500rpm",
+            size: "2TB",
+            inUse: "7650Gb"
+        } as disk_interface,
+        {
+            partition: "/dev/sdb3",
+            clock: "7500rpm",
+            size: "1TB",
+            inUse: "250Gb"
+        } as disk_interface,
+    ]
+}
 
 export default function HomeView() {
-    const [loading, setLoading] = useState<Boolean>(true);
-
-    useEffect(() => {
-        setLoading(false);
-
-        // const fetchData = async () => {
-        //     if (!loading) return;
-
-        //     // const gathered = await gatherData() || null;
-        //     // console.log(typeof gathered);
-
-        //     if (gathered) { 
-        //         setHasGathered(true); 
-        //         setData(gathered);
-        //     }
-
-        //     if (data) {
-        //         console.log(data?.folders.series)
-        //     }
-        // }
-        // fetchData();
-    })
-
-    if (loading) return <div>Loading…</div>;
-
-    // if (!data) return null;
-
-    // const totalGB = parseSizeGB(data.disk.total);
-    // const usedGB = parseSizeGB(data.disk.used);
-
-    // const ParsedData = [
-    //     { name: 'Movies', current: Number(data.folders.movies.replace(/\D/g, "")) || 0, max: totalGB },
-    //     { name: 'Series', current: Number(data.folders.series.replace(/\D/g, "")) || 0, max: totalGB },
-    //     { name: 'Media', current: Number(data.folders.media.replace(/\D/g, "")) || 0, max: totalGB },
-    //     { name: 'Total', current: usedGB, max: totalGB }
-    // ];
 
     return (
         <div className="two-split">
@@ -55,30 +89,47 @@ export default function HomeView() {
                     <img src={GeneralIcon} alt="General Icon" />
                 </div>
                 <Navigation />
-
             </aside>
+
             <main className="main home-main">
-                <div className="dashboard-two-split">
-                    <div className="dashboard-row">
-
-                        <div className="dashboard-col">
-
-                            <div className="usage-container">
-                                <h1>Disk usage (percentage of total)</h1>
-                            </div>
-
-
-                        </div>
-                        <div className="dashboard-col">
-                        </div>
+                <div className="home-information-container">
+                    <div className="home-information-header">
+                        <h1>Server statistics (hardcoded values for now)</h1>
                     </div>
+                    <div className="home-information-body">
 
-                    <div className="dashboard-row">
-                        <div className="dashboard-col span-all">
-                            <h1>Container activity</h1>
-                        </div>
+                        <Information
+                            {...fakeUsage}
+                        />
+
                     </div>
                 </div>
+
+                <div className="home-logs-container">
+                    <div className="home-logs-header">
+                        <h1>Container logs</h1>
+                    </div>
+
+                    <div className="home-logs-content">
+                        {Object.entries(fakelogs).map(([category, logs]) => (
+                            <div>
+                                <div key={category} className="home-logs-content-header">
+                                    <h2>{category}</h2>
+
+                                    <ArrowUp />
+
+                                </div>
+
+                                <div className="home-logs-content-body">
+                                    {logs.map((log, index) => (
+                                        <p key={index}>{log}</p>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
             </main>
         </div>
     );

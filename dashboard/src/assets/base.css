@@ -1,6 +1,7 @@
 @import "normalize.css";
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -14,7 +15,8 @@ html, body {
 
 .aside {
     width: 240px;
-    background-color: #0f172a; /* dark blue / slate */
+    background-color: #0f172a;
+    /* dark blue / slate */
     color: white;
     display: flex;
     flex-direction: column;
@@ -28,13 +30,27 @@ html, body {
 }
 
 .main {
-    flex: 1;                 /* fill remaining space */
+    flex: 1;
+    /* fill remaining space */
+    overflow: auto;
 }
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
 @media (max-width: 768px) {
     .two-split {
         display: flex;
         flex-direction: column;
     }
+
     .dashboard-logo-container img {
         display: none;
     }

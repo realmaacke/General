@@ -1,0 +1,19 @@
+.home-information-item {
+    border: 2px solid #1b2233;
+    padding: 1rem;
+    min-width: 250px;
+
+}
+
+.icon-span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-right: 10px;
+}
+
+.information-item-content {
+    font-size: 14px;
+    line-height: 0.5;
+}

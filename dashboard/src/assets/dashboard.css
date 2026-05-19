@@ -66,3 +66,61 @@
 .searchItemUrl {
     color: rgb(224, 224, 224);
 }
+
+.home-main {
+    background: #131928;
+    border-left: 1px solid #1b2233;
+    padding: 1rem;
+}
+
+.home-information-container {
+    background-color: #0f172a;
+    color: gray;
+}
+
+.home-information-header {
+    background-color: yellow;
+
+    font-size: 14px;
+    text-align: center;
+}
+
+.home-information-body {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.home-information-container {
+    background-color: #0f172a;
+    color: gray;
+}
+
+
+/* Home logs */
+.home-logs-container {
+    background-color: #0f172a;
+    color: gray;
+}
+
+.home-logs-header {
+    background-color: yellow;
+    font-size: 14px;
+    text-align: center;
+}
+
+.home-logs-content {}
+
+.home-logs-content-header {
+    border: 1px solid white;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.home-logs-content-body {
+    color: white;
+    background-color: black;
+}
