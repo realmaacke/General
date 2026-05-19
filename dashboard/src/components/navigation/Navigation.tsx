@@ -28,11 +28,11 @@ export default function Navigation({
                 </a>
             </li>
 
-            <li>
+            {/* <li>
                 <a href="https://tv.petterssonhome.se">
                     <Tv /><span>TV</span>
                 </a>
-            </li>
+            </li> */}
             <li>
                 <a href="https://db.petterssonhome.se">
                     <Database /><span>Database (SSH Tunnel needed)</span>
@@ -54,7 +54,7 @@ export default function Navigation({
                     <Monitor /><span>Grafana</span>
                 </a>
             </li>
-            <li>
+            {/* <li>
                 <a href="https://docker.petterssonhome.se">
                     <Container /><span>Portainer</span>
                 </a>
@@ -63,7 +63,7 @@ export default function Navigation({
                 <a href="https://sonarqube.petterssonhome.se">
                     <SearchIcon /><span>SonarQube</span>
                 </a>
-            </li>
+            </li> */}
             <li className="navigation-title"><p>Streaming</p></li>
             <li>
                 <a href="https://torrent.petterssonhome.se">
@@ -85,6 +85,11 @@ export default function Navigation({
             <li>
                 <a href="https://github.com/realmaacke/General">
                     <Github /> <span>Github</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/realmaacke/IaC-server">
+                    <Github /> <span>IAC-deployment</span>
                 </a>
             </li>
 

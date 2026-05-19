@@ -31,6 +31,14 @@ const fakelogs = {
         "2026-05-13 22:08:53 AEAD Decrypt error: bad packet ID (may be a replay)",
         "2026-05-13 22:08:53 AEAD Decrypt error: bad packet ID (may be a replay)",
         "2026-05-13 22:08:53 AEAD Decrypt error: bad packet ID (may be a replay)",
+    ],
+    "Nginx": [
+        'nginx | 66.132.195.54 - -[03 / May / 2026: 13: 58: 47 +0000] "GET /./favicon.ico HTTP/1.1" 301 47 "-" "Mozilla/5.0 (compatible; CensysInspect/1.1; +https://about.censys.io/)',
+        'nginx | 66.132.195.54 - -[03 / May / 2026: 13: 58: 53 +0000] "GET /favicon.ico HTTP/1.1" 200 15086 "-" "Mozilla/5.0 (compatible; CensysInspect/1.1; +https://about.censys.io/)',
+        'nginx | 66.132.195.54 - -[03 / May / 2026: 13: 59: 23 +0000] "GET /api/v1/targets HTTP/1.1" 200 529 "-" "Mozilla/5.0 (compatible; CensysInspect/1.1; +https://about.censys.io/)',
+        'nginx | 66.132.195.54 - -[03 / May / 2026: 13: 59: 25 +0000] "GET /api/v1/label/version/values HTTP/1.1" 200 149 "-" "Mozilla/5.0 (compatible; CensysInspect/1.1; +https://about.censys.io/)',
+        'nginx | 66.132.195.54 - -[03 / May / 2026: 13: 59: 27 +0000] "GET /api/v1/label/goversion/values HTTP/1.1" 200 76 "-" "Mozilla/5.0 (compatible; CensysInspect/1.1; +https://about.censys.io/)',
+        'nginx | 66.132.195.54 - -[03 / May / 2026: 13: 59: 27 +0000] "GET /api/v1/query?query=prometheus_build_info HTTP/1.1" 200 240 "-" "Mozilla/5.0 (compatible; CensysInspect/1.1; +https://about.censys.io/)',
     ]
 }
 

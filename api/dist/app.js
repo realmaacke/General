@@ -2,6 +2,7 @@ import express from "express";
 import itemRoutes from "./routes/itemRoutes.js";
 import dataRoutes from "./routes/dataRoutes.js";
 import engineRoutes from "./routes/engineRoutes.js";
+import infoRoutes from "./routes/infoRoutes.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import cors from "cors";
 const app = express();
@@ -14,6 +15,7 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
 app.use(express.json());
+app.use('/telementry', infoRoutes);
 app.use('/data', dataRoutes);
 app.use('/engine', engineRoutes);
 app.get('/', async (req, res) => {

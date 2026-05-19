@@ -116,7 +116,7 @@
     border: 1px solid white;
     padding-left: 1rem;
     padding-right: 1rem;
-
+    color: white;
     line-height: 0;
 
     display: flex;
@@ -124,11 +124,16 @@
     justify-content: space-between;
 }
 
+.home-logs-content-header>h2 {
+    color: white;
+}
+
 .home-logs-content-body {
     color: white;
     background-color: #1b2233;
 
     padding: .1rem;
+    margin-bottom: 10px;
 }
 
 .home-logs-content-body>p {
