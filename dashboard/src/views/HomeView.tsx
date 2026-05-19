@@ -10,7 +10,9 @@ import Navigation from "../components/navigation/Navigation";
 
 import { Information } from "../components/information/Information";
 
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, ArrowDown } from "lucide-react";
+
+import { useState } from "react";
 
 const fakelogs = {
     "Dashboard": [
@@ -82,6 +84,15 @@ const fakeUsage: usageBody = {
 
 export default function HomeView() {
 
+    const [openLogs, setOpenLogs] = useState<Record<string, boolean>>({});
+
+    const toggleLogs = (category: string) => {
+        setOpenLogs(prev => ({
+            ...prev,
+            [category]: !(prev[category] ?? true)
+        }));
+    };
+
     return (
         <div className="two-split">
             <aside className="aside home-aside">
@@ -111,22 +122,41 @@ export default function HomeView() {
                     </div>
 
                     <div className="home-logs-content">
-                        {Object.entries(fakelogs).map(([category, logs]) => (
-                            <div>
-                                <div key={category} className="home-logs-content-header">
-                                    <h2>{category}</h2>
 
-                                    <ArrowUp />
+                        {Object.entries(fakelogs).map(([category, logs]) => {
+                            const isOpen = openLogs[category] ?? true;
 
+                            return (
+                                <div key={category} id={category} className="home-logs-content-item">
+                                    <div className="home-logs-content-header">
+                                        <h2>{category}</h2>
+
+                                        {isOpen ? (
+                                            <ArrowUp
+                                                className="logs-arrow-up"
+                                                onClick={() => toggleLogs(category)}
+                                            />
+                                        ) : (
+                                            <ArrowDown
+                                                className="logs-arrow-up"
+                                                onClick={() => toggleLogs(category)}
+                                            />
+                                        )}
+                                    </div>
+
+                                    <div
+                                        className="home-logs-content-body"
+                                        style={{ display: isOpen ? "block" : "none" }}
+                                    >
+                                        {logs.map((log, index) => (
+                                            <p key={index}>{log}</p>
+                                        ))}
+                                    </div>
                                 </div>
+                            );
+                        })}
 
-                                <div className="home-logs-content-body">
-                                    {logs.map((log, index) => (
-                                        <p key={index}>{log}</p>
-                                    ))}
-                                </div>
-                            </div>
-                        ))}
+
                     </div>
                 </div>
 
