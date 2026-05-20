@@ -112,7 +112,7 @@ export default function HomeView() {
             <main className="main home-main">
                 <div className="home-information-container">
                     <div className="home-information-header">
-                        <h1>Server statistics (hardcoded values for now)</h1>
+                        <h1>Server statistics</h1>
                     </div>
                     <div className="home-information-body">
 
