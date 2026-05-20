@@ -131,6 +131,10 @@ export default function HomeView() {
                     <div className="home-services-header">
                         <h1>Services</h1>
                     </div>
+
+                    <div className="home-services-content">
+                            <p>Put services here</p>
+                    </div>
                 </div>
 
                 <div className="home-logs-container">
