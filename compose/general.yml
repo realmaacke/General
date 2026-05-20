@@ -55,8 +55,12 @@ services:
       - ${PROJECT_ROOT}/engine/data:/usr/src/app/data
       - ${START}/media/usage.json:/usr/src/app/usage.json
 
+      # IMPORTANT: system D-Bus socket (used for systemd)
+      - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket
+
     environment:
       - NODE_ENV=development
+      - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/run/dbus/system_bus_socket
     ports:
       - "${API_PORT:-8086}:8086" # Expose to host for testing
     networks:
