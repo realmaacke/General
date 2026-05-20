@@ -16,6 +16,8 @@ import { useEffect, useState } from "react";
 
 import {gatherData} from "../models/data";
 
+import { io } from "socket.io-client";
+
 const fakelogs = {
     "Dashboard": [
         "12:41:30 PM [vite] (client) hmr update /src/assets/dashboard.css (x4)",
@@ -79,6 +81,10 @@ export default function HomeView() {
     const [usage, setUsage] = useState<usageBody | null>(null);
     const [loading, setLoading] = useState(true);
 
+    const socket = io("/api:8086", {
+        transports: ["websocket"], // forces clean WS mode
+    });
+
     const toggleLogs = (category: string) => {
         setOpenLogs(prev => ({
             ...prev,
@@ -98,6 +104,14 @@ export default function HomeView() {
         };
 
         gather();
+
+        socket.on("connect", () => {
+            console.log("connected:", socket.id);
+        });
+
+        socket.on("connected", (data) => {
+            console.log("server ack:", data);
+        });
     }, []);
 
     return (

@@ -1,10 +1,11 @@
 import express from "express";
+import cors from "cors";
+
+import { errorHandler } from "./middlewares/errorHandler.js";
+
 import dataRoutes from "./routes/dataRoutes.js";
 import engineRoutes from "./routes/engineRoutes.js";
 import infoRoutes from "./routes/infoRoutes.js";
-
-import { errorHandler } from "./middlewares/errorHandler.js";
-import cors from "cors";
 
 const app = express();
 
@@ -20,7 +21,6 @@ app.use(cors({
 app.use(express.json());
 
 app.use('/telemetry', infoRoutes);
-
 app.use('/data', dataRoutes);
 app.use('/engine', engineRoutes);
 

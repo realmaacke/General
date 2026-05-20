@@ -1,9 +1,32 @@
+import http from "http";
+import { Server } from "socket.io";
+
 import app from './app.js';
-import config from './configs/config.js';
 
-const port = process.env.port || 8086;
-// const port = 8086;
+const port = Number(process.env.PORT) || 8086;
 
-app.listen(8086, '0.0.0.0', () => {
-  console.log(`Server running on port: ${port}`);
+const server = http.createServer(app);
+
+
+const io = new Server(server, {
+  cors: {
+    origin: [
+      "https://petterssonhome.se",
+      "https://www.petterssonhome.se"
+    ],
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("client connected:", socket.id);
+
+  socket.emit("connected", { ok: true });
+
+  socket.on("disconnect", () => {
+    console.log("client disconnected:", socket.id);
+  });
+});
+
+server.listen(port, '0.0.0.0', () => {
+  console.log(`Server + Socket.IO running on port: ${port}`);
 });
