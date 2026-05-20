@@ -44,7 +44,7 @@ function isUsageBody(data: unknown): data is usageBody {
 }
 
 export async function gatherData(): Promise<usageBody> {
-    const res = await fetch(`${BASEURL}/data/usage`);
+    const res = await fetch(`${BASEURL}/telementry/server`);
 
     if (!res.ok) {
         throw new Error(`API error: ${res.status}`);
