@@ -26,7 +26,11 @@ app.use('/engine', engineRoutes);
 
 app.get('/', async (req, res) => {
     res.status(200).json({
-        routes: ["/data/usage", "/engine (might take a few tries)"]
+        routes: [
+		"/data/usage",
+		"/engine (might take a few tries)",
+		"/telementry/server"
+	]
     });
 });
 
