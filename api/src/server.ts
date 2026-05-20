@@ -7,7 +7,7 @@ const PORT = Number(process.env.PORT) || 8086;
 const server = http.createServer(app);
 
 export const io = new SocketIOServer(server, {
-  path: "/api/socket",
+  path: "/socket",
   cors: {
     origin: ["*"],
     methods: ["GET", "POST"],
