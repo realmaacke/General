@@ -1,5 +1,5 @@
 "use strict";
-const BASEURL = "https://api.petterssonhome.se";
+const BASEURL = "http://api:8086";
 
 interface usageBody {
     cpu: cpu_interface,
