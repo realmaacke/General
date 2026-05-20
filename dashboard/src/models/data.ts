@@ -43,7 +43,7 @@ function isUsageBody(data: unknown): data is usageBody {
 }
 
 export async function gatherData(): Promise<usageBody> {
-    const res = await fetch(`/api/telemetry/server`);
+    const res = await fetch(`/api/telementry/server`);
 
     if (!res.ok) {
         throw new Error(`API error: ${res.status}`);
