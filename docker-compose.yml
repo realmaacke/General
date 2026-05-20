@@ -17,7 +17,7 @@ include:
   - compose/general.yml
   - compose/monitoring.yml
   - compose/media.yml
-  - compose/services.yml
+  # - compose/services.yml
   #- compose/engine.yml
 
 services:

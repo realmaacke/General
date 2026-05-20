@@ -1,19 +1,19 @@
 services:
 
-  portainer:
-    image: portainer/portainer-ce:latest
-    container_name: portainer
-    command:
-      - --trusted-origins=docker.petterssonhome.se
-    ports:
-      - "${PORTTRAINER:-9101}:9101"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
-    restart: unless-stopped
-    networks:
-      - app_network
-
+  # portainer:
+  #   image: portainer/portainer-ce:latest
+  #   container_name: portainer
+  #   command:
+  #     - --trusted-origins=docker.petterssonhome.se
+  #   ports:
+  #     - "${PORTTRAINER:-9101}:9101"
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - portainer_data:/data
+  #   restart: unless-stopped
+  #   networks:
+  #     - app_network
+  #
 
   node-exporter:
     image: prom/node-exporter:v1.2.2

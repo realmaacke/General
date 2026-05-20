@@ -1,18 +1,18 @@
 services:
-  filebrowser:
-    image: filebrowser/filebrowser:latest
-    container_name: filebrowser
-    ports:
-      - "8080:80"
-
-    volumes:
-      - ${START}/media:/srv
-      - filebrowser_data:/database
-      - filebrowser_config:/config
-    restart: unless-stopped
-    networks:
-      - app_network
-
+  # filebrowser:
+  #   image: filebrowser/filebrowser:latest
+  #   container_name: filebrowser
+  #   ports:
+  #     - "8080:80"
+  #
+  #   volumes:
+  #     - ${START}/media:/srv
+  #     - filebrowser_data:/database
+  #     - filebrowser_config:/config
+  #   restart: unless-stopped
+  #   networks:
+  #     - app_network
+  #
 
   jackett:
     image: linuxserver/jackett
