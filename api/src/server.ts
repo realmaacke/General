@@ -2,6 +2,9 @@ import http from "http";
 import { Server as SocketIOServer } from "socket.io";
 import app from './app.js';
 
+import si, { cpu } from "systeminformation";
+
+
 const PORT = Number(process.env.PORT) || 8086;
 
 const server = http.createServer(app);
@@ -21,6 +24,47 @@ io.on("connection", (socket) => {
   socket.emit("message", {
     text: "Connected to server",
   });
+
+  const emitMetrics = async () => {
+    try {
+      const [cpu, mem, fs] = await Promise.all([
+        si.currentLoad(),
+        si.mem(),
+        si.fsSize(),
+      ]);
+
+      socket.emit("metrics", {
+        cpu: {
+          usage: cpu.currentLoad, // %
+        },
+        memory: {
+          total: mem.total,
+          used: mem.used,
+          free: mem.free,
+          usage: (mem.used / mem.total) * 100,
+        },
+        disks: fs.map((disk) => ({
+          filesystem: disk.fs,
+          mount: disk.mount,
+          size: disk.size,
+          used: disk.used,
+          available: disk.available,
+          usage: disk.use, // %
+        })),
+        timestamp: Date.now(),
+      });
+    } catch (error) {
+      console.error("Failed to collect metrics:", error);
+    }
+  };
+
+  // Send immediately
+  void emitMetrics();
+
+  // Send every second
+  const interval = setInterval(() => {
+    void emitMetrics();
+  }, 1000);
 
   socket.on("disconnect", () => {
     console.log(`Client disconnected: ${socket.id}`);
