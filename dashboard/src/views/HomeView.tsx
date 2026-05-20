@@ -12,7 +12,9 @@ import { Information } from "../components/information/Information";
 
 import { ArrowUp, ArrowDown } from "lucide-react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import {gatherData} from "../models/data";
 
 const fakelogs = {
     "Dashboard": [
@@ -61,38 +63,11 @@ interface disk_interface {
     inUse: string
 }
 
-const fakeUsage: usageBody = {
-    cpu: {
-        name: "Intel core i-9 2450",
-        cores: 10,
-        clock: "10Ghz",
-        usage: 89
-    },
-    disk: [
-        {
-            partition: "/dev/sdb1",
-            clock: "7500rpm",
-            size: "1TB",
-            inUse: "500Gb"
-        } as disk_interface,
-        {
-            partition: "/dev/sdb2",
-            clock: "8500rpm",
-            size: "2TB",
-            inUse: "7650Gb"
-        } as disk_interface,
-        {
-            partition: "/dev/sdb3",
-            clock: "7500rpm",
-            size: "1TB",
-            inUse: "250Gb"
-        } as disk_interface,
-    ]
-}
-
 export default function HomeView() {
 
     const [openLogs, setOpenLogs] = useState<Record<string, boolean>>({});
+    const [usage, setUsage] = useState<usageBody | null>(null);
+    const [loading, setLoading] = useState(true);
 
     const toggleLogs = (category: string) => {
         setOpenLogs(prev => ({
@@ -100,6 +75,17 @@ export default function HomeView() {
             [category]: !(prev[category] ?? true)
         }));
     };
+
+
+    useEffect(() => {
+        const gather = async () => {
+            const result = await gatherData();
+            setUsage(result);
+            setLoading(false);
+        };
+
+        gather();
+    }, []);
 
     return (
         <div className="two-split">
@@ -117,9 +103,13 @@ export default function HomeView() {
                     </div>
                     <div className="home-information-body">
 
-                        <Information
-                            {...fakeUsage}
-                        />
+                    {loading ? (
+                        <p>Loading...</p>
+                    ) : usage ? (
+                        <Information {...usage} />
+                    ) : (
+                        <p>Failed to load data</p>
+                    )}
 
                     </div>
                 </div>
