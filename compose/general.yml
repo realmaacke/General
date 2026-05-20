@@ -54,13 +54,8 @@ services:
       - /usr/src/app/node_modules # Prevent host overwrite
       - ${PROJECT_ROOT}/engine/data:/usr/src/app/data
       - ${START}/media/usage.json:/usr/src/app/usage.json
-
-      # IMPORTANT: system D-Bus socket (used for systemd)
-      - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket
-
     environment:
       - NODE_ENV=development
-      - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/run/dbus/system_bus_socket
     ports:
       - "${API_PORT:-8086}:8086" # Expose to host for testing
     networks:
@@ -83,24 +78,6 @@ services:
       - "5173:5173" # Local dev port
     networks:
       - app_network
-
-  # TV
-  # tv:
-  #   container_name: tv
-  #   build:
-  #     context: ${PROJECT_ROOT}/tv
-  #     dockerfile: Dockerfile
-  #   restart: always
-  #   volumes:
-  #     - ${PROJECT_ROOT}/tv:/usr/src/app
-  #     - /usr/src/app/node_modules
-  #   environment:
-  #     - NODE_ENV=development
-  #     - VITE_PORT=9092
-  #   expose:
-  #     - "9092"
-  #   networks:
-  #     - app_network
 
   # CDN
   cdn:
