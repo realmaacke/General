@@ -92,6 +92,8 @@ export default function HomeView() {
     useEffect(() => {
         const unsubscribe = subscribeToMetrics(setMetrics);
         return unsubscribe;
+
+        console.log(metrics);
     }, []);
 
     useEffect(() => {
