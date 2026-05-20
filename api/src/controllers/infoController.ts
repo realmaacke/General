@@ -1,7 +1,6 @@
 "use strict";
-import { type Request, type Response, type NextFunction } from "express";
+import { type Request, type Response } from "express";
 import si from "systeminformation";
-
 
 export const infoController = async (req: Request<any>, res: Response) => {
     try {
@@ -9,7 +8,7 @@ export const infoController = async (req: Request<any>, res: Response) => {
         const load = await si.currentLoad();
         const disks = await si.fsSize();
 
-        res.json({
+        res.status(200).json({
             cpu: {
                 name: cpu.brand,
                 cores: cpu.cores,

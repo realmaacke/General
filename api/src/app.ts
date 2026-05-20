@@ -19,7 +19,7 @@ app.use(cors({
 
 app.use(express.json());
 
-app.use('/telementry', infoRoutes);
+app.use('/telemetry', infoRoutes);
 
 app.use('/data', dataRoutes);
 app.use('/engine', engineRoutes);
@@ -29,7 +29,7 @@ app.get('/', async (req, res) => {
         routes: [
 		"/data/usage",
 		"/engine (might take a few tries)",
-		"/telementry/server"
+		"/telemetry/server"
 	]
     });
 });
