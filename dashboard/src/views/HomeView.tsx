@@ -14,7 +14,8 @@ import { ArrowUp, ArrowDown } from "lucide-react";
 
 import { useEffect, useState } from "react";
 
-import {gatherData} from "../models/data";
+import {gatherData, subscribeToMetrics} from "../models/data";
+import type { Metrics } from "../types/metrics";
 
 const fakelogs = {
     "Dashboard": [
@@ -79,6 +80,8 @@ export default function HomeView() {
     const [usage, setUsage] = useState<usageBody | null>(null);
     const [loading, setLoading] = useState(true);
 
+    const [metrics, setMetrics] = useState<Metrics | null>(null);
+
     const toggleLogs = (category: string) => {
         setOpenLogs(prev => ({
             ...prev,
@@ -86,6 +89,10 @@ export default function HomeView() {
         }));
     };
 
+    useEffect(() => {
+        const unsubscribe = subscribeToMetrics(setMetrics);
+        return unsubscribe;
+    }, []);
 
     useEffect(() => {
         const gather = async () => {
@@ -99,6 +106,10 @@ export default function HomeView() {
 
         gather();
     }, []);
+
+    if (!metrics) {
+        return <p>Waiting for metrics...</p>;
+    }
 
     return (
         <div className="two-split">
@@ -129,11 +140,16 @@ export default function HomeView() {
 
                 <div className="home-services-container">
                     <div className="home-services-header">
-                        <h1>Services</h1>
+                        <h1>Usage</h1>
                     </div>
 
                     <div className="home-services-content">
-                            <p>Put services here</p>
+                            <p>Real time data</p>
+
+                            <div>
+                                <p>CPU: {metrics.cpu.usage.toFixed(1)}%</p>
+                                <p>Memory: {metrics.memory.usage.toFixed(1)}%</p>
+                            </div>
                     </div>
                 </div>
 

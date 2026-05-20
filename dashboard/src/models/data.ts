@@ -57,3 +57,20 @@ export async function gatherData(): Promise<usageBody> {
 
     return data;
 }
+
+import { socket } from "../socket";
+import type { Metrics } from "../types/metrics";
+
+export function subscribeToMetrics(
+    callback: (metrics: Metrics) => void,
+): () => void {
+    const handler = (data: Metrics) => {
+        callback(data);
+    };
+
+    socket.on("metrics", handler);
+
+    return () => {
+        socket.off("metrics", handler);
+    };
+}
