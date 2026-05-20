@@ -143,3 +143,15 @@
 .logs-arrow-up {
     cursor: pointer;
 }
+
+/* Home services */
+.home-services-container {
+    background-color: #0f172a;
+    color: gray;
+}
+
+.home-services-header {
+    background-color: yellow;
+    font-size: 14px;
+    text-align: center;
+}

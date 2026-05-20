@@ -58,7 +58,6 @@ export function Information(parameter: usageBody) {
                             <p>PARTITION: {item.partition}</p>
                             <p>CLOCK: {item.clock}</p>
                             <p>SIZE: {item.size}</p>
-                            <p>CURRENT: {item.inUse}</p>
                             <p>REMAINING: {parseGB(item.size) - parseGB(item.inUse)}GB</p>
                         </div>
                     </div>
