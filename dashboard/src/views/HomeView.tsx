@@ -63,6 +63,16 @@ interface disk_interface {
     inUse: string
 }
 
+function dedupeDisks(disks: disk_interface[]): disk_interface[] {
+    const seen = new Set<string>();
+
+    return disks.filter(disk => {
+        if (seen.has(disk.partition)) return false;
+        seen.add(disk.partition);
+        return true;
+    });
+}
+
 export default function HomeView() {
 
     const [openLogs, setOpenLogs] = useState<Record<string, boolean>>({});
@@ -80,7 +90,10 @@ export default function HomeView() {
     useEffect(() => {
         const gather = async () => {
             const result = await gatherData();
-            setUsage(result);
+            setUsage({
+                ...result,
+                disk: dedupeDisks(result.disk)
+            });
             setLoading(false);
         };
 
