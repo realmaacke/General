@@ -24,6 +24,9 @@ interface disk_interface {
 
 
 export function Information(parameter: usageBody) {
+
+    const parseGB = (value: string) => Number(value.replace(/[^0-9.]/g, ""));
+
     return (
         <>
             <div className="home-information-item">
@@ -56,8 +59,8 @@ export function Information(parameter: usageBody) {
                             <p>CLOCK: {item.clock}</p>
                             <p>SIZE: {item.size}</p>
                             <p>CURRENT: {item.inUse}</p>
+                            <p>REMAINING: {parseGB(item.size) - parseGB(item.inUse)}GB</p>
                         </div>
-
                     </div>
                 </div>
 
