@@ -1,5 +1,4 @@
 "use strict";
-const BASEURL = "http://api:8086";
 
 interface usageBody {
     cpu: cpu_interface,
@@ -44,7 +43,7 @@ function isUsageBody(data: unknown): data is usageBody {
 }
 
 export async function gatherData(): Promise<usageBody> {
-    const res = await fetch(`${BASEURL}/telementry/server`);
+    const res = await fetch(`/api/telemetry/server`);
 
     if (!res.ok) {
         throw new Error(`API error: ${res.status}`);
