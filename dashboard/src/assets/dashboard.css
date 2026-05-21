@@ -122,6 +122,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    cursor: pointer;
 }
 
 .home-logs-content-header>h2 {
@@ -164,4 +166,12 @@
 
     padding: .1rem;
     margin-bottom: 10px;
+}
+
+
+
+@media (max-width: 1320px) {
+    .home-information-body {
+        display: block;
+    }
 }

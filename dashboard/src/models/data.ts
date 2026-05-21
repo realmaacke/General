@@ -43,6 +43,7 @@ function isUsageBody(data: unknown): data is usageBody {
 }
 
 export async function gatherData(): Promise<usageBody> {
+    // const res = await fetch(`https://petterssonhome.se/api/telemetry/server`);
     const res = await fetch(`/api/telemetry/server`);
 
     if (!res.ok) {

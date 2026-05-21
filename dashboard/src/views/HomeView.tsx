@@ -93,7 +93,6 @@ export default function HomeView() {
         const unsubscribe = subscribeToMetrics(setMetrics);
         return unsubscribe;
 
-        console.log(metrics);
     }, []);
 
     useEffect(() => {
@@ -167,7 +166,7 @@ export default function HomeView() {
 
                             return (
                                 <div key={category} id={category} className="home-logs-content-item">
-                                    <div className="home-logs-content-header">
+                                    <div className="home-logs-content-header" onClick={() => toggleLogs(category)}>
                                         <h2>{category}</h2>
 
                                         {isOpen ? (
