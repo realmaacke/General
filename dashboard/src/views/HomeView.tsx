@@ -7,8 +7,10 @@ import GeneralIcon from "../assets/General_icon.png";
 
 // NAVIGATION
 import Navigation from "../components/navigation/Navigation";
+import Loading from "../components/loading/Loading";
 
 import { Information } from "../components/information/Information";
+
 
 import { ArrowUp, ArrowDown } from "lucide-react";
 
@@ -106,10 +108,11 @@ export default function HomeView() {
         };
 
         gather();
+
     }, []);
 
-    if (!metrics) {
-        return <p>Waiting for metrics...</p>;
+    if (loading || !metrics) {
+        return <Loading/>;
     }
 
     return (
