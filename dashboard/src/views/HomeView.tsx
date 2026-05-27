@@ -111,7 +111,7 @@ export default function HomeView() {
 
     }, []);
 
-    if (loading || !metrics) {
+    if (!metrics) {
         return <Loading/>;
     }
 
