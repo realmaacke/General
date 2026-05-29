@@ -23,7 +23,6 @@ networks:
 include:
   # - compose_files/compose_media.yml
   - compose_files/compose_general.yml
-
 services:
   traefik:
     image: traefik:v3.0
@@ -32,24 +31,20 @@ services:
       - --api.dashboard=true
 
       - --providers.docker=true
+      - --providers.docker.endpoint=unix:///var/run/docker.sock
       - --providers.docker.exposedbydefault=false
 
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
 
       - --certificatesresolvers.le.acme.email=you@email.com
-      - --certificatesresolvers.le.acme.storage=/letsencrypt/acme.json
+      - --certificatesresolvers.le.acme.storage=/traefik/letsencrypt/acme.json
       - --certificatesresolvers.le.acme.httpchallenge=true
       - --certificatesresolvers.le.acme.httpchallenge.entrypoint=web
-
-    ports:
-      - "80:80"
-      - "443:443"
 
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik/letsencrypt:/letsencrypt
-
 
   # Reverse proxy
   # nginx:
