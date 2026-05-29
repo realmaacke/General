@@ -42,9 +42,23 @@ services:
       - --certificatesresolvers.le.acme.httpchallenge=true
       - --certificatesresolvers.le.acme.httpchallenge.entrypoint=web
 
+    labels:
+      - traefik.enable=true
+
+      - traefik.http.routers.traefik.rule=Host(`traefik.domain.se`)
+      - traefik.http.routers.traefik.entrypoints=websecure
+      - traefik.http.routers.traefik.tls.certresolver=le
+
+      - traefik.http.routers.traefik.service=api@internal
+
+
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik/letsencrypt:/letsencrypt
+    
+    ports:
+      - "80:80"
+      - "443:443"
   # Reverse proxy
   # nginx:
   #   build:
