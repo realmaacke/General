@@ -32,7 +32,6 @@ services:
 
       - --providers.docker=true
       - --providers.docker.endpoint=unix:///var/run/docker.sock
-      - --providers.docker.apiVersion=1.44
       - --providers.docker.exposedbydefault=false
 
       - --entrypoints.web.address=:80
