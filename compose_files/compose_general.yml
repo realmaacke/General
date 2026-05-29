@@ -1,0 +1,14 @@
+services:
+  api:
+    container_name: api
+    build:
+      context: ${PROJECT_ROOT}/api
+      dockerfile: Dockerfile
+    environment:
+      # prod to push to server
+      - APP_ENV=development
+    networks:
+      - net_general
+      - net_database
+    ports:
+      - "${API_PORT:-8086}:8086"

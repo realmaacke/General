@@ -9,5 +9,6 @@ RUN npm install
 COPY . .
 
 EXPOSE 8086
+ENV NODE_ENV=production
 
 CMD ["npm", "run", "start"]

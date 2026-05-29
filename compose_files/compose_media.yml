@@ -1,0 +1,103 @@
+services:
+  # Jackett is used to capture Torznabs
+  jackett:
+    image: linuxserver/jackett
+    container_name: jackett
+    env_file:
+      - ${PROJECT_ROOT}/media_config/jackett/jackett.env
+    volumes:
+        - ${PROJECT_ROOT}/media_config/jackett:/config
+    ports:
+        - "${JACKETT_PORT:-9117}:9117"
+    restart: unless-stopped
+    networks:
+      - net_media
+
+  # Transmission is torrent client
+  transmission:
+    image: haugene/transmission-openvpn:5.3
+    container_name: transmission
+    privileged: true
+    env_file:
+      - ${PROJECT_ROOT}/media_config/transmission/transmission.env
+    volumes:
+        - ${START}/media:/media
+        - ${START}/media/download:/downloads
+        - ${PROJECT_ROOT}/media_config/transmission:/config
+    cap_add:
+        - NET_ADMIN
+    networks:
+      - net_media
+    ports:
+        - "${TRANSMISSION_PORT:-7978}:9091"
+    restart: unless-stopped
+
+  # Plex service
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    env_file:
+      - ${PROJECT_ROOT}/media_config/plex/plex.env
+    volumes:
+      - plex-config:/config
+      - ${START}/media:/media
+    ports:
+      - "${PLEX_PORT:-32400}:32400"
+    networks:
+      - net_media
+    restart: unless-stopped
+
+  # Sonarr is series management.
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    env_file:
+      - ${PROJECT_ROOT}/media_config/sonarr/sonarr.env
+    volumes:
+        - ${PROJECT_ROOT}/media_config/sonarr:/config
+        - ${START}/media:/media
+        - ${START}/media/download:/downloads
+    ports:
+        - "${SONARR_PORT:-8989}:8989"
+    depends_on:
+        - jackett
+        - transmission
+    networks:
+      - net_media
+    restart: unless-stopped
+
+  # Movie management.
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    hostname: radarr
+    env_file:
+      - ${PROJECT_ROOT}/media_config/radarr/radarr.env
+    volumes:
+        - ${PROJECT_ROOT}/media_config/radarr:/config
+        - ${START}/media:/media
+        - ${START}/media/download:/downloads
+    ports:
+        - "${RADARR_PORT:-7878}:7878"
+    depends_on:
+        - jackett
+        - transmission
+    networks:
+      - net_media
+    restart: unless-stopped
+
+  # Media GUI
+  overseerr:
+    image: sctx/overseerr:latest
+    container_name: overseerr
+    env_file:
+      - ${PROJECT_ROOT}/media_config/overseerr/overseerr.env
+    ports:
+      - "${OVERSEER_PORT:-5055}:5055"
+    volumes:
+      - ${PROJECT_ROOT}/media_config/overseerr:/app/config
+      - ${START}/media:/media
+    networks:
+      - net_media
+    restart: unless-stopped
+

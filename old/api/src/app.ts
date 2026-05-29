@@ -6,7 +6,6 @@ import dataRoutes from "./routes/dataRoutes.js";
 import engineRoutes from "./routes/engineRoutes.js";
 import infoRoutes from "./routes/infoRoutes.js";
 
-console.log(`APP ENVIRONMENT: ${process.env.APP_ENV}`);
 
 const app = express();
 
