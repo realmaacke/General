@@ -1,0 +1,177 @@
+.dashboard-two-split {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+    gap: 1rem;
+
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.dashboard-two-split .dashboard-row {
+    width: 100%;
+    flex: 1;
+
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.dashboard-col {
+    background-color: #eeeded;
+    flex: 1;
+    height: 100%;
+
+    -webkit-box-shadow: -1px 5px 11px -7px rgba(0, 0, 0, 0.76);
+    box-shadow: -1px 5px 11px -7px rgba(0, 0, 0, 0.76);
+}
+
+.span-all {
+    flex: 1 1 100%;
+}
+
+
+.dashboard-logo-container {
+    max-width: 100%;
+    padding: 1rem;
+}
+
+.dashboard-logo-container img {
+    width: 100%;
+    height: 100%;
+}
+
+.usage-container {
+    font-family: system-ui, sans-serif;
+}
+
+.usage-container h1 {
+    text-align: center;
+}
+
+
+.usage-container {
+    width: 100%;
+    height: 100%;
+}
+
+.usage-container>div {
+    width: 100%;
+    height: 100%;
+}
+
+.searchItemUrl {
+    color: rgb(224, 224, 224);
+}
+
+.home-main {
+    background: #131928;
+    border-left: 1px solid #1b2233;
+    padding: 1rem;
+}
+
+.home-information-container {
+    background-color: #0f172a;
+    color: gray;
+}
+
+.home-information-header {
+    background-color: yellow;
+
+    font-size: 14px;
+    text-align: center;
+}
+
+.home-information-body {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.home-information-container {
+    background-color: #0f172a;
+    color: gray;
+}
+
+
+/* Home logs */
+.home-logs-container {
+    background-color: #0f172a;
+    color: gray;
+}
+
+.home-logs-header {
+    background-color: yellow;
+    font-size: 14px;
+    text-align: center;
+}
+
+.home-logs-content-item {
+    padding: .1rem;
+}
+
+.home-logs-content-header {
+    border: 1px solid white;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    color: white;
+    line-height: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    cursor: pointer;
+}
+
+.home-logs-content-header>h2 {
+    color: white;
+}
+
+.home-logs-content-body {
+    color: white;
+    background-color: #1b2233;
+
+    padding: .1rem;
+    margin-bottom: 10px;
+}
+
+.home-logs-content-body>p {
+    margin-left: 10px;
+}
+
+.logs-arrow-up {
+    cursor: pointer;
+}
+
+/* Home services */
+.home-services-container {
+    background-color: #0f172a;
+    color: gray;
+}
+
+.home-services-header {
+    background-color: yellow;
+    font-size: 14px;
+    text-align: center;
+}
+
+.home-services-content {
+    min-height: 200px;
+
+    color: white;
+    background-color: #1b2233;
+
+    padding: .1rem;
+    margin-bottom: 10px;
+}
+
+
+
+@media (max-width: 1320px) {
+    .home-information-body {
+        display: block;
+    }
+}

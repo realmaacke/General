@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Block development/internal paths
+Disallow: /@vite
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /.env
+
+# Sitemap
+Sitemap: https://petterssonhome.se/sitemap.xml

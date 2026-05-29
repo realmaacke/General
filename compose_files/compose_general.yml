@@ -5,10 +5,23 @@ services:
       context: ${PROJECT_ROOT}/api
       dockerfile: Dockerfile
     environment:
-      # prod to push to server
       - APP_ENV=${APP_ENV}
     networks:
       - net_general
       - net_database
     ports:
       - "${API_PORT:-8086}:8086"
+    restart: unless-stopped
+
+  dashboard:
+    container_name: dashboard
+    build:
+      context: ${PROJECT_ROOT}/dashboard
+      dockerfile: Dockerfile.build
+    environment:
+      - APP_ENV=${APP_ENV}
+    ports:
+      - "${DASHBOARD_PORT}:${DASHBOARD_PORT}"
+    networks:
+      - net_general
+    restart: unless-stopped
