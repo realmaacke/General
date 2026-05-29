@@ -45,7 +45,7 @@ services:
     labels:
       - traefik.enable=true
 
-      - traefik.http.routers.traefik.rule=Host(`traefik.domain.se`)
+      - traefik.http.routers.traefik.rule=Host(`traefik.petterssonhome.se`)
       - traefik.http.routers.traefik.entrypoints=websecure
       - traefik.http.routers.traefik.tls.certresolver=le
 
