@@ -32,20 +32,20 @@ services:
 
       - --providers.docker=true
       - --providers.docker.endpoint=unix:///var/run/docker.sock
+      - --providers.docker.apiVersion=1.44
       - --providers.docker.exposedbydefault=false
 
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
 
       - --certificatesresolvers.le.acme.email=you@email.com
-      - --certificatesresolvers.le.acme.storage=/traefik/letsencrypt/acme.json
+      - --certificatesresolvers.le.acme.storage=/letsencrypt/acme.json
       - --certificatesresolvers.le.acme.httpchallenge=true
       - --certificatesresolvers.le.acme.httpchallenge.entrypoint=web
 
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik/letsencrypt:/letsencrypt
-
   # Reverse proxy
   # nginx:
   #   build:
