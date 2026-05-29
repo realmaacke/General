@@ -1,9 +1,14 @@
+# All node modules is ignored
 **/node_modules/
 
 
+# Media .envs
 media_config/jackett/jackett.env
 media_config/overseerr/overseerr.env
 media_config/plex/plex.env
 media_config/radarr/radarr.env
 media_config/sonarr/sonarr.env
 media_config/transmission/transmission.env
+
+# Proxy
+proxy/certs/

@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     environment:
       # prod to push to server
-      - APP_ENV=development
+      - APP_ENV=${APP_ENV}
     networks:
       - net_general
       - net_database

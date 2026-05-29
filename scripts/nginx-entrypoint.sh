@@ -40,6 +40,15 @@ issue_cert() {
     --keep-until-expiring
 }
 
+# Development
+if [ "$APP_ENV" = "development" ]; then
+  log "Development mode detected"
+  log "Skipping certbot in development mode"
+  exec nginx -g "daemon off;"
+fi
+
+# Production
+log "Production mode detected, swapping to prod configs..."
 DOMAINS=$(scrape_domains)
 NEEDS_NGINX_START=false
 
