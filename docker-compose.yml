@@ -23,64 +23,30 @@ networks:
 include:
   # - compose_files/compose_media.yml
   - compose_files/compose_general.yml
+
 services:
-  traefik:
-    image: traefik:v3.0
-
-    command:
-      - --api.dashboard=true
-
-      - --providers.docker=true
-      - --providers.docker.endpoint=unix:///var/run/docker.sock
-      - --providers.docker.exposedbydefault=false
-
-      - --entrypoints.web.address=:80
-      - --entrypoints.websecure.address=:443
-
-      - --certificatesresolvers.le.acme.email=you@email.com
-      - --certificatesresolvers.le.acme.storage=/letsencrypt/acme.json
-      - --certificatesresolvers.le.acme.httpchallenge=true
-      - --certificatesresolvers.le.acme.httpchallenge.entrypoint=web
-
-    labels:
-      - traefik.enable=true
-
-      - traefik.http.routers.traefik.rule=Host(`traefik.petterssonhome.se`)
-      - traefik.http.routers.traefik.entrypoints=websecure
-      - traefik.http.routers.traefik.tls.certresolver=le
-
-      - traefik.http.routers.traefik.service=api@internal
-
-
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./traefik/letsencrypt:/letsencrypt
-    
-    ports:
-      - "80:80"
-      - "443:443"
   # Reverse proxy
-  # nginx:
-  #   build:
-  #     context: "./proxy"
-  #     dockerfile: Dockerfile
-  #   environment:
-  #     - APP_ENV=${APP_ENV}
-  #   volumes:
-  #     - "./proxy/certs:/etc/letsencrypt"
-  #     - "./proxy/certbot-webroot:/var/www/certbot"
-  #     - "./proxy/nginx.conf:/etc/nginx/nginx.conf:ro"
-  #     - "${NGINX_SITES}:/etc/nginx/conf.d"
-  #     - "./proxy/configs:/etc/nginx/configs:ro"
-  #     - "./scripts/nginx-entrypoint.sh:/entrypoint.sh"
-  #   entrypoint: ["/bin/sh", "/entrypoint.sh"]
-  #   ports:
-  #     - "${NGINX_HTTP_PORT:-80}:80"
-  #     - "${NGINX_HTTPS_PORT:-443}:443"
-  #   networks:
-  #     - net_general
-  #     - net_media
-  #     - net_engine
-  #     - net_monitor
-  #     - net_database
-  #   restart: unless-stopped
+  nginx:
+    build:
+      context: "./proxy"
+      dockerfile: Dockerfile
+    environment:
+      - APP_ENV=${APP_ENV}
+    volumes:
+      - "./proxy/certs:/etc/letsencrypt"
+      - "./proxy/certbot-webroot:/var/www/certbot"
+      - "./proxy/nginx.conf:/etc/nginx/nginx.conf:ro"
+      - "${NGINX_SITES}:/etc/nginx/conf.d"
+      - "./proxy/configs:/etc/nginx/configs:ro"
+      - "./scripts/nginx-entrypoint.sh:/entrypoint.sh"
+    entrypoint: ["/bin/sh", "/entrypoint.sh"]
+    ports:
+      - "${NGINX_HTTP_PORT:-80}:80"
+      - "${NGINX_HTTPS_PORT:-443}:443"
+    networks:
+      - net_general
+      - net_media
+      - net_engine
+      - net_monitor
+      - net_database
+    restart: unless-stopped
