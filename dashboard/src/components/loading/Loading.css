@@ -5,23 +5,23 @@ html {
 }
 
 .loading-container {
-    margin: 0;
-    padding: 0;
-    height: 90vh;
+    width: 100%;
+    height: 100%;
 
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 .loading-body {
-    /* background-color: gray; */
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .loader {
+    margin-top: 5px;
     width: 48px;
     height: 48px;
     border: 5px solid #FFF;

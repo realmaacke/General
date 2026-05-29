@@ -8,16 +8,17 @@ import GeneralIcon from "../assets/General_icon.png";
 // NAVIGATION
 import Navigation from "../components/navigation/Navigation";
 import Loading from "../components/loading/Loading";
+import Metrics from "../components/metrics/Metrics";
 
 import { Information } from "../components/information/Information";
-
 
 import { ArrowUp, ArrowDown } from "lucide-react";
 
 import { useEffect, useState } from "react";
 
 import {gatherData, subscribeToMetrics} from "../models/data";
-import type { Metrics } from "../types/metrics";
+
+import type { Metrics  as MetricsType} from "../types/metrics";
 
 const fakelogs = {
     "Dashboard": [
@@ -82,7 +83,7 @@ export default function HomeView() {
     const [usage, setUsage] = useState<usageBody | null>(null);
     const [loading, setLoading] = useState(true);
 
-    const [metrics, setMetrics] = useState<Metrics | null>(null);
+    const [metrics, setMetrics] = useState<MetricsType | null>(null);
 
     const toggleLogs = (category: string) => {
         setOpenLogs(prev => ({
@@ -94,7 +95,6 @@ export default function HomeView() {
     useEffect(() => {
         const unsubscribe = subscribeToMetrics(setMetrics);
         return unsubscribe;
-
     }, []);
 
     useEffect(() => {
@@ -104,6 +104,7 @@ export default function HomeView() {
                 ...result,
                 disk: dedupeDisks(result.disk)
             });
+
             setLoading(false);
         };
 
@@ -111,9 +112,9 @@ export default function HomeView() {
 
     }, []);
 
-    if (!metrics) {
-        return <Loading/>;
-    }
+    // if (!metrics) {
+    //     return <Loading/>;
+    // }
 
     return (
         <div className="two-split">
@@ -132,7 +133,7 @@ export default function HomeView() {
                     <div className="home-information-body">
 
                     {loading ? (
-                        <p>Loading...</p>
+                        <Loading text="Retriving server statistics!"/>
                     ) : usage ? (
                         <Information {...usage} />
                     ) : (
@@ -147,14 +148,11 @@ export default function HomeView() {
                         <h1>Usage</h1>
                     </div>
 
-                    <div className="home-services-content">
-                            <p>Real time data</p>
-
-                            <div>
-                                <p>CPU: {metrics.cpu.usage.toFixed(1)}%</p>
-                                <p>Memory: {metrics.memory.usage.toFixed(1)}%</p>
-                            </div>
-                    </div>
+                    {!metrics ? (
+                        <Loading text="Retriving live data!"/>
+                    ) : (
+                        <Metrics data={metrics}/>
+                    )}
                 </div>
 
                 <div className="home-logs-container">
