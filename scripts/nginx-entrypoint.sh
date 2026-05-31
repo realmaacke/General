@@ -38,7 +38,7 @@ issue_cert() {
     --register-unsafely-without-email \
     --agree-tos \
     --non-interactive \
-    --keep-until-expiring \
+    --keep-until-expiring
 }
 
 # Development
