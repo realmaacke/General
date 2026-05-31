@@ -31,7 +31,6 @@ generate_self_signed() {
 issue_cert() {
   DOMAIN=$1
   log "Issuing cert for $DOMAIN..."
-  rm -rf $CERT_BASE/$DOMAIN
   certbot certonly --webroot \
     -w /var/www/certbot \
     -d $DOMAIN \
