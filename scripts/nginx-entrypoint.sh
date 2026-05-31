@@ -39,7 +39,6 @@ issue_cert() {
     --agree-tos \
     --non-interactive \
     --keep-until-expiring \
-    --staging
 }
 
 # Development
