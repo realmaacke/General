@@ -1,0 +1,51 @@
+"use strict";
+export const sqlMapping = {
+    "checkHash": {
+        "query": `INSERT IGNORE INTO crawler_content_hash (hash) VALUES (?)`,
+        "params": null
+    },
+    "previousEntries": {
+        "query": [
+            `DELETE FROM crawler_seen_urls`,
+            `DELETE FROM crawler_frontier`,
+            `DELETE FROM crawler_content_hash`
+        ],
+        "params": null
+    },
+    "populateIfNew": {
+        query: `INSERT IGNORE INTO crawler_seen_urls (url_hash, url) VALUES (?, ?)`,
+        params: 2
+    },
+    "populateFrontier": {
+        query: `INSERT IGNORE INTO crawler_frontier (url_hash, url, search_depth) VALUES (?, ?, ?)`,
+        params: 3
+    },
+    "getBatch": {
+        query: `SELECT id, url, search_depth
+            FROM crawler_frontier WHERE status = 'pending'
+            ORDER BY id LIMIT ? FOR UPDATE SKIP LOCKED`,
+        params: 1
+    },
+    "updateRows": {
+        query: `
+            UPDATE crawler_frontier
+            SET status = 'processing'
+            WHERE id IN (?)
+        `,
+        params: 2
+    },
+    "setStatus": {
+        query: `
+        UPDATE crawler_frontier
+            SET status = ?
+            WHERE id = ?
+        `,
+        params: 2
+    },
+    "saveToDB": {
+        query: `
+        INSERT IGNORE INTO crawled_sites (url, title, text, anchors, timestamp) VALUES (?, ?, ?, ?, ?)
+        `,
+        params: 5
+    }
+};

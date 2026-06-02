@@ -1,0 +1,96 @@
+"use strict";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+
+import fs from "fs";
+import YAML from "yaml";
+
+import { undoComment } from "undo-comments";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+
+const SETTINGSPATH: string = join(__dirname, "../settings/settings.json");
+const FILTERSPATH: string = join(__dirname, "../settings/crawlerFilter.yaml");
+
+
+export interface SettingsType {
+    DATABASE_POOL: {
+        host: string;
+        user: string;
+        password: string;
+        database: string;
+        connectionLimit: number;
+    };
+    PRIMARY_CHARSET: string;
+    ALLOWED_DOMAINS: string;
+    MAX_DEPTH: number;
+    MAX_PAGES: number;
+    CONCURRENCY: number;
+    SEED_DOMAINS: string[];
+    AQUIRE_DOMAIN_MS: number;
+    FETCH_PAGE_ABORT_TIME: number;
+    SAVE_TIME_INTERVALL: number;
+    MIN_DOCS: number;
+    MAX_RATIO: number;
+    FRONTIER_FILE: string;
+    PAGES_FILE: string;
+    CONTENT_HASH_FILE: string;
+    INDEXER_FILE: string;
+    INDEXER_FILE_DOC: string;
+    BODY_TITLE_WEIGHT_MULTIPLIER: number;
+    TITLE_WEIGHT_MULTIPLIER: number;
+    ANCHOR_WEIGHT_MULTIPLIER: number;
+}
+
+export interface FiltersType {
+    url: {
+        excludeAttributes: string[],
+        excludeStopWords: string[],
+        excludePathContains: string[],
+        excludeExtensions: string[],
+        excludeQueryParams: string[]
+    },
+    anchors: {
+        minAnchorTextLength: number,
+        excludeEmpty: boolean,
+        excludeFragments: boolean
+    }
+}
+
+// Singleton variables
+let settingsInstance: SettingsType | null = null;
+let filtersInstance: FiltersType | null = null;
+
+export function loadSettings(): SettingsType | null {
+
+    if (settingsInstance) {
+        return settingsInstance;
+    }
+
+    try {
+        settingsInstance = undoComment(SETTINGSPATH, 'utf-8') as SettingsType;
+    } catch (error) {
+        console.error("Error loading settings: ", error);
+        settingsInstance = null;
+    }
+
+    return settingsInstance;
+}
+
+export function loadFilters(): FiltersType | null {
+    if (filtersInstance) {
+        return filtersInstance;
+    }
+
+    try {
+        filtersInstance = YAML.parse(fs.readFileSync(FILTERSPATH, 'utf-8')) as FiltersType;
+    } catch (error) {
+        console.error("Could not load Filters: ", error);
+        filtersInstance = null;
+    }
+
+    return filtersInstance;
+
+}
